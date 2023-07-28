@@ -12,7 +12,7 @@ type UserInput = {
 export const AddUser = () => {
 
     const [ userInput, setUserInput ] = useState<UserInput>({ name: '', email: '', password: ''})
-    const [ addUser ] = useMutation(ADD_USER)
+    const [ addUser, { data, loading, error } ] = useMutation(ADD_USER)
 
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -21,7 +21,7 @@ export const AddUser = () => {
 
     const handleRegistration = (event: FormEvent) => {
         event.preventDefault()
-        addUser({ variables: userInput})
+        console.log(addUser({ variables: {input: userInput}}))
     }
 
     return (
