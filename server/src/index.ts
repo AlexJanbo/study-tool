@@ -1,23 +1,25 @@
 import express from 'express'
-import { expressApp } from './expressApp';
-import { pool } from './config/dbConnection'
+import cors from 'cors'
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs, resolvers } from './graphQL/schema';
 import { PORT } from './config/index'
 
 
-const startServer = async () => {
-  
-  const app = express()
-  await expressApp(app)
+// Create an Express instance
+const app = express()
 
-  // Sample how to interact with database
-  // const client = await pool.connect()
-  // const queryResult = await client.query('SELECT NOW() as current_time')
-  // console.log(queryResult)
-  // client.release()
+// Apply middleware
+app.use(cors())
 
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port: ${PORT}`)
-  })
-}
+// Create an ApolloServer instance
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req, res}) => ({})
+})
 
-startServer()
+server.applyMiddleware({ app, path: 'graphql'})
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`)
+})
