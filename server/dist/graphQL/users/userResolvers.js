@@ -28,7 +28,7 @@ exports.userResolvers = {
         async addUser(_, { input }) {
             try {
                 const hashedPassword = await (0, utils_1.saltAndHashPassword)(input.password);
-                const { rows } = await dbConnection_1.pool.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email', [input.name, input.email, hashedPassword]);
+                const { rows } = await dbConnection_1.pool.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email', [input.username, input.email, hashedPassword]);
                 return rows[0];
             }
             catch (error) {

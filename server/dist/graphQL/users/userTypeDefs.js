@@ -5,13 +5,13 @@ const apollo_server_express_1 = require("apollo-server-express");
 exports.userTypeDefs = (0, apollo_server_express_1.gql) `
     type User {
         id: ID!
-        name: String!
+        username: String!
         email: String!
         password: String 
     }
 
     input UserInput {
-        name: String!
+        username: String!
         email: String!
         password: String!
     }

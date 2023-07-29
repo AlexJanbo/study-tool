@@ -22,12 +22,12 @@ export const userResolvers = {
         }
     },
     Mutation: {
-        async addUser(_: any, { input }: { input: { name: string, email: string, password: string}}): Promise<any> {
+        async addUser(_: any, { input }: { input: { username: string, email: string, password: string}}): Promise<any> {
             try {
                 const hashedPassword = await saltAndHashPassword(input.password)
                 const { rows } = await pool.query(
-                    'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
-                    [input.name, input.email, hashedPassword]
+                    'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email',
+                    [input.username, input.email, hashedPassword]
                 )
                 return rows[0]
             } catch (error) {
