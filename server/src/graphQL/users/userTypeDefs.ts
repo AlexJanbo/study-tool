@@ -14,6 +14,16 @@ export const userTypeDefs = gql`
         password: String!
     }
 
+    input LoginCredentials {
+        email: String!
+        password: String
+    }
+
+    type AuthPayload {
+        token: String!,
+        id: String!,
+    }
+
     type Query {
         users: [User!]!
         user(id: ID!): User
@@ -21,5 +31,6 @@ export const userTypeDefs = gql`
 
     type Mutation {
         addUser(input: UserInput!): User!
+        loginUser(input: LoginCredentials!): AuthPayload!
     }
 `;

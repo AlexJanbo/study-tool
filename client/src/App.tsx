@@ -1,7 +1,7 @@
 import React from 'react'
-import Register from './pages/signed-out/Register';
 import { AddUser } from './features/auth/AddUser';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client'
+import Login from './pages/signed-out/Login';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -14,9 +14,9 @@ function App() {
 
     <ApolloProvider client={client} >
 
-    <div className="App">
-      {/* * <Register /> */} 
-        <AddUser />
+      <div className="App">
+        <Login /> 
+        {/* <AddUser /> */}
       </div>
     </ApolloProvider>
   );

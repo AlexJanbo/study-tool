@@ -6,11 +6,11 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 function Copyright(props) {
     return (React.createElement(Typography, Object.assign({ variant: "body2", color: "text.secondary", align: "center" }, props),
@@ -32,35 +32,32 @@ export default function Register() {
         });
     };
     return (React.createElement(ThemeProvider, { theme: defaultTheme },
-        React.createElement(Grid, { container: true, component: "main", sx: { height: '100vh' } },
+        React.createElement(Container, { component: "main", maxWidth: "xs" },
             React.createElement(CssBaseline, null),
-            React.createElement(Grid, { item: true, xs: false, sm: 4, md: 7, sx: {
-                    backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                } }),
-            React.createElement(Grid, { item: true, xs: 12, sm: 8, md: 5, component: Paper, elevation: 6, square: true },
-                React.createElement(Box, { sx: {
-                        my: 8,
-                        mx: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    } },
-                    React.createElement(Avatar, { sx: { m: 1, bgcolor: 'secondary.main' } },
-                        React.createElement(LockOutlinedIcon, null)),
-                    React.createElement(Typography, { component: "h1", variant: "h5" }, "Sign in"),
-                    React.createElement(Box, { component: "form", noValidate: true, onSubmit: handleSubmit, sx: { mt: 1 } },
-                        React.createElement(TextField, { margin: "normal", required: true, fullWidth: true, id: "email", label: "Email Address", name: "email", autoComplete: "email", autoFocus: true }),
-                        React.createElement(TextField, { margin: "normal", required: true, fullWidth: true, name: "password", label: "Password", type: "password", id: "password", autoComplete: "current-password" }),
-                        React.createElement(FormControlLabel, { control: React.createElement(Checkbox, { value: "remember", color: "primary" }), label: "Remember me" }),
-                        React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", sx: { mt: 3, mb: 2 } }, "Sign In"),
-                        React.createElement(Grid, { container: true },
-                            React.createElement(Grid, { item: true, xs: true },
-                                React.createElement(Link, { href: "#", variant: "body2" }, "Forgot password?")),
-                            React.createElement(Grid, { item: true },
-                                React.createElement(Link, { href: "#", variant: "body2" }, "Don't have an account? Sign Up"))),
-                        React.createElement(Copyright, { sx: { mt: 5 } })))))));
+            React.createElement(Box, { sx: {
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                } },
+                React.createElement(Avatar, { sx: { m: 1, bgcolor: 'secondary.main' } },
+                    React.createElement(LockOutlinedIcon, null)),
+                React.createElement(Typography, { component: "h1", variant: "h5" }, "Sign up"),
+                React.createElement(Box, { component: "form", noValidate: true, onSubmit: handleSubmit, sx: { mt: 3 } },
+                    React.createElement(Grid, { container: true, spacing: 2 },
+                        React.createElement(Grid, { item: true, xs: 12, sm: 6 },
+                            React.createElement(TextField, { autoComplete: "given-name", name: "firstName", required: true, fullWidth: true, id: "firstName", label: "First Name", autoFocus: true })),
+                        React.createElement(Grid, { item: true, xs: 12, sm: 6 },
+                            React.createElement(TextField, { required: true, fullWidth: true, id: "lastName", label: "Last Name", name: "lastName", autoComplete: "family-name" })),
+                        React.createElement(Grid, { item: true, xs: 12 },
+                            React.createElement(TextField, { required: true, fullWidth: true, id: "email", label: "Email Address", name: "email", autoComplete: "email" })),
+                        React.createElement(Grid, { item: true, xs: 12 },
+                            React.createElement(TextField, { required: true, fullWidth: true, name: "password", label: "Password", type: "password", id: "password", autoComplete: "new-password" })),
+                        React.createElement(Grid, { item: true, xs: 12 },
+                            React.createElement(FormControlLabel, { control: React.createElement(Checkbox, { value: "allowExtraEmails", color: "primary" }), label: "I want to receive inspiration, marketing promotions and updates via email." }))),
+                    React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", sx: { mt: 3, mb: 2 } }, "Sign Up"),
+                    React.createElement(Grid, { container: true, justifyContent: "flex-end" },
+                        React.createElement(Grid, { item: true },
+                            React.createElement(Link, { href: "#", variant: "body2" }, "Already have an account? Sign in"))))),
+            React.createElement(Copyright, { sx: { mt: 5 } }))));
 }

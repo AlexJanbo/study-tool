@@ -16,6 +16,16 @@ exports.userTypeDefs = (0, apollo_server_express_1.gql) `
         password: String!
     }
 
+    input LoginCredentials {
+        email: String!
+        password: String
+    }
+
+    type AuthPayload {
+        token: String!,
+        id: String!,
+    }
+
     type Query {
         users: [User!]!
         user(id: ID!): User
@@ -23,5 +33,6 @@ exports.userTypeDefs = (0, apollo_server_express_1.gql) `
 
     type Mutation {
         addUser(input: UserInput!): User!
+        loginUser(input: LoginCredentials!): AuthPayload!
     }
 `;

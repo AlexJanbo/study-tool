@@ -34,6 +34,27 @@ exports.userResolvers = {
             catch (error) {
                 throw new Error('Failed to add user to database');
             }
+        },
+        async loginUser(_, { input }, context, info) {
+            const { email, password } = input;
+            let foundUser;
+            const queryResult = await dbConnection_1.pool.query('SELECT * FROM users WHERE email = $1 LIMIT 1', [email]);
+            if (queryResult.rows.length > 0) {
+                foundUser = queryResult.rows[0];
+            }
+            if (!foundUser) {
+                throw new Error("Invalid username");
+            }
+            if (!await (0, utils_1.validatePassword)(email, password)) {
+                throw new Error("Invalid login credentials");
+            }
+            if (!foundUser.id) {
+                throw new Error("User Id not found");
+            }
+            const token = (0, utils_1.generateSignedJWT)(foundUser.id, foundUser.username, foundUser.email);
+            return {
+                token,
+            };
         }
     }
 };

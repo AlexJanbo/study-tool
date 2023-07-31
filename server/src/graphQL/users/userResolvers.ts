@@ -1,5 +1,11 @@
+import { GraphQLResolveInfo } from 'graphql'
 import { pool } from '../../config/dbConnection'
-import { saltAndHashPassword } from '../../utils/utils'
+import { saltAndHashPassword, validatePassword, generateSignedJWT } from '../../utils/utils'
+
+type AuthPayload = {
+    token: string,
+}
+
 
 export const userResolvers = {
 
@@ -32,6 +38,36 @@ export const userResolvers = {
                 return rows[0]
             } catch (error) {
                 throw new Error('Failed to add user to database')
+            }
+        },
+        async loginUser(_: any, { input }: { input: { email: string, password: string }}, context: any, info: GraphQLResolveInfo): Promise<AuthPayload> {
+
+            const { email, password } = input;
+            let foundUser
+
+            const queryResult = await pool.query('SELECT * FROM users WHERE email = $1 LIMIT 1', [email])
+
+            if(queryResult.rows.length > 0) {
+                foundUser = queryResult.rows[0]
+            } 
+
+            if(!foundUser) {
+                throw new Error("Invalid username")
+            }
+
+            if(! await validatePassword(email, password)) {
+                throw new Error("Invalid login credentials")
+            }
+
+            if(!foundUser.id) {
+                throw new Error("User Id not found")
+            }
+
+            const token = generateSignedJWT(foundUser.id, foundUser.username, foundUser.email)
+
+
+            return {
+                token,
             }
         }
     }
