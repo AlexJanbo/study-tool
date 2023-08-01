@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-// import { mainListItems, secondaryListItems } from '../../components/dashboard/ListItems';
+import { mainListItems, secondaryListItems } from '../../components/dashboard/ListItems';
 // import Chart from '../../components/dashboard/Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -89,7 +89,10 @@ export default function Dashboard() {
                     React.createElement(IconButton, { onClick: toggleDrawer },
                         React.createElement(ChevronLeftIcon, null))),
                 React.createElement(Divider, null),
-                React.createElement(List, { component: "nav" })),
+                React.createElement(List, { component: "nav" },
+                    mainListItems,
+                    React.createElement(Divider, { sx: { my: 1 } }),
+                    secondaryListItems)),
             React.createElement(Box, { component: "main", sx: {
                     backgroundColor: (theme) => theme.palette.mode === 'light'
                         ? theme.palette.grey[100]

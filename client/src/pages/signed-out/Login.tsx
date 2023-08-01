@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LOGIN_USER } from '../../features/auth/userMutations';
 import { useMutation } from '@apollo/client';
 import { setAuthToken } from '../../utils';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../features/auth/AuthContext';
 
 type LoginCredentials = {
@@ -44,6 +44,7 @@ export default function Login() {
   const [ userInput, setUserInput ] = useState<LoginCredentials>({ email: '', password: ''})
   const [ loginUser ] = useMutation(LOGIN_USER)
   const { login } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -59,6 +60,7 @@ export default function Login() {
       .then((result) => {
         if(result.data.loginUser.token) {
           login(result.data.loginUser.token)
+          navigate('/dashboard')
         }
       })
       .catch((error) => {

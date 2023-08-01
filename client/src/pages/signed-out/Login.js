@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LOGIN_USER } from '../../features/auth/userMutations';
 import { useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../features/auth/AuthContext';
 function Copyright(props) {
     return (React.createElement(Typography, Object.assign({ variant: "body2", color: "text.secondary", align: "center" }, props),
@@ -28,6 +28,7 @@ export default function Login() {
     const [userInput, setUserInput] = useState({ email: '', password: '' });
     const [loginUser] = useMutation(LOGIN_USER);
     const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
         setUserInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));
@@ -38,6 +39,7 @@ export default function Login() {
             .then((result) => {
             if (result.data.loginUser.token) {
                 login(result.data.loginUser.token);
+                navigate('/dashboard');
             }
         })
             .catch((error) => {

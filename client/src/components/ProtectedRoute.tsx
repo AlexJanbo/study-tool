@@ -9,11 +9,10 @@ interface ProtectedRouteProps {
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     
     const { token } = useContext(AuthContext)
-    console.log(token)
     
     if(!token) {
         console.log("Protected route, unauthorized")
-        return <Navigate to="/" />
+        return <Navigate to="/login" />
     }
-    return <>{children}</>
+    return <>{token ? children : null}</>
 }
