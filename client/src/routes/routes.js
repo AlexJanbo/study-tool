@@ -5,6 +5,10 @@ import { ProtectedRoute } from '../components/ProtectedRoute';
 import { Profile } from '../pages/signed-in/Profile';
 import Register from '../pages/signed-out/Register';
 import Login from '../pages/signed-out/Login';
+import { Layout } from '../layouts/Layout';
+import Study from '../pages/signed-in/Study';
+import Tasks from '../pages/signed-in/Tasks';
+import Projects from '../pages/signed-in/Projects';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -17,12 +21,32 @@ const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: React.createElement(ProtectedRoute, null,
-            React.createElement(Dashboard, null))
+            React.createElement(Layout, null,
+                React.createElement(Dashboard, null)))
+    },
+    {
+        path: "/study",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(Study, null)))
+    },
+    {
+        path: "/tasks",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(Tasks, null)))
+    },
+    {
+        path: "/projects",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(Projects, null)))
     },
     {
         path: "/profile",
         element: React.createElement(ProtectedRoute, null,
-            React.createElement(Profile, null))
+            React.createElement(Layout, null,
+                React.createElement(Profile, null)))
     },
     {
         path: "*",

@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LOGIN_USER } from '../../features/auth/userMutations';
 import { useMutation } from '@apollo/client';
-import { setAuthToken } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../features/auth/AuthContext';
 

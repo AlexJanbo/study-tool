@@ -2,6 +2,6 @@ import React from 'react'
 
 export function Profile() {
   return (
-    <div>Profile</div>
+    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi fugit nihil ratione facilis aperiam? Laborum eum nisi placeat quae eius ipsum quibusdam saepe quisquam cupiditate?</div>
   )
 }

@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client'
-import { BrowserRouter as Router, Routes, Route, Navigate, RouterProvider } from 'react-router-dom'
-import { AddUser } from './features/auth/AddUser';
-import Login from './pages/signed-out/Login';
-import Register from './pages/signed-out/Register';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import Dashboard from './pages/signed-in/Dashboard';
+import React from 'react'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './features/auth/AuthContext';
-import { Profile } from './pages/signed-in/Profile';
 import router from './routes/routes';
 
 const client = new ApolloClient({
