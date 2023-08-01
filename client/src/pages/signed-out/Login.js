@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,12 +14,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LOGIN_USER } from '../../features/auth/userMutations';
 import { useMutation } from '@apollo/client';
-import { setAuthToken } from '../../utils';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../features/auth/AuthContext';
 function Copyright(props) {
     return (React.createElement(Typography, Object.assign({ variant: "body2", color: "text.secondary", align: "center" }, props),
         'Copyright © ',
-        React.createElement(Link, { color: "inherit", href: "https://mui.com/" }, "Your Website"),
-        ' ',
         new Date().getFullYear(),
         '.'));
 }
@@ -28,19 +26,23 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 export default function Login() {
     const [userInput, setUserInput] = useState({ email: '', password: '' });
-    const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
-    console.log(data);
+    const [loginUser] = useMutation(LOGIN_USER);
+    const { login } = useContext(AuthContext);
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
         setUserInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));
     };
     const handleLogin = (event) => {
         event.preventDefault();
-        loginUser({ variables: { input: userInput } });
-        if (error) {
-            throw new Error("Login failed");
-        }
-        setAuthToken(data);
+        loginUser({ variables: { input: userInput } })
+            .then((result) => {
+            if (result.data.loginUser.token) {
+                login(result.data.loginUser.token);
+            }
+        })
+            .catch((error) => {
+            console.log('Login failed', error);
+        });
     };
     return (React.createElement(ThemeProvider, { theme: defaultTheme },
         React.createElement(Grid, { container: true, component: "main", sx: { height: '100vh' } },
@@ -70,8 +72,8 @@ export default function Login() {
                         React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", sx: { mt: 3, mb: 2 } }, "Sign In"),
                         React.createElement(Grid, { container: true },
                             React.createElement(Grid, { item: true, xs: true },
-                                React.createElement(Link, { href: "#", variant: "body2" }, "Forgot password?")),
+                                React.createElement(Link, { to: "/dashboard" }, "Forgot password?")),
                             React.createElement(Grid, { item: true },
-                                React.createElement(Link, { href: "#", variant: "body2" }, "Don't have an account? Sign Up"))),
+                                React.createElement(Link, { to: "/register" }, "Don't have an account? Sign Up"))),
                         React.createElement(Copyright, { sx: { mt: 5 } })))))));
 }

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useContext } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -16,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LOGIN_USER } from '../../features/auth/userMutations';
 import { useMutation } from '@apollo/client';
 import { setAuthToken } from '../../utils';
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../features/auth/AuthContext';
 
 type LoginCredentials = {
   email: string,
@@ -26,9 +27,9 @@ function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      {/* <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -41,8 +42,8 @@ const defaultTheme = createTheme();
 export default function Login() {
 
   const [ userInput, setUserInput ] = useState<LoginCredentials>({ email: '', password: ''})
-  const [ loginUser, { data, loading, error } ] = useMutation(LOGIN_USER)
-  console.log(data)
+  const [ loginUser ] = useMutation(LOGIN_USER)
+  const { login } = useContext(AuthContext)
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -55,10 +56,14 @@ export default function Login() {
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     loginUser({ variables: { input: userInput}})
-    if(error) {
-      throw new Error("Login failed")
-    }
-    setAuthToken(data)
+      .then((result) => {
+        if(result.data.loginUser.token) {
+          login(result.data.loginUser.token)
+        }
+      })
+      .catch((error) => {
+        console.log('Login failed', error)
+      })
 
   };
 
@@ -135,12 +140,12 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link to="/dashboard">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link to="/register">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
