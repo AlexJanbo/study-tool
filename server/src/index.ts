@@ -18,6 +18,7 @@ const typeDefs = [userTypeDefs, taskTypeDefs]
 const resolvers = {
   Query: {
     ...userResolvers.Query,
+    ...taskResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,

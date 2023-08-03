@@ -2,11 +2,6 @@ import { gql } from 'apollo-server-express'
 
 export const taskTypeDefs = gql`
    
-    type User {
-        id: ID!,
-        username: String!,
-        email: String!
-    }
 
     enum PriorityType {
         High
@@ -27,6 +22,14 @@ export const taskTypeDefs = gql`
         status: StatusType!,
     }
 
+    input taskIdInput {
+        id: ID!
+    }
+    
+    input userIdInput {
+        id: ID!
+    }
+
     type Task {
         id: ID!
         title: String!
@@ -38,8 +41,8 @@ export const taskTypeDefs = gql`
     }
 
     type Query {
-        tasks: [Task!]!
-        task(id: ID!): Task
+        getTasksByUser: [Task!]!
+        getTask(input: taskIdInput): Task!
     }
 
     type Mutation {

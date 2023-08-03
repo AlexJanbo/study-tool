@@ -4,11 +4,6 @@ exports.taskTypeDefs = void 0;
 const apollo_server_express_1 = require("apollo-server-express");
 exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
    
-    type User {
-        id: ID!,
-        username: String!,
-        email: String!
-    }
 
     enum PriorityType {
         High
@@ -29,6 +24,14 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         status: StatusType!,
     }
 
+    input taskIdInput {
+        id: ID!
+    }
+    
+    input userIdInput {
+        id: ID!
+    }
+
     type Task {
         id: ID!
         title: String!
@@ -40,8 +43,8 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
     }
 
     type Query {
-        tasks: [Task!]!
-        task(id: ID!): Task
+        getTasksByUser: [Task!]!
+        getTask(input: taskIdInput): Task!
     }
 
     type Mutation {

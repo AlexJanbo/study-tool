@@ -1,4 +1,5 @@
 import * as React from 'react';
+import GetTasks from '../../features/tasks/GetTasks';
 
 export default function Tasks() {
 
@@ -7,6 +8,7 @@ export default function Tasks() {
     <>
       {/* <Layout /> */}
       <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, aperiam!</div>
+      <GetTasks />
     </>
   );
 }
