@@ -1,8 +1,16 @@
 import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../auth/AuthContext'
 import { useMutation, useQuery } from '@apollo/client'
-import { Skeleton } from '@mui/material'
+import { Skeleton, CircularProgress, Typography } from '@mui/material'
 import { GET_TASKS_BY_USER } from './taskQueries'
+
+type taskType = {
+    title: string,
+    description: string,
+    priority: string,
+    status: string,
+    deadline: string,
+}
 
 function GetTasks() {
 
@@ -14,19 +22,25 @@ function GetTasks() {
             }
         }
     })
-    console.log(data)
-    console.log(loading)
-
+    
     useEffect(() => {
         refetch()
     }, [])
-    
-    if(typeof data === 'undefined' || loading) {
-        return <Skeleton />;
-      }
+   
+    if(loading) return <div>Loading</div>
+    if(error) return <div>error</div>
+
+    console.log(data)
 
     return (
-        <div>{data[0].title}</div>
+        <div>
+            {data.getTasksByUser.map((task: taskType) => {
+                return (
+                <Typography>
+                    {task.title}
+                </Typography>
+            )})}
+        </div>
     )
 }
 
