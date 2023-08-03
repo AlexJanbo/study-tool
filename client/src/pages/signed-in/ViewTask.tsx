@@ -1,17 +1,16 @@
 import * as React from 'react';
-import TaskTable from '../../components/tasks/TaskTable';
-import TaskFormModal from '../../components/tasks/TaskFormModal';
+import TaskDetailsCard from '../../components/viewTasks/TaskDetailsCard';
 
-export default function Tasks() {
+export default function ViewTask() {
 
 
   return (
     <>
       {/* <Layout /> */}
       <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, aperiam!</div>
+      <TaskDetailsCard />
       {/* <GetTasks /> */}
-      <TaskTable />
-      <TaskFormModal />
+
     </>
   );
 }

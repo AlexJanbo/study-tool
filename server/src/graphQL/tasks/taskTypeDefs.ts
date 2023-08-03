@@ -22,14 +22,6 @@ export const taskTypeDefs = gql`
         status: StatusType!,
     }
 
-    input taskIdInput {
-        id: ID!
-    }
-    
-    input userIdInput {
-        id: ID!
-    }
-
     type Task {
         id: ID!
         title: String!
@@ -42,7 +34,7 @@ export const taskTypeDefs = gql`
 
     type Query {
         getTasksByUser: [Task!]!
-        getTask(input: taskIdInput): Task!
+        getTask(id: ID!): Task!
     }
 
     type Mutation {

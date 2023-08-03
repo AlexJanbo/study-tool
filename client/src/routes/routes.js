@@ -9,6 +9,7 @@ import { Layout } from '../layouts/Layout';
 import Study from '../pages/signed-in/Study';
 import Tasks from '../pages/signed-in/Tasks';
 import Projects from '../pages/signed-in/Projects';
+import ViewTask from '../pages/signed-in/ViewTask';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -35,6 +36,12 @@ const router = createBrowserRouter([
         element: React.createElement(ProtectedRoute, null,
             React.createElement(Layout, null,
                 React.createElement(Tasks, null)))
+    },
+    {
+        path: "/tasks/:taskId",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(ViewTask, null)))
     },
     {
         path: "/projects",

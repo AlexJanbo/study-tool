@@ -9,6 +9,7 @@ import { Layout } from '../layouts/Layout';
 import Study from '../pages/signed-in/Study';
 import Tasks from '../pages/signed-in/Tasks';
 import Projects from '../pages/signed-in/Projects';
+import ViewTask from '../pages/signed-in/ViewTask';
 
 const router = createBrowserRouter([
   {
@@ -22,47 +23,56 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: 
-    <ProtectedRoute>
-      <Layout>
-        <Dashboard />
-      </Layout>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Layout>
+          <Dashboard />
+        </Layout>
+      </ProtectedRoute>
   },
   {
     path: "/study",
     element: 
-    <ProtectedRoute>
-      <Layout>
-        <Study />
-      </Layout>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Layout>
+          <Study />
+        </Layout>
+      </ProtectedRoute>
   },
   {
     path: "/tasks",
     element: 
-    <ProtectedRoute>
-      <Layout>
-        <Tasks />
-      </Layout>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Layout>
+          <Tasks />
+        </Layout>
+      </ProtectedRoute>
+  },
+  {
+    path:"/tasks/:taskId",
+    element:
+      <ProtectedRoute>
+        <Layout>
+          <ViewTask />
+        </Layout>
+      </ProtectedRoute>
   },
   {
     path: "/projects",
     element: 
-    <ProtectedRoute>
-      <Layout>
-        <Projects />
-      </Layout>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Layout>
+          <Projects />
+        </Layout>
+      </ProtectedRoute>
   },
   {
     path: "/profile",
     element: 
-    <ProtectedRoute>
-      <Layout>
-        <Profile />
-      </Layout>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Layout>
+          <Profile />
+        </Layout>
+      </ProtectedRoute>
   },
   {
     path: "*",
