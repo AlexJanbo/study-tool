@@ -21,12 +21,18 @@ var StatusTypes;
     StatusTypes["Completed"] = "Completed";
 })(StatusTypes || (StatusTypes = {}));
 function CreateTask() {
-    const [userInput, setUserInput] = useState({ title: '', description: '', priority: PriorityTypes.Low, status: StatusTypes.Created });
-    const [createTask] = useMutation(CREATE_TASK);
+    const [taskInput, setTaskInput] = useState({ title: '', description: '', priority: PriorityTypes.Low, status: StatusTypes.Created });
     const { token } = useContext(AuthContext);
+    const [createTask] = useMutation(CREATE_TASK, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    });
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
-        setUserInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));
+        setTaskInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));
     };
     const handleCreateTask = (event) => {
         event.preventDefault();
@@ -35,17 +41,17 @@ function CreateTask() {
         }
         // const decoded = jwt.verify(token, APP_SECRET)
         // console.log(APP_SECRET)
-        createTask({ variables: { input: userInput } });
+        createTask({ variables: { input: taskInput } });
     };
     return (React.createElement(Box, { component: "form", sx: {
             '& > :not(style)': { m: 1, width: '25ch' },
         }, noValidate: true, autoComplete: "off" },
         React.createElement(FormControl, { variant: "standard" },
-            React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: userInput.title, onChange: handleChangeInput }),
-            React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: userInput.description, onChange: handleChangeInput }),
+            React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: taskInput.title, onChange: handleChangeInput }),
+            React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: taskInput.description, onChange: handleChangeInput }),
             React.createElement(FormControl, null,
                 React.createElement(FormLabel, { style: { textAlign: "center" } }, "Priority"),
-                React.createElement(RadioGroup, { row: true, value: userInput.priority, name: "priority", onChange: handleChangeInput },
+                React.createElement(RadioGroup, { row: true, value: taskInput.priority, name: "priority", onChange: handleChangeInput },
                     React.createElement(FormControlLabel, { value: PriorityTypes.Low, control: React.createElement(Radio, null), label: "Low" }),
                     React.createElement(FormControlLabel, { value: PriorityTypes.Medium, control: React.createElement(Radio, null), label: "Medium" }),
                     React.createElement(FormControlLabel, { value: PriorityTypes.High, control: React.createElement(Radio, null), label: "High" }))),

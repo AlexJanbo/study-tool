@@ -49,3 +49,13 @@ export const generateSignedJWT = (userId: string, username: string, email: strin
         throw new Error("Unable to generate signed JWT")
     }
 }
+
+// Validate a JSON Web Token
+export const VerifyJWT = async(token: string) => {
+    try {
+        const decodedToken = await jwt.verify(token.split(" ")[1], APP_SECRET)
+        return decodedToken
+    } catch (error) {
+        throw new Error("Unable to verify token")
+    }    
+}

@@ -6,6 +6,7 @@ import { userResolvers } from './graphQL/users/userResolvers';
 import { PORT } from './config/index'
 import { taskTypeDefs } from './graphQL/tasks/taskTypeDefs';
 import { taskResolvers } from './graphQL/tasks/taskResolvers';
+import { authentication } from './middleware/authentication';
 
 
 const allowedOrigins = [
@@ -29,7 +30,11 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
-  context: ({ req, res}) => ({})
+  context: ({ req, res}) => {
+    const token = req.headers.authorization || ""
+
+    return { token }
+  }
 })
 
 const startServer = async () => {
@@ -49,6 +54,7 @@ const startServer = async () => {
     },
     credentials: true,
   }))
+
 
   await server.start()
   server.applyMiddleware({ app, path: '/graphql'})

@@ -26,7 +26,7 @@ enum StatusTypes {
 }
 
 
-type UserInput = {
+type TaskInput = {
     title: string,
     description: string,
     priority: PriorityTypes,
@@ -37,14 +37,21 @@ type UserInput = {
 function CreateTask() {
 
 
-    const [ userInput, setUserInput ] = useState<UserInput>({ title: '', description: '', priority: PriorityTypes.Low, status: StatusTypes.Created })
-    const [ createTask ] = useMutation(CREATE_TASK)
+    const [ taskInput, setTaskInput ] = useState<TaskInput>({ title: '', description: '', priority: PriorityTypes.Low, status: StatusTypes.Created })
     const { token } = useContext(AuthContext)
+    
+    const [ createTask ] = useMutation(CREATE_TASK, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
 
 
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
-        setUserInput((prevState) => ({ ...prevState, [name]: value}))
+        setTaskInput((prevState) => ({ ...prevState, [name]: value}))
     }
 
 
@@ -55,7 +62,7 @@ function CreateTask() {
         }
         // const decoded = jwt.verify(token, APP_SECRET)
         // console.log(APP_SECRET)
-        createTask({ variables: { title: userInput.title, description: userInput.description, token: token}})
+        createTask({ variables: {input: taskInput}})
     }
 
 
@@ -77,7 +84,7 @@ function CreateTask() {
                     variant="outlined"
                     type="text"
                     name="title"
-                    value={userInput.title}
+                    value={taskInput.title}
                     onChange={handleChangeInput}
                     // error={usernameError}
                     // helperText={usernameError ? "Please enter a valid username" : null}
@@ -88,7 +95,7 @@ function CreateTask() {
                     variant="outlined"
                     type="text"
                     name="description"
-                    value={userInput.description}
+                    value={taskInput.description}
                     onChange={handleChangeInput}
                     // error={emailError}
                     // helperText={emailError ? "Please enter a valid email" : null}
@@ -97,7 +104,7 @@ function CreateTask() {
                   <FormLabel style={{textAlign:"center"}}>Priority</FormLabel>
                   <RadioGroup
                   row
-                  value={userInput.priority}
+                  value={taskInput.priority}
                   name="priority"
                   onChange={handleChangeInput}
                   >

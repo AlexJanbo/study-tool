@@ -20,18 +20,23 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         InProgress
         Completed
         Created
+    }
 
-
+    input TaskInput {
+        title: String!,
+        description: String!,
+        priority: PriorityType!,
+        status: StatusType!,
     }
 
     type Task {
         id: ID!
-        user: User!
         title: String!
         description: String!
-        priority: PriorityType
-        status: StatusType
+        priority: PriorityType!
+        status: StatusType!
         deadline: String
+        user_id: ID!
     }
 
     type Query {
@@ -40,6 +45,6 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
     }
 
     type Mutation {
-        createTask(title: String!, description: String!, userId: ID!): Task!
+        createTask(input: TaskInput!): Task!
     }
 `;

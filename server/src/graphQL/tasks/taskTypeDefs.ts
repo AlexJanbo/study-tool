@@ -18,26 +18,23 @@ export const taskTypeDefs = gql`
         InProgress
         Completed
         Created
-
-
     }
 
-    type taskInput {
+    input TaskInput {
         title: String!,
         description: String!,
-        priority: String!,
-        statis: String!,
-        userId: String!,
+        priority: PriorityType!,
+        status: StatusType!,
     }
 
     type Task {
         id: ID!
-        user: User!
         title: String!
         description: String!
-        priority: PriorityType
-        status: StatusType
+        priority: PriorityType!
+        status: StatusType!
         deadline: String
+        user_id: ID!
     }
 
     type Query {
@@ -46,6 +43,6 @@ export const taskTypeDefs = gql`
     }
 
     type Mutation {
-        createTask(input: taskInput!): Task!
+        createTask(input: TaskInput!): Task!
     }
 `

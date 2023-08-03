@@ -29,7 +29,10 @@ const server = new apollo_server_express_1.ApolloServer({
     typeDefs,
     resolvers,
     introspection: true,
-    context: ({ req, res }) => ({})
+    context: ({ req, res }) => {
+        const token = req.headers.authorization || "";
+        return { token };
+    }
 });
 const startServer = async () => {
     // Create an Express instance

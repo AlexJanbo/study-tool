@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateSignedJWT = exports.validatePassword = exports.saltAndHashPassword = void 0;
+exports.VerifyJWT = exports.generateSignedJWT = exports.validatePassword = exports.saltAndHashPassword = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dbConnection_1 = require("../config/dbConnection");
@@ -49,3 +49,14 @@ const generateSignedJWT = (userId, username, email) => {
     }
 };
 exports.generateSignedJWT = generateSignedJWT;
+// Validate a JSON Web Token
+const VerifyJWT = async (token) => {
+    try {
+        const decodedToken = await jsonwebtoken_1.default.verify(token.split(" ")[1], index_1.APP_SECRET);
+        return decodedToken;
+    }
+    catch (error) {
+        throw new Error("Unable to verify token");
+    }
+};
+exports.VerifyJWT = VerifyJWT;
