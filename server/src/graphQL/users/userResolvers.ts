@@ -66,8 +66,9 @@ export const userResolvers = {
             const token = generateSignedJWT(foundUser.id, foundUser.username, foundUser.email)
 
 
+
             return {
-                token,
+                token
             }
         }
     }

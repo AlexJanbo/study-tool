@@ -4,14 +4,25 @@ import { ApolloServer } from 'apollo-server-express';
 import { userTypeDefs } from './graphQL/users/userTypeDefs';
 import { userResolvers } from './graphQL/users/userResolvers'; 
 import { PORT } from './config/index'
+import { taskTypeDefs } from './graphQL/tasks/taskTypeDefs';
+import { taskResolvers } from './graphQL/tasks/taskResolvers';
 
 
 const allowedOrigins = [
   'http://localhost:3000'
 ]
 
-const typeDefs = [userTypeDefs]
-const resolvers = [userResolvers]
+const typeDefs = [userTypeDefs, taskTypeDefs]
+
+const resolvers = {
+  Query: {
+    ...userResolvers.Query,
+  },
+  Mutation: {
+    ...userResolvers.Mutation,
+    ...taskResolvers.Mutation,
+  },
+}
 
 // Create an ApolloServer instance
 const server = new ApolloServer({

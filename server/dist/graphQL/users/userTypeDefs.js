@@ -23,7 +23,6 @@ exports.userTypeDefs = (0, apollo_server_express_1.gql) `
 
     type AuthPayload {
         token: String!,
-        id: String!,
     }
 
     type Query {

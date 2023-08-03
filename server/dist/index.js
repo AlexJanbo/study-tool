@@ -9,11 +9,21 @@ const apollo_server_express_1 = require("apollo-server-express");
 const userTypeDefs_1 = require("./graphQL/users/userTypeDefs");
 const userResolvers_1 = require("./graphQL/users/userResolvers");
 const index_1 = require("./config/index");
+const taskTypeDefs_1 = require("./graphQL/tasks/taskTypeDefs");
+const taskResolvers_1 = require("./graphQL/tasks/taskResolvers");
 const allowedOrigins = [
     'http://localhost:3000'
 ];
-const typeDefs = [userTypeDefs_1.userTypeDefs];
-const resolvers = [userResolvers_1.userResolvers];
+const typeDefs = [userTypeDefs_1.userTypeDefs, taskTypeDefs_1.taskTypeDefs];
+const resolvers = {
+    Query: {
+        ...userResolvers_1.userResolvers.Query,
+    },
+    Mutation: {
+        ...userResolvers_1.userResolvers.Mutation,
+        ...taskResolvers_1.taskResolvers.Mutation,
+    },
+};
 // Create an ApolloServer instance
 const server = new apollo_server_express_1.ApolloServer({
     typeDefs,

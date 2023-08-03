@@ -21,7 +21,6 @@ export const userTypeDefs = gql`
 
     type AuthPayload {
         token: String!,
-        id: String!,
     }
 
     type Query {

@@ -53,7 +53,7 @@ exports.userResolvers = {
             }
             const token = (0, utils_1.generateSignedJWT)(foundUser.id, foundUser.username, foundUser.email);
             return {
-                token,
+                token
             };
         }
     }
