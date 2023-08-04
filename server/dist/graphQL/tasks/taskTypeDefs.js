@@ -34,6 +34,10 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         user_id: ID!
     }
 
+    type DeleteTaskResponse {
+        message: String!
+    }
+
     type Query {
         getTasksByUser: [Task!]!
         getTask(id: ID!): Task!
@@ -41,5 +45,6 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
 
     type Mutation {
         createTask(input: TaskInput!): Task!
+        deleteTask(id: ID!): DeleteTaskResponse!
     }
 `;

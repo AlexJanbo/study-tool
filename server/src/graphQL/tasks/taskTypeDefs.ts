@@ -32,6 +32,10 @@ export const taskTypeDefs = gql`
         user_id: ID!
     }
 
+    type DeleteTaskResponse {
+        message: String!
+    }
+
     type Query {
         getTasksByUser: [Task!]!
         getTask(id: ID!): Task!
@@ -39,5 +43,6 @@ export const taskTypeDefs = gql`
 
     type Mutation {
         createTask(input: TaskInput!): Task!
+        deleteTask(id: ID!): DeleteTaskResponse!
     }
 `

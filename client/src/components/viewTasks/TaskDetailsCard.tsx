@@ -3,18 +3,28 @@ import { Container } from '@mui/system'
 import React, { useContext } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../features/auth/AuthContext'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_TASK } from '../../features/tasks/taskQueries'
+import { DELETE_TASK } from '../../features/tasks/taskMutations'
 
 
 function TaskDetailsCard() {
 
     const { taskId } = useParams()
+    const navigate = useNavigate()
     console.log(taskId)
 
     const { token } = useContext(AuthContext)
     const { data, loading, error, } = useQuery(GET_TASK, {
         variables: { id: taskId},
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
+    const [ deleteTask ] = useMutation(DELETE_TASK, {
         context: {
             headers: {
                 authorization: `Bearer ${token}`
@@ -27,22 +37,29 @@ function TaskDetailsCard() {
 
     const { title, description, priority, status, deadline } = data.getTask
 
-    // const handleDeleteClick = () => {
-    //     dispatch(deleteTask(id))
-    //     navigate('/tasks')
-    // }
+    const handleDeleteTask = () => {
+        deleteTask({ variables: { id: taskId}})
+            .then((result) => {
+                console.log(result.data.deleteTask.message)
+                navigate('/tasks')
+            })
+            .catch((error) => {
+                console.log("Failed to delete task")
+            })
+    }
 
-    // const formatDate = (date) => {
-    //     let formattedDate = new Date(date).toLocaleString('en-us', {
-    //         year: 'numeric',
-    //         month: 'short',
-    //         day: 'numeric',
-    //         hour: 'numeric',
-    //         minute: 'numeric',
-    //         hour12: true,
-    //     })
-    //     return formattedDate
-    // }
+
+    const formatDate = (date: Date) => {
+        let formattedDate = new Date(date).toLocaleString('en-us', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        })
+        return formattedDate
+    }
 
 
     return (
@@ -80,7 +97,7 @@ function TaskDetailsCard() {
                             Created: {}
                         </Typography>
                     </Grid>
-                    {/* {
+                    {
                         deadline ?
                         <Grid item xs={12}>
                             <Typography variant="body2" color="textSecondary" component="p">
@@ -94,7 +111,7 @@ function TaskDetailsCard() {
                             </Typography>
                         </Grid>
 
-                    } */}
+                    }
                     {/* <Grid item>
                         <Link to={`/edit-task/${id}`}>
                             <Button color="primary" style={{ textDecoration: "none"}}>
@@ -103,7 +120,7 @@ function TaskDetailsCard() {
                         </Link>
                     </Grid> */}
                     <Grid item>
-                        <Button variant="contained" color="error" >
+                        <Button variant="contained" color="error" onClick={handleDeleteTask} >
                             Delete Task
                         </Button> 
                     </Grid>

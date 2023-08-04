@@ -50,5 +50,21 @@ exports.taskResolvers = {
             const result = await dbConnection_1.pool.query('INSERT INTO tasks (title, description, priority, status, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *', [input.title, input.description, input.priority, input.status, userId]);
             return result.rows[0];
         },
+        async deleteTask(_, { id }, context) {
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            if (typeof decodedToken === "string" || !decodedToken.userId) {
+                throw new Error("Invalid or missing token");
+            }
+            const userId = decodedToken.userId;
+            // Check if the task with the given id belongs to the authenticated user
+            const task = await dbConnection_1.pool.query('SELECT id FROM tasks WHERE id = $1 AND user_id = $2', [id, userId]);
+            if (task.rows.length === 0) {
+                throw new Error("Task not found or unauthorized to delete");
+            }
+            await dbConnection_1.pool.query('DELETE FROM tasks WHERE id = $1', [id]);
+            return { message: `Task: ${id} deleted successfully` };
+        },
     }
 };
