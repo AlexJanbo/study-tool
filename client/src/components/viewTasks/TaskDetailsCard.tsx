@@ -112,13 +112,13 @@ function TaskDetailsCard() {
                         </Grid>
 
                     }
-                    {/* <Grid item>
-                        <Link to={`/edit-task/${id}`}>
+                    <Grid item>
+                        <Link to={`/tasks/edit/${taskId}`}>
                             <Button color="primary" style={{ textDecoration: "none"}}>
                                 Edit Task
                             </Button>
                         </Link>
-                    </Grid> */}
+                    </Grid>
                     <Grid item>
                         <Button variant="contained" color="error" onClick={handleDeleteTask} >
                             Delete Task

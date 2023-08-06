@@ -22,6 +22,8 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         description: String!,
         priority: PriorityType!,
         status: StatusType!,
+        id: ID!,
+        deadline: String,
     }
 
     type Task {
@@ -45,6 +47,7 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
 
     type Mutation {
         createTask(input: TaskInput!): Task!
+        updateTask(input: TaskInput!): Task!
         deleteTask(id: ID!): DeleteTaskResponse!
     }
 `;

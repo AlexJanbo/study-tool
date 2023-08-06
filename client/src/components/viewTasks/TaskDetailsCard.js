@@ -1,6 +1,6 @@
 import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_TASK } from '../../features/tasks/taskQueries';
@@ -81,6 +81,9 @@ function TaskDetailsCard() {
                         :
                             React.createElement(Grid, { item: true, xs: 12 },
                                 React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" }, "Deadline: None")),
+                    React.createElement(Grid, { item: true },
+                        React.createElement(Link, { to: `/tasks/edit/${taskId}` },
+                            React.createElement(Button, { color: "primary", style: { textDecoration: "none" } }, "Edit Task"))),
                     React.createElement(Grid, { item: true },
                         React.createElement(Button, { variant: "contained", color: "error", onClick: handleDeleteTask }, "Delete Task")))))));
 }

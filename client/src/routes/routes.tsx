@@ -10,6 +10,7 @@ import Study from '../pages/signed-in/Study';
 import Tasks from '../pages/signed-in/Tasks';
 import Projects from '../pages/signed-in/Projects';
 import ViewTask from '../pages/signed-in/ViewTask';
+import EditTask from '../pages/signed-in/EditTask';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,15 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <ViewTask />
+        </Layout>
+      </ProtectedRoute>
+  },
+  {
+    path:"/tasks/edit/:taskId",
+    element:
+      <ProtectedRoute>
+        <Layout>
+          <EditTask />
         </Layout>
       </ProtectedRoute>
   },

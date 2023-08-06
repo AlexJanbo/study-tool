@@ -68,7 +68,7 @@ export default function TaskFormModal() {
         createTask({ variables: { input: taskInput } });
     };
     return (React.createElement("div", null,
-        React.createElement(Button, { onClick: handleOpen }, "Open modal"),
+        React.createElement(Button, { onClick: handleOpen }, "Create a new Task!"),
         React.createElement(Modal, { open: open, onClose: handleClose, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
             React.createElement(Box, { sx: style },
                 React.createElement(FormControl, { variant: "standard" },

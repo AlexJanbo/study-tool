@@ -89,7 +89,7 @@ export default function TaskFormModal() {
 
     return (
         <div>
-        <Button onClick={handleOpen}>Open modal</Button>
+        <Button onClick={handleOpen}>Create a new Task!</Button>
         <Modal
             open={open}
             onClose={handleClose}
