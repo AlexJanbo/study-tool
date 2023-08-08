@@ -35,7 +35,7 @@ function TaskTable() {
         setPage(0);
     };
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-    const formatDate = console.log(data.getTasksByUser);
+    console.log(data.getTasksByUser);
     return (React.createElement(React.Fragment, null,
         React.createElement(Box, { flex: 5, p: 1, m: 2, style: { marginTop: "5%" }, sx: { display: { lg: "block" } } },
             React.createElement(TableContainer, { component: Paper, style: {} },
@@ -57,7 +57,7 @@ function TaskTable() {
                             React.createElement(TableCell, { style: {} }, task.description),
                             React.createElement(TableCell, { style: {} }, task.priority),
                             React.createElement(TableCell, { style: {} }, task.status === "completed" ? (React.createElement(CheckBoxIcon, { color: "success" })) : task.status === "InProgress" ? (React.createElement(Typography, null, "In Progress")) : (task.status)),
-                            React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"),
+                            React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('datetime-local') : "No deadline"),
                             React.createElement(TableCell, { style: {} }, task.created_at),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } },
                                 React.createElement(Link, { to: `/tasks/${task.id}/`, style: { textDecoration: "none" } },

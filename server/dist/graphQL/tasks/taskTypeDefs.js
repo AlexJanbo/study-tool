@@ -40,7 +40,7 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         description: String!
         priority: PriorityType!
         status: StatusType!
-        deadline: String
+        deadline: Float
         user_id: ID!
         created_at: String!
     }

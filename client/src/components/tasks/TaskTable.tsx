@@ -56,7 +56,7 @@ function TaskTable() {
     
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 
-    const formatDate = 
+
 
     console.log(data.getTasksByUser)
     
