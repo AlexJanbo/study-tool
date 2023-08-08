@@ -61,7 +61,6 @@ export const taskResolvers = {
             { input }: { input: { title: string, description: string, status: string, priority: string }},
             context: { token: string }
         ): Promise<any> {
-            console.log(context)
             // Access the token from the context
             const token = context.token;
             const decodedToken = await VerifyJWT(token)
@@ -85,11 +84,9 @@ export const taskResolvers = {
             ): Promise<any> {
 
             // Access the token from the context
-            console.log(context)
             const token = context.token;
             // Destructure the input values for the update
             const { id, title, description, priority, status, deadline } = input;
-            console.log(status)
                     
             if(!token) {
                 throw new Error("Invalid token")

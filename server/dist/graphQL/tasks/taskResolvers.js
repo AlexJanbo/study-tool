@@ -40,7 +40,6 @@ exports.taskResolvers = {
     },
     Mutation: {
         async createTask(_, { input }, context) {
-            console.log(context);
             // Access the token from the context
             const token = context.token;
             const decodedToken = await (0, utils_1.VerifyJWT)(token);
@@ -53,11 +52,9 @@ exports.taskResolvers = {
         },
         async updateTask(_, { input }, context) {
             // Access the token from the context
-            console.log(context);
             const token = context.token;
             // Destructure the input values for the update
             const { id, title, description, priority, status, deadline } = input;
-            console.log(status);
             if (!token) {
                 throw new Error("Invalid token");
             }

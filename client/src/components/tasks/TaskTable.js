@@ -35,6 +35,7 @@ function TaskTable() {
         setPage(0);
     };
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const formatDate = console.log(data.getTasksByUser);
     return (React.createElement(React.Fragment, null,
         React.createElement(Box, { flex: 5, p: 1, m: 2, style: { marginTop: "5%" }, sx: { display: { lg: "block" } } },
             React.createElement(TableContainer, { component: Paper, style: {} },
@@ -43,7 +44,6 @@ function TaskTable() {
                         React.createElement(TableRow, { sx: { height: "2.5rem" } },
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Task Title"),
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Description"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Type"),
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" }, key: "priority" }, "Priority"),
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" }, key: "status" }, "Status"),
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Deadline"),
@@ -55,11 +55,10 @@ function TaskTable() {
                             .map((task, index) => (React.createElement(TableRow, { key: task.id, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
                             React.createElement(TableCell, { style: {} }, task.title),
                             React.createElement(TableCell, { style: {} }, task.description),
-                            React.createElement(TableCell, { style: {} }),
                             React.createElement(TableCell, { style: {} }, task.priority),
-                            React.createElement(TableCell, { style: {} }, task.status === "Completed" ? React.createElement(CheckBoxIcon, { color: "success" }) : React.createElement(Typography, null, task.status)),
+                            React.createElement(TableCell, { style: {} }, task.status === "completed" ? (React.createElement(CheckBoxIcon, { color: "success" })) : task.status === "InProgress" ? (React.createElement(Typography, null, "In Progress")) : (task.status)),
                             React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"),
-                            React.createElement(TableCell, { style: {} }),
+                            React.createElement(TableCell, { style: {} }, task.created_at),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } },
                                 React.createElement(Link, { to: `/tasks/${task.id}/`, style: { textDecoration: "none" } },
                                     React.createElement(Button, null, "View")))))),

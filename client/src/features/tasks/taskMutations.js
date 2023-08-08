@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 export const CREATE_TASK = gql `
-    mutation createTask($input: TaskInput!) {
+    mutation createTask($input: CreateTaskInput!) {
         createTask(input: $input) {
             id
             title
@@ -13,7 +13,7 @@ export const CREATE_TASK = gql `
     }
 `;
 export const UPDATE_TASK = gql `
-  mutation updateTask($input: TaskInput!) {
+  mutation updateTask($input: UpdateTaskInput!) {
     updateTask(input: $input) {
       id
       title
@@ -21,6 +21,7 @@ export const UPDATE_TASK = gql `
       priority
       status
       deadline
+      created_at
     }
   }
 `;

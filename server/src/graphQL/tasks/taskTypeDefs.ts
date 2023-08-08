@@ -15,12 +15,20 @@ export const taskTypeDefs = gql`
         Created
     }
 
-    input TaskInput {
+    input CreateTaskInput {
         title: String!,
         description: String!,
         priority: PriorityType!,
         status: StatusType!,
+        deadline: String,
+    }
+
+    input UpdateTaskInput {
         id: ID!,
+        title: String!,
+        description: String!,
+        priority: PriorityType!,
+        status: StatusType!,
         deadline: String,
     }
 
@@ -30,8 +38,9 @@ export const taskTypeDefs = gql`
         description: String!
         priority: PriorityType!
         status: StatusType!
-        deadline: Date
+        deadline: String
         user_id: ID!
+        created_at: String!
     }
 
     type DeleteTaskResponse {
@@ -44,8 +53,8 @@ export const taskTypeDefs = gql`
     }
 
     type Mutation {
-        createTask(input: TaskInput!): Task!
-        updateTask(input: TaskInput!): Task!
+        createTask(input: CreateTaskInput!): Task!
+        updateTask(input: UpdateTaskInput!): Task!
         deleteTask(id: ID!): DeleteTaskResponse!
     }
 `

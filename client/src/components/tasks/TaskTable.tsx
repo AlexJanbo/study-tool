@@ -16,6 +16,7 @@ type taskType = {
     priority: string,
     status: string,
     deadline: string,
+    created_at: string,
 }
 
 function TaskTable() {
@@ -54,6 +55,10 @@ function TaskTable() {
     };
     
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
+
+    const formatDate = 
+
+    console.log(data.getTasksByUser)
     
 
   return (
@@ -65,7 +70,6 @@ function TaskTable() {
               <TableRow sx={{height: "2.5rem" }}>
                 <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Task Title</TableCell>
                 <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Description</TableCell>
-                <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Type</TableCell>
                 <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}} key="priority">
                   Priority
                   {/* <TableSortLabel
@@ -106,11 +110,18 @@ function TaskTable() {
                 >
                   <TableCell style={{}}>{task.title}</TableCell>
                   <TableCell style={{}}>{task.description}</TableCell>
-                  <TableCell style={{}}>{}</TableCell>
                   <TableCell style={{}}>{task.priority}</TableCell>
-                  <TableCell style={{}}>{task.status === "Completed" ? <CheckBoxIcon color="success" /> : <Typography>{task.status}</Typography>}</TableCell>
+                  <TableCell style={{}}>
+                    {task.status === "completed" ? (
+                      <CheckBoxIcon color="success" />
+                    ) : task.status === "InProgress" ? (
+                      <Typography>In Progress</Typography>
+                    ) : (
+                      task.status
+                    )}
+                  </TableCell>
                   <TableCell style={{}}>{task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"}</TableCell>
-                  <TableCell style={{}}>{}</TableCell>
+                  <TableCell style={{}}>{task.created_at}</TableCell>
                   
                   <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>
                     {/* <Link to={`/editTask/${task._id}/`}>

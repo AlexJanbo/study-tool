@@ -66,6 +66,12 @@ export default function TaskFormModal() {
         // const decoded = jwt.verify(token, APP_SECRET)
         // console.log(APP_SECRET)
         createTask({ variables: { input: taskInput } });
+        setTaskInput({
+            title: "",
+            description: "",
+            priority: PriorityTypes.Low,
+            status: StatusTypes.Created,
+        });
     };
     return (React.createElement("div", null,
         React.createElement(Button, { onClick: handleOpen }, "Create a new Task!"),

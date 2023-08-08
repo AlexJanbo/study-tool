@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material'
-import React, { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { AuthContext } from '../../features/auth/AuthContext'
 import { GET_TASK } from '../../features/tasks/taskQueries'
@@ -55,8 +55,16 @@ export default function EditTaskForm() {
         }
     })
 
-    const [ editTaskInput, setEditTaskInput ] = useState<TaskInput>({ id: taskId || '', title: data.title, description: data.description, priority: data.priority, status: data.status, deadline: data.deadline})
+    const [ editTaskInput, setEditTaskInput ] = useState<TaskInput>({ 
+        id: taskId, 
+        title: data.getTask.title, 
+        description: data.getTask.description, 
+        priority: data.getTask.priority, 
+        status: data.getTask.status, 
+        deadline: data.getTask.deadline
+    })
 
+    
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setEditTaskInput((prevState) => ({
@@ -70,9 +78,12 @@ export default function EditTaskForm() {
             throw new Error("Invalid token")
         }
         updateTask({ variables: {id: taskId, input: editTaskInput}})
+        navigate(`/tasks/${taskId}`)
     }
 
-
+    if(!editTaskInput.title || !editTaskInput.description || !editTaskInput.priority || !editTaskInput.status) {
+        return <div>Loading</div>
+    }
     if(loading) return <div>Loading</div>
     if(error) return <div>Error</div>
 

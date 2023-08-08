@@ -39,7 +39,14 @@ export default function EditTaskForm() {
             }
         }
     });
-    const [editTaskInput, setEditTaskInput] = useState({ id: taskId || '', title: data.title, description: data.description, priority: data.priority, status: data.status, deadline: data.deadline });
+    const [editTaskInput, setEditTaskInput] = useState({
+        id: taskId,
+        title: data.getTask.title,
+        description: data.getTask.description,
+        priority: data.getTask.priority,
+        status: data.getTask.status,
+        deadline: data.getTask.deadline
+    });
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
         setEditTaskInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));
@@ -49,7 +56,11 @@ export default function EditTaskForm() {
             throw new Error("Invalid token");
         }
         updateTask({ variables: { id: taskId, input: editTaskInput } });
+        navigate(`/tasks/${taskId}`);
     };
+    if (!editTaskInput.title || !editTaskInput.description || !editTaskInput.priority || !editTaskInput.status) {
+        return React.createElement("div", null, "Loading");
+    }
     if (loading)
         return React.createElement("div", null, "Loading");
     if (error)
