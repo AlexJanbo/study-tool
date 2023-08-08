@@ -12,7 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -109,23 +108,6 @@ export const Layout = ({ children }) => {
                 } },
                 React.createElement(Toolbar, null),
                 React.createElement(Container, { maxWidth: "lg", sx: { mt: 4, mb: 4 } },
-                    React.createElement(Grid, { container: true, spacing: 3 },
-                        children,
-                        React.createElement(Grid, { item: true, xs: 12, md: 8, lg: 9 },
-                            React.createElement(Paper, { sx: {
-                                    p: 2,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    height: 240,
-                                } })),
-                        React.createElement(Grid, { item: true, xs: 12, md: 4, lg: 3 },
-                            React.createElement(Paper, { sx: {
-                                    p: 2,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    height: 240,
-                                } })),
-                        React.createElement(Grid, { item: true, xs: 12 },
-                            React.createElement(Paper, { sx: { p: 2, display: 'flex', flexDirection: 'column' } }))),
+                    React.createElement(Grid, { container: true, spacing: 3 }, children),
                     React.createElement(Copyright, { sx: { pt: 4 } }))))));
 };

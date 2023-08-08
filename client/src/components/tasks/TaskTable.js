@@ -57,7 +57,7 @@ function TaskTable() {
                             React.createElement(TableCell, { style: {} }, task.description),
                             React.createElement(TableCell, { style: {} }, task.priority),
                             React.createElement(TableCell, { style: {} }, task.status === "completed" ? (React.createElement(CheckBoxIcon, { color: "success" })) : task.status === "InProgress" ? (React.createElement(Typography, null, "In Progress")) : (task.status)),
-                            React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('datetime-local') : "No deadline"),
+                            React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"),
                             React.createElement(TableCell, { style: {} }, task.created_at),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } },
                                 React.createElement(Link, { to: `/tasks/${task.id}/`, style: { textDecoration: "none" } },

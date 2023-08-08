@@ -150,7 +150,7 @@ export default function EditTaskForm() {
                     />
                 </FormControl>
                 <Button type="submit" onClick={handleUpdateTask}>
-                    Create Task!
+                    Edit Task!
                 </Button>
             </FormControl>
         </Box>
