@@ -83,5 +83,5 @@ export default function EditTaskForm() {
                     React.createElement(FormControlLabel, { value: StatusTypes.Created, control: React.createElement(Radio, null), label: "Created" }))),
             React.createElement(FormControl, null,
                 React.createElement("input", { type: "datetime-local", id: "deadline", name: "deadline", value: editTaskInput.deadline, onChange: handleChangeInput })),
-            React.createElement(Button, { type: "submit", onClick: handleUpdateTask }, "Create Task!"))));
+            React.createElement(Button, { type: "submit", onClick: handleUpdateTask }, "Edit Task!"))));
 }

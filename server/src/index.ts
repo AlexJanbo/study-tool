@@ -7,22 +7,26 @@ import { PORT } from './config/index'
 import { taskTypeDefs } from './graphQL/tasks/taskTypeDefs';
 import { taskResolvers } from './graphQL/tasks/taskResolvers';
 import { authentication } from './middleware/authentication';
+import { projectResolvers } from './graphQL/projects/projectResolvers';
+import { projectTypeDefs } from './graphQL/projects/projectTypeDefs';
 
 
 const allowedOrigins = [
   'http://localhost:3000'
 ]
 
-const typeDefs = [userTypeDefs, taskTypeDefs]
+const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs]
 
 const resolvers = {
   Query: {
     ...userResolvers.Query,
     ...taskResolvers.Query,
+    ...projectResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,
     ...taskResolvers.Mutation,
+    ...projectResolvers.Mutation,
   },
 }
 
