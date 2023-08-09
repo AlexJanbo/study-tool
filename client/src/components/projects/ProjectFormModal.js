@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Box, Button, Modal, FormControl, TextField } from '@mui/material';
 import { AuthContext } from '../../features/auth/AuthContext';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PROJECT } from '../../features/projects/projectMutations';
+import { GET_PROJECTS_BY_USER } from '../../features/projects/projectQueries';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -27,20 +28,20 @@ export default function ProjectFormModal() {
             },
         },
         onCompleted: () => {
-            // refetchProjects()
+            refetchProjects();
             handleClose();
         },
         onError: (error) => {
             console.log(error);
         }
     });
-    // const { refetch: refetchProjects } = useQuery(GET_PROJECTS_BY_USER, {
-    //     context: {
-    //       headers: {
-    //         authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   });
+    const { refetch: refetchProjects } = useQuery(GET_PROJECTS_BY_USER, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
+    });
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
         setProjectInput((prevState) => (Object.assign(Object.assign({}, prevState), { [name]: value })));

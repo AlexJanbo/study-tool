@@ -12,7 +12,6 @@ export const projectTypeDefs = gql`
         id: ID!,
         title: String!,
         description: String!,
-        members: [ID!],
     }
 
     type Project {

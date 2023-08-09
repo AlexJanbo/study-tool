@@ -14,7 +14,6 @@ exports.projectTypeDefs = (0, apollo_server_express_1.gql) `
         id: ID!,
         title: String!,
         description: String!,
-        members: [ID!],
     }
 
     type Project {

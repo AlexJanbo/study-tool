@@ -12,6 +12,7 @@ import Projects from '../pages/signed-in/Projects';
 import ViewTask from '../pages/signed-in/ViewTask';
 import EditTask from '../pages/signed-in/EditTask';
 import ViewProject from '../pages/signed-in/ViewProject';
+import EditProject from '../pages/signed-in/EditProject';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -62,6 +63,12 @@ const router = createBrowserRouter([
         element: React.createElement(ProtectedRoute, null,
             React.createElement(Layout, null,
                 React.createElement(ViewProject, null)))
+    },
+    {
+        path: "/projects/edit/:projectId",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(EditProject, null)))
     },
     {
         path: "/profile",

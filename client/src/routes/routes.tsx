@@ -12,6 +12,7 @@ import Projects from '../pages/signed-in/Projects';
 import ViewTask from '../pages/signed-in/ViewTask';
 import EditTask from '../pages/signed-in/EditTask';
 import ViewProject from '../pages/signed-in/ViewProject';
+import EditProject from '../pages/signed-in/EditProject';
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,15 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <ViewProject />
+        </Layout>
+      </ProtectedRoute>
+  },
+  {
+    path:"/projects/edit/:projectId",
+    element:
+      <ProtectedRoute>
+        <Layout>
+          <EditProject />
         </Layout>
       </ProtectedRoute>
   },

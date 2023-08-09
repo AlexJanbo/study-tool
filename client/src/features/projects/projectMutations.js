@@ -12,12 +12,11 @@ export const CREATE_PROJECT = gql `
 `;
 export const UPDATE_PROJECT = gql `
   mutation updateProject($input: UpdateProjectInput!) {
-    updateTask(input: $input) {
+    updateProject(input: $input) {
         id
         owner
         title
         description
-        members
         created_at
     }
   }

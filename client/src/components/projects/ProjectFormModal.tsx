@@ -3,6 +3,7 @@ import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, Form
 import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PROJECT } from '../../features/projects/projectMutations';
+import { GET_PROJECTS_BY_USER } from '../../features/projects/projectQueries';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,7 +40,7 @@ export default function ProjectFormModal() {
             },
         },
         onCompleted: () => {
-            // refetchProjects()
+            refetchProjects()
             handleClose()
         },
         onError: (error) => {
@@ -47,13 +48,13 @@ export default function ProjectFormModal() {
         }
     })
 
-    // const { refetch: refetchProjects } = useQuery(GET_PROJECTS_BY_USER, {
-    //     context: {
-    //       headers: {
-    //         authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   });
+    const { refetch: refetchProjects } = useQuery(GET_PROJECTS_BY_USER, {
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      });
 
     const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
