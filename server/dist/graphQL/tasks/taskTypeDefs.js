@@ -42,7 +42,7 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         status: StatusType!
         deadline: Float
         user_id: ID!
-        created_at: String!
+        created_at: Float
     }
 
     type DeleteTaskResponse {

@@ -6,6 +6,7 @@ import { AuthContext } from '../../features/auth/AuthContext'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_TASK } from '../../features/tasks/taskQueries'
 import { DELETE_TASK } from '../../features/tasks/taskMutations'
+import { formatDate } from '../../utils'
 
 
 function TaskDetailsCard() {
@@ -35,7 +36,12 @@ function TaskDetailsCard() {
     if(loading) return <div>Loading</div>
     if(error) return <div>error</div>
 
-    const { title, description, priority, status, deadline } = data.getTask
+    let title, description, priority, status, deadline, created_at
+    if(data.getTask) {(
+        { title, description, priority, status, deadline, created_at } = data.getTask
+    )}
+
+    console.log(created_at)
 
     const handleDeleteTask = () => {
         deleteTask({ variables: { id: taskId}})
@@ -48,18 +54,6 @@ function TaskDetailsCard() {
             })
     }
 
-
-    const formatDate = (date: Date) => {
-        let formattedDate = new Date(date).toLocaleString('en-us', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        })
-        return formattedDate
-    }
 
 
     return (
@@ -94,7 +88,7 @@ function TaskDetailsCard() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            Created: {}
+                            Created: {formatDate(new Date(created_at))}
                         </Typography>
                     </Grid>
                     {

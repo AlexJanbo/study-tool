@@ -74,7 +74,17 @@ export default function TaskFormModal() {
         });
     };
     return (React.createElement("div", null,
-        React.createElement(Button, { onClick: handleOpen }, "Create a new Task!"),
+        React.createElement(Button, { onClick: handleOpen, sx: {
+                margin: 3,
+                color: "white",
+                backgroundColor: "#676767",
+                border: "1px solid black",
+                borderRadius: "10px",
+                '&:hover': {
+                    backgroundColor: "#a9f6ae",
+                    color: "black"
+                }
+            } }, "New Task!"),
         React.createElement(Modal, { open: open, onClose: handleClose, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
             React.createElement(Box, { sx: style },
                 React.createElement(FormControl, { variant: "standard" },

@@ -95,7 +95,19 @@ export default function TaskFormModal() {
 
     return (
         <div>
-        <Button onClick={handleOpen}>Create a new Task!</Button>
+        <Button onClick={handleOpen} 
+            sx={{ 
+                margin: 3, 
+                color: "white", 
+                backgroundColor: "#676767", 
+                border: "1px solid black", 
+                borderRadius: "10px", 
+                '&:hover': { 
+                    backgroundColor: "#a9f6ae", 
+                    color: "black"} 
+            }}>
+            New Task!
+        </Button>
         <Modal
             open={open}
             onClose={handleClose}

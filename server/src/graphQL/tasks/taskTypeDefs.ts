@@ -40,7 +40,7 @@ export const taskTypeDefs = gql`
         status: StatusType!
         deadline: Float
         user_id: ID!
-        created_at: String!
+        created_at: Float
     }
 
     type DeleteTaskResponse {

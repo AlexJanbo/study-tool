@@ -22,7 +22,7 @@ export const taskResolvers = {
             }
 
             try { 
-                const { rows } = await pool.query('SELECT id, title, description, priority, status, deadline FROM tasks WHERE user_id = $1', [userId])
+                const { rows } = await pool.query('SELECT id, title, description, priority, status, deadline, created_at FROM tasks WHERE user_id = $1', [userId])
                 return rows
             } catch (error) {
                 throw new Error('Failed to fetch tasks from the database')
@@ -45,7 +45,7 @@ export const taskResolvers = {
             }
 
             try {
-                const { rows } = await pool.query('SELECT id, title, description, priority, status, deadline FROM tasks WHERE id = $1', [id])
+                const { rows } = await pool.query('SELECT id, title, description, priority, status, deadline, created_at FROM tasks WHERE id = $1', [id])
                 return rows[0] || null
             } catch (error) {
                 throw new Error('Failed to fetch user from the database')

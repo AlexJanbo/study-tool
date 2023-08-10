@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from '@mui/material/';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material/';
 import { Link } from 'react-router-dom';
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
@@ -7,6 +7,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { GET_TASKS_BY_USER } from '../../features/tasks/taskQueries';
+import { formatDate } from '../../utils';
 function TaskTable() {
     const { token } = useContext(AuthContext);
     const { data, loading, error, refetch } = useQuery(GET_TASKS_BY_USER, {
@@ -56,9 +57,12 @@ function TaskTable() {
                             React.createElement(TableCell, { style: {} }, task.title),
                             React.createElement(TableCell, { style: {} }, task.description),
                             React.createElement(TableCell, { style: {} }, task.priority),
-                            React.createElement(TableCell, { style: {} }, task.status === "completed" ? (React.createElement(CheckBoxIcon, { color: "success" })) : task.status === "InProgress" ? (React.createElement(Typography, null, "In Progress")) : (task.status)),
-                            React.createElement(TableCell, { style: {} }, task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"),
-                            React.createElement(TableCell, { style: {} }, task.created_at),
+                            React.createElement(TableCell, { style: {} },
+                                task.status === "Completed" && React.createElement(CheckBoxIcon, { color: "success" }),
+                                task.status === "InProgress" && "In Progress",
+                                task.status === "Created" && task.status),
+                            React.createElement(TableCell, { style: {} }, task.deadline ? formatDate(new Date(task.deadline)) : "No deadline"),
+                            React.createElement(TableCell, { style: {} }, formatDate(new Date(task.created_at))),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } },
                                 React.createElement(Link, { to: `/tasks/${task.id}/`, style: { textDecoration: "none" } },
                                     React.createElement(Button, null, "View")))))),

@@ -8,6 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { GET_TASKS_BY_USER } from '../../features/tasks/taskQueries';
+import { formatDate } from '../../utils';
 
 type taskType = {
     id: string,
@@ -112,16 +113,12 @@ function TaskTable() {
                   <TableCell style={{}}>{task.description}</TableCell>
                   <TableCell style={{}}>{task.priority}</TableCell>
                   <TableCell style={{}}>
-                    {task.status === "completed" ? (
-                      <CheckBoxIcon color="success" />
-                    ) : task.status === "InProgress" ? (
-                      <Typography>In Progress</Typography>
-                    ) : (
-                      task.status
-                    )}
+                    {task.status === "Completed" && <CheckBoxIcon color="success" />}
+                    {task.status === "InProgress" && "In Progress"}
+                    {task.status === "Created" && task.status}
                   </TableCell>
-                  <TableCell style={{}}>{task.deadline ? new Date(task.deadline).toLocaleDateString('en-US') : "No deadline"}</TableCell>
-                  <TableCell style={{}}>{task.created_at}</TableCell>
+                  <TableCell style={{}}>{task.deadline ? formatDate(new Date(task.deadline)) : "No deadline"}</TableCell>
+                  <TableCell style={{}}>{formatDate(new Date(task.created_at))}</TableCell>
                   
                   <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>
                     {/* <Link to={`/editTask/${task._id}/`}>

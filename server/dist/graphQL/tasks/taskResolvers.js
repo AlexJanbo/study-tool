@@ -14,7 +14,7 @@ exports.taskResolvers = {
                 userId = decodedToken.userId;
             }
             try {
-                const { rows } = await dbConnection_1.pool.query('SELECT id, title, description, priority, status, deadline FROM tasks WHERE user_id = $1', [userId]);
+                const { rows } = await dbConnection_1.pool.query('SELECT id, title, description, priority, status, deadline, created_at FROM tasks WHERE user_id = $1', [userId]);
                 return rows;
             }
             catch (error) {
@@ -30,7 +30,7 @@ exports.taskResolvers = {
                 userId = decodedToken.userId;
             }
             try {
-                const { rows } = await dbConnection_1.pool.query('SELECT id, title, description, priority, status, deadline FROM tasks WHERE id = $1', [id]);
+                const { rows } = await dbConnection_1.pool.query('SELECT id, title, description, priority, status, deadline, created_at FROM tasks WHERE id = $1', [id]);
                 return rows[0] || null;
             }
             catch (error) {

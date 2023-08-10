@@ -9,6 +9,7 @@ export const GET_TASKS_BY_USER = gql`
             priority
             status
             deadline
+            created_at
         }
     }
 `
@@ -22,6 +23,7 @@ export const GET_TASK = gql`
             priority
             status
             deadline
+            created_at
         }
     }
 `

@@ -5,6 +5,7 @@ import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_TASK } from '../../features/tasks/taskQueries';
 import { DELETE_TASK } from '../../features/tasks/taskMutations';
+import { formatDate } from '../../utils';
 function TaskDetailsCard() {
     const { taskId } = useParams();
     const navigate = useNavigate();
@@ -29,7 +30,11 @@ function TaskDetailsCard() {
         return React.createElement("div", null, "Loading");
     if (error)
         return React.createElement("div", null, "error");
-    const { title, description, priority, status, deadline } = data.getTask;
+    let title, description, priority, status, deadline, created_at;
+    if (data.getTask) {
+        ({ title, description, priority, status, deadline, created_at } = data.getTask);
+    }
+    console.log(created_at);
     const handleDeleteTask = () => {
         deleteTask({ variables: { id: taskId } })
             .then((result) => {
@@ -39,17 +44,6 @@ function TaskDetailsCard() {
             .catch((error) => {
             console.log("Failed to delete task");
         });
-    };
-    const formatDate = (date) => {
-        let formattedDate = new Date(date).toLocaleString('en-us', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        });
-        return formattedDate;
     };
     return (React.createElement(React.Fragment, null,
         React.createElement(Card, { style: { maxWidth: 400, border: "2px solid blue", borderRadius: "5%" } },
@@ -72,7 +66,9 @@ function TaskDetailsCard() {
                             "ID: ",
                             taskId)),
                     React.createElement(Grid, { item: true, xs: 12 },
-                        React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" }, "Created: ")),
+                        React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" },
+                            "Created: ",
+                            formatDate(new Date(created_at)))),
                     deadline ?
                         React.createElement(Grid, { item: true, xs: 12 },
                             React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" },
