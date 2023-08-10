@@ -10,6 +10,18 @@ export const CREATE_PROJECT = gql `
         }
     }
 `;
+export const CREATE_GROUP_PROJECT = gql `
+    mutation createGroupProject($input: CreateGroupProjectInput!) {
+        createGroupProject(input: $input) {
+            id
+            owner
+            title
+            description
+            members
+            created_at
+        }
+    }
+`;
 export const UPDATE_PROJECT = gql `
   mutation updateProject($input: UpdateProjectInput!) {
     updateProject(input: $input) {

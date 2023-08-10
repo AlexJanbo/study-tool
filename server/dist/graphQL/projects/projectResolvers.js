@@ -51,6 +51,24 @@ exports.projectResolvers = {
             const result = await dbConnection_1.pool.query('INSERT INTO projects (owner, title, description, members) VALUES ($1, $2, $3, $4) RETURNING *', [userId, input.title, input.description, members]);
             return result.rows[0];
         },
+        async createGroupProject(_, { input }, context) {
+            console.log("ping");
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            const { title, description, members } = input;
+            let userId;
+            if (typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId;
+            }
+            const membersIdFromUsernames = await dbConnection_1.pool.query(
+            // Query to get member IDs based on usernames
+            'SELECT id FROM users WHERE username = ANY($1)', [members]);
+            let memberIds = membersIdFromUsernames.rows.map(row => row.id);
+            memberIds.push(userId);
+            const result = await dbConnection_1.pool.query('INSERT INTO projects (owner, title, description, members) VALUES ($1, $2, $3, $4) RETURNING *', [userId, title, description, memberIds]);
+            return result.rows[0];
+        },
         async updateProject(_, { input }, context) {
             // Access the token from the context
             const token = context.token;

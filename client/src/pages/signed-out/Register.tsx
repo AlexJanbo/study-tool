@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AddUser } from '../../features/auth/AddUser';
 
 function Copyright(props: any) {
   return (
@@ -58,7 +59,8 @@ export default function Register() {
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+            <AddUser />
+            {/* <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -68,16 +70,6 @@ export default function Register() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -107,7 +99,7 @@ export default function Register() {
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
-            </Grid>
+            </Grid> */}
             <Button
               type="submit"
               fullWidth

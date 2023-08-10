@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql'
 import { pool } from '../../config/dbConnection'
-import { saltAndHashPassword, validatePassword, generateSignedJWT } from '../../utils/utils'
+import { saltAndHashPassword, validatePassword, generateSignedJWT, VerifyJWT } from '../../utils/utils'
 
 type AuthPayload = {
     token: string,
@@ -25,7 +25,39 @@ export const userResolvers = {
             } catch (error) {
                 throw new Error('Failed to fetch user from the database')
             }
-        }
+        },
+        async queryUsers (
+            _: any, 
+            { input }:  { input: {searchQuery: string, pageNumber: number }},
+            context: { token: string },
+            ): Promise<any> {
+            
+
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await VerifyJWT(token)
+
+            let userId
+            if(typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId
+            }
+            
+            const { searchQuery, pageNumber } = input;
+    
+            const pageSize = 5;
+            const offset = (pageNumber - 1) * pageSize;
+    
+            const users = await pool.query(
+            `SELECT id, username, email
+                FROM users
+                WHERE (username ILIKE $1 OR email ILIKE $1)
+                AND id != $2
+                OFFSET $3 LIMIT $4`,
+            [`%${searchQuery}%`, userId, offset, pageSize]
+            );
+      
+            return users.rows;
+        },
     },
     Mutation: {
         async addUser(_: any, { input }: { input: { username: string, email: string, password: string}}): Promise<any> {

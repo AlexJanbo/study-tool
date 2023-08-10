@@ -22,7 +22,25 @@ exports.userResolvers = {
             catch (error) {
                 throw new Error('Failed to fetch user from the database');
             }
-        }
+        },
+        async queryUsers(_, { input }, context) {
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            let userId;
+            if (typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId;
+            }
+            const { searchQuery, pageNumber } = input;
+            const pageSize = 5;
+            const offset = (pageNumber - 1) * pageSize;
+            const users = await dbConnection_1.pool.query(`SELECT id, username, email
+                FROM users
+                WHERE (username ILIKE $1 OR email ILIKE $1)
+                AND id != $2
+                OFFSET $3 LIMIT $4`, [`%${searchQuery}%`, userId, offset, pageSize]);
+            return users.rows;
+        },
     },
     Mutation: {
         async addUser(_, { input }) {

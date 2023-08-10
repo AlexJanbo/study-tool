@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ProjectFormModal from '../../components/projects/ProjectFormModal';
 import ProjectTable from '../../components/projects/ProjectTable';
+import GroupProjectFormModal from '../../components/projects/GroupProjectFormModal';
 
 export default function Projects() {
 
@@ -9,6 +10,7 @@ export default function Projects() {
     <>
       <ProjectTable />
       <ProjectFormModal />
+      <GroupProjectFormModal />
     </>
   );
 }

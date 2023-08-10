@@ -8,6 +8,12 @@ export const userTypeDefs = gql`
         password: String 
     }
 
+    type Users {
+        id: ID!
+        username: String!
+        email: String!
+    }
+
     input UserInput {
         username: String!
         email: String!
@@ -19,6 +25,11 @@ export const userTypeDefs = gql`
         password: String
     }
 
+    input QueryInput {
+        searchQuery: String!
+        pageNumber: Int!
+    }
+
     type AuthPayload {
         token: String!,
     }
@@ -26,6 +37,7 @@ export const userTypeDefs = gql`
     type Query {
         users: [User!]!
         user(id: ID!): User
+        queryUsers(input: QueryInput!): [Users!]!
     }
 
     type Mutation {
