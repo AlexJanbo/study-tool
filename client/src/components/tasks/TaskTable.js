@@ -35,8 +35,7 @@ function TaskTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-    console.log(data.getTasksByUser);
+    const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0;
     return (React.createElement(React.Fragment, null,
         React.createElement(Box, { flex: 5, p: 1, m: 2, style: { marginTop: "5%" }, sx: { display: { lg: "block" } } },
             React.createElement(TableContainer, { component: Paper, style: {} },
@@ -68,6 +67,6 @@ function TaskTable() {
                                     React.createElement(Button, null, "View")))))),
                         emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                             React.createElement(TableCell, { colSpan: 6 }))))),
-                React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage })))));
+                React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getTasksByUser.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage })))));
 }
 export default TaskTable;

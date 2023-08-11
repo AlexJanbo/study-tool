@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../../features/auth/AuthContext';
@@ -65,23 +65,29 @@ export default function EditTaskForm() {
         return React.createElement("div", null, "Loading");
     if (error)
         return React.createElement("div", null, "Error");
-    return (React.createElement(Box, null,
-        React.createElement(FormControl, { variant: "standard" },
-            React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: editTaskInput.title, onChange: handleChangeInput }),
-            React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: editTaskInput.description, onChange: handleChangeInput }),
-            React.createElement(FormControl, null,
-                React.createElement(FormLabel, { style: { textAlign: "center" } }, "Priority"),
-                React.createElement(RadioGroup, { row: true, value: editTaskInput.priority, name: "priority", onChange: handleChangeInput },
-                    React.createElement(FormControlLabel, { value: PriorityTypes.Low, control: React.createElement(Radio, null), label: "Low" }),
-                    React.createElement(FormControlLabel, { value: PriorityTypes.Medium, control: React.createElement(Radio, null), label: "Medium" }),
-                    React.createElement(FormControlLabel, { value: PriorityTypes.High, control: React.createElement(Radio, null), label: "High" }))),
-            React.createElement(FormControl, null,
-                React.createElement(FormLabel, { style: { textAlign: "center" } }, "Status"),
-                React.createElement(RadioGroup, { row: true, value: editTaskInput.status, name: "status", onChange: handleChangeInput },
-                    React.createElement(FormControlLabel, { value: StatusTypes.Completed, control: React.createElement(Radio, null), label: "Completed" }),
-                    React.createElement(FormControlLabel, { value: StatusTypes.InProgress, control: React.createElement(Radio, null), label: "In Progress" }),
-                    React.createElement(FormControlLabel, { value: StatusTypes.Created, control: React.createElement(Radio, null), label: "Created" }))),
-            React.createElement(FormControl, null,
-                React.createElement("input", { type: "datetime-local", id: "deadline", name: "deadline", value: editTaskInput.deadline, onChange: handleChangeInput })),
-            React.createElement(Button, { type: "submit", onClick: handleUpdateTask }, "Edit Task!"))));
+    return (React.createElement(Card, { style: { maxWidth: 400, border: "2px solid blue", borderRadius: "5%" } },
+        React.createElement(CardContent, null,
+            React.createElement(Grid, { container: true, spacing: 3, sx: { display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center" } },
+                React.createElement(Grid, { item: true, xs: 12 },
+                    React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: editTaskInput.title, onChange: handleChangeInput })),
+                React.createElement(Grid, { item: true, xs: 12 },
+                    React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: editTaskInput.description, onChange: handleChangeInput })),
+                React.createElement(Grid, { item: true, xs: 12 },
+                    React.createElement(FormControl, null,
+                        React.createElement(FormLabel, { style: { textAlign: "center" } }, "Priority"),
+                        React.createElement(RadioGroup, { row: true, value: editTaskInput.priority, name: "priority", onChange: handleChangeInput },
+                            React.createElement(FormControlLabel, { value: PriorityTypes.Low, control: React.createElement(Radio, null), label: "Low" }),
+                            React.createElement(FormControlLabel, { value: PriorityTypes.Medium, control: React.createElement(Radio, null), label: "Medium" }),
+                            React.createElement(FormControlLabel, { value: PriorityTypes.High, control: React.createElement(Radio, null), label: "High" })))),
+                React.createElement(Grid, { item: true, xs: 12 },
+                    React.createElement(FormControl, null,
+                        React.createElement(FormLabel, { style: { textAlign: "center" } }, "Status"),
+                        React.createElement(RadioGroup, { row: true, value: editTaskInput.status, name: "status", onChange: handleChangeInput },
+                            React.createElement(FormControlLabel, { value: StatusTypes.Completed, control: React.createElement(Radio, null), label: "Completed" }),
+                            React.createElement(FormControlLabel, { value: StatusTypes.InProgress, control: React.createElement(Radio, null), label: "In Progress" }),
+                            React.createElement(FormControlLabel, { value: StatusTypes.Created, control: React.createElement(Radio, null), label: "Created" })))),
+                React.createElement(Grid, { item: true, xs: 12 },
+                    React.createElement(FormControl, null,
+                        React.createElement("input", { type: "datetime-local", id: "deadline", name: "deadline", value: editTaskInput.deadline, onChange: handleChangeInput }))),
+                React.createElement(Button, { type: "submit", onClick: handleUpdateTask }, "Edit Task!")))));
 }

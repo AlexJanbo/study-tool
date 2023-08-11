@@ -107,7 +107,7 @@ export const Layout = ({ children }) => {
                     overflow: 'auto',
                 } },
                 React.createElement(Toolbar, null),
-                React.createElement(Container, { maxWidth: "lg", sx: { mt: 4, mb: 4 } },
-                    React.createElement(Grid, { container: true, spacing: 3 }, children),
+                React.createElement(Container, { maxWidth: "lg", sx: { mt: 4, mb: 2 } },
+                    React.createElement(Grid, { container: true, spacing: 2 }, children),
                     React.createElement(Copyright, { sx: { pt: 4 } }))))));
 };

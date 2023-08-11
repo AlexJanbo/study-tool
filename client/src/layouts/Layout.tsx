@@ -178,9 +178,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 2 }}>
+            <Grid container spacing={2}>
               {children}
             </Grid>
             <Copyright sx={{ pt: 4 }} />

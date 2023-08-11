@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material'
+import { Box, Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material'
 import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { AuthContext } from '../../features/auth/AuthContext'
@@ -89,71 +89,82 @@ export default function EditTaskForm() {
 
 
     return (
-        <Box>
-            <FormControl variant="standard">
-                <TextField
-                    id="title"
-                    label="Title"
-                    variant="outlined"
-                    type="text"
-                    name="title"
-                    value={editTaskInput.title}
-                    onChange={handleChangeInput}
-                    // error={usernameError}
-                    // helperText={usernameError ? "Please enter a valid username" : null}
-                />
-                <TextField
-                    id="description"
-                    label="Description"
-                    variant="outlined"
-                    type="text"
-                    name="description"
-                    value={editTaskInput.description}
-                    onChange={handleChangeInput}
-                    // error={emailError}
-                    // helperText={emailError ? "Please enter a valid email" : null}
-                />
-                <FormControl>
-                <FormLabel style={{textAlign:"center"}}>Priority</FormLabel>
-                    <RadioGroup
-                    row
-                    value={editTaskInput.priority}
-                    name="priority"
-                    onChange={handleChangeInput}
-                    >
-                        <FormControlLabel value={PriorityTypes.Low} control={<Radio />} label="Low" />
-                        <FormControlLabel value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
-                        <FormControlLabel value={PriorityTypes.High} control={<Radio />} label="High" />
-                    </RadioGroup>
-                </FormControl>
-                <FormControl>
-                <FormLabel style={{textAlign:"center"}}>Status</FormLabel>
-                    <RadioGroup
-                    row
-                    value={editTaskInput.status}
-                    name="status"
-                    onChange={handleChangeInput}
-                    >
-                        <FormControlLabel value={StatusTypes.Completed} control={<Radio />} label="Completed" />
-                        <FormControlLabel value={StatusTypes.InProgress} control={<Radio />} label="In Progress" />
-                        <FormControlLabel value={StatusTypes.Created} control={<Radio />} label="Created" />
-                    </RadioGroup>
-                </FormControl>
-
-                <FormControl>
-                    <input 
-                    type="datetime-local" 
-                    id="deadline"
-                    name="deadline"
-                    value={editTaskInput.deadline}
-                    onChange={handleChangeInput}
-                    />
-                </FormControl>
-                <Button type="submit" onClick={handleUpdateTask}>
-                    Edit Task!
-                </Button>
-            </FormControl>
-        </Box>
+        <Card style={{ maxWidth: 400, border: "2px solid blue", borderRadius: "5%"}}>
+            <CardContent >
+                <Grid container spacing={3} sx={{ display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center"}} >
+                    <Grid item xs={12}>
+                        <TextField
+                            id="title"
+                            label="Title"
+                            variant="outlined"
+                            type="text"
+                            name="title"
+                            value={editTaskInput.title}
+                            onChange={handleChangeInput}
+                            // error={usernameError}
+                            // helperText={usernameError ? "Please enter a valid username" : null}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            id="description"
+                            label="Description"
+                            variant="outlined"
+                            type="text"
+                            name="description"
+                            value={editTaskInput.description}
+                            onChange={handleChangeInput}
+                            // error={emailError}
+                            // helperText={emailError ? "Please enter a valid email" : null}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl>
+                        <FormLabel style={{textAlign:"center"}}>Priority</FormLabel>
+                            <RadioGroup
+                            row
+                            value={editTaskInput.priority}
+                            name="priority"
+                            onChange={handleChangeInput}
+                            >
+                                <FormControlLabel value={PriorityTypes.Low} control={<Radio />} label="Low" />
+                                <FormControlLabel value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
+                                <FormControlLabel value={PriorityTypes.High} control={<Radio />} label="High" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl>
+                        <FormLabel style={{textAlign:"center"}}>Status</FormLabel>
+                            <RadioGroup
+                            row
+                            value={editTaskInput.status}
+                            name="status"
+                            onChange={handleChangeInput}
+                            >
+                                <FormControlLabel value={StatusTypes.Completed} control={<Radio />} label="Completed" />
+                                <FormControlLabel value={StatusTypes.InProgress} control={<Radio />} label="In Progress" />
+                                <FormControlLabel value={StatusTypes.Created} control={<Radio />} label="Created" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl>
+                            <input 
+                            type="datetime-local" 
+                            id="deadline"
+                            name="deadline"
+                            value={editTaskInput.deadline}
+                            onChange={handleChangeInput}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Button type="submit" onClick={handleUpdateTask}>
+                        Edit Task!
+                    </Button>
+                </Grid>
+            </CardContent>
+        </Card>
     )
 }
 
