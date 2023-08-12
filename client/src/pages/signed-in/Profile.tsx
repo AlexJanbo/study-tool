@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../features/auth/AuthContext'
+import { Button } from '@mui/material'
+import { useNavigate } from 'react-router'
 
 export function Profile() {
+  
+  const { logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
+
   return (
-    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi fugit nihil ratione facilis aperiam? Laborum eum nisi placeat quae eius ipsum quibusdam saepe quisquam cupiditate?</div>
+    <>
+      <Button onClick={handleLogout}>Logout</Button>
+    </>
   )
 }

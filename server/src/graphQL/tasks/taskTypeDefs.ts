@@ -32,6 +32,31 @@ export const taskTypeDefs = gql`
         deadline: String,
     }
 
+    input UpdateTaskTitleInput {
+        id: ID!,
+        title: String!,
+    }
+
+    input UpdateTaskDescriptionInput {
+        id: ID!,
+        description: String!,
+    }
+
+    input UpdateTaskPriorityInput {
+        id: ID!,
+        priority: String!,
+    }
+
+    input UpdateTaskStatusInput {
+        id: ID!,
+        status: String!,
+    }
+
+    input UpdateTaskDeadlineInput {
+        id: ID!,
+        deadline: String!,
+    }
+
     type Task {
         id: ID!
         title: String!
@@ -55,6 +80,11 @@ export const taskTypeDefs = gql`
     type Mutation {
         createTask(input: CreateTaskInput!): Task!
         updateTask(input: UpdateTaskInput!): Task!
+        updateTaskTitle(input: UpdateTaskTitleInput!): Task!
+        updateTaskDescription(input: UpdateTaskDescriptionInput!): Task!
+        updateTaskPriority(input: UpdateTaskPriorityInput!): Task!
+        updateTaskStatus(input: UpdateTaskStatusInput!): Task!
+        updateTaskDeadline(input: UpdateTaskDeadlineInput!): Task!
         deleteTask(id: ID!): DeleteTaskResponse!
     }
 `

@@ -1,4 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../features/auth/AuthContext';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router';
 export function Profile() {
-    return (React.createElement("div", null, "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi fugit nihil ratione facilis aperiam? Laborum eum nisi placeat quae eius ipsum quibusdam saepe quisquam cupiditate?"));
+    const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
+    return (React.createElement(React.Fragment, null,
+        React.createElement(Button, { onClick: handleLogout }, "Logout")));
 }

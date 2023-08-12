@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import { AuthContext } from '../../features/auth/AuthContext'
 import { GET_TASK } from '../../features/tasks/taskQueries'
 import { useMutation, useQuery } from '@apollo/client'
-import { UPDATE_TASK } from '../../features/tasks/taskMutations'
+import { UPDATE_TASK, UPDATE_TASK_DEADLINE, UPDATE_TASK_DESCRIPTION, UPDATE_TASK_PRIORITY, UPDATE_TASK_STATUS, UPDATE_TASK_TITLE } from '../../features/tasks/taskMutations'
 
 enum PriorityTypes {
     High = "High",
@@ -55,6 +55,46 @@ export default function EditTaskForm() {
         }
     })
 
+    const [ updateTaskTitle ] = useMutation(UPDATE_TASK_TITLE, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
+    const [ updateTaskDescription ] = useMutation(UPDATE_TASK_DESCRIPTION, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
+    const [ updateTaskPriority ] = useMutation(UPDATE_TASK_PRIORITY, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
+    const [ updateTaskStatus ] = useMutation(UPDATE_TASK_STATUS, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
+    const [ updateTaskDeadline ] = useMutation(UPDATE_TASK_DEADLINE, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    })
+
     const [ editTaskInput, setEditTaskInput ] = useState<TaskInput>({ 
         id: taskId, 
         title: data.getTask.title, 
@@ -81,6 +121,41 @@ export default function EditTaskForm() {
         navigate(`/tasks/${taskId}`)
     }
 
+    const handleUpdateTaskTitle = () => {
+        if(!token) {
+            throw new Error("Invalid token")
+        }
+        updateTaskTitle({ variables: {input: {id: taskId, title: editTaskInput.title}}})
+    }
+
+    const handleUpdateTaskDescription = () => {
+        if(!token) {
+            throw new Error("Invalid token")
+        }
+        updateTaskDescription({ variables: {input: {id: taskId, description: editTaskInput.description}}})
+    }
+
+    const handleUpdateTaskPriority = () => {
+        if(!token) {
+            throw new Error("Invalid token")
+        }
+        updateTaskPriority({ variables: {input: {id: taskId, priority: editTaskInput.priority}}})
+    }
+
+    const handleUpdateTaskStatus = () => {
+        if(!token) {
+            throw new Error("Invalid token")
+        }
+        updateTaskStatus({ variables: {input: {id: taskId, status: editTaskInput.status}}})
+    }
+
+    const handleUpdateTaskDeadline = () => {
+        if(!token) {
+            throw new Error("Invalid token")
+        }
+        updateTaskDeadline({ variables: {input: {id: taskId, deadline: editTaskInput.deadline}}})
+    }
+
     if(!editTaskInput.title || !editTaskInput.description || !editTaskInput.priority || !editTaskInput.status) {
         return <div>Loading</div>
     }
@@ -104,6 +179,7 @@ export default function EditTaskForm() {
                             // error={usernameError}
                             // helperText={usernameError ? "Please enter a valid username" : null}
                         />
+                        <Button onClick={handleUpdateTaskTitle}>Set Title</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -117,6 +193,7 @@ export default function EditTaskForm() {
                             // error={emailError}
                             // helperText={emailError ? "Please enter a valid email" : null}
                         />
+                        <Button onClick={handleUpdateTaskDescription}>Set Description</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl>
@@ -131,6 +208,7 @@ export default function EditTaskForm() {
                                 <FormControlLabel value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
                                 <FormControlLabel value={PriorityTypes.High} control={<Radio />} label="High" />
                             </RadioGroup>
+                            <Button onClick={handleUpdateTaskPriority}>Set Priority</Button>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
@@ -146,6 +224,7 @@ export default function EditTaskForm() {
                                 <FormControlLabel value={StatusTypes.InProgress} control={<Radio />} label="In Progress" />
                                 <FormControlLabel value={StatusTypes.Created} control={<Radio />} label="Created" />
                             </RadioGroup>
+                            <Button onClick={handleUpdateTaskStatus}>Set Status</Button>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
@@ -158,6 +237,7 @@ export default function EditTaskForm() {
                             onChange={handleChangeInput}
                             />
                         </FormControl>
+                        <Button onClick={handleUpdateTaskDeadline}>Set Deadline</Button>
                     </Grid>
                     <Button type="submit" onClick={handleUpdateTask}>
                         Edit Task!
