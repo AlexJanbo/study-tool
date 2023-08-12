@@ -2,11 +2,11 @@ export const setAuthToken = (token: string) => {
     localStorage.setItem('jwt', token)
 }
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: string) => {
     let formattedDate = new Date(date).toLocaleString('en-us', {
         year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
+        month: 'short',
+        day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
         hour12: true,

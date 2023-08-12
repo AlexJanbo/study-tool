@@ -70,6 +70,16 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
         created_at: Float
     }
 
+    type TaskEvent {
+        event_id: ID!,
+        task_id: ID!,
+        field_changed: String!,
+        old_value: String!,
+        new_value: String!,
+        updated_at: Float!,
+
+    }
+
     type DeleteTaskResponse {
         message: String!
     }
@@ -77,6 +87,7 @@ exports.taskTypeDefs = (0, apollo_server_express_1.gql) `
     type Query {
         getTasksByUser: [Task!]!
         getTask(id: ID!): Task!
+        getTaskEvents(id: ID!): [TaskEvent!]!
     }
 
     type Mutation {

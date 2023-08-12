@@ -27,3 +27,16 @@ export const GET_TASK = gql`
         }
     }
 `
+
+export const GET_TASK_EVENTS = gql`
+    query getTaskEvents($id: ID!) {
+        getTaskEvents(id: $id) {
+            event_id
+            task_id
+            field_changed
+            old_value
+            new_value
+            updated_at
+        }
+    }
+`

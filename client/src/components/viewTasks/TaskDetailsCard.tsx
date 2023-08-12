@@ -88,7 +88,7 @@ function TaskDetailsCard() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            Created: {formatDate(new Date(created_at))}
+                            Created: {formatDate(created_at)}
                         </Typography>
                     </Grid>
                     {

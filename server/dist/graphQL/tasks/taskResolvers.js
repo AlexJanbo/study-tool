@@ -36,6 +36,22 @@ exports.taskResolvers = {
             catch (error) {
                 throw new Error('Failed to fetch user from the database');
             }
+        },
+        async getTaskEvents(_, { id }, context) {
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            let userId;
+            if (typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId;
+            }
+            try {
+                const { rows } = await dbConnection_1.pool.query('SELECT * FROM TaskEvents WHERE task_id = $1', [id]);
+                return rows || null;
+            }
+            catch (error) {
+                throw new Error('Failed to fetch task events from the database');
+            }
         }
     },
     Mutation: {

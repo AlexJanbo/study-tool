@@ -115,8 +115,8 @@ function TaskTable() {
                       {task.status === "InProgress" && "In Progress"}
                       {task.status === "Created" && task.status}
                     </TableCell>
-                    <TableCell style={{}}>{task.deadline ? formatDate(new Date(task.deadline)) : "No deadline"}</TableCell>
-                    <TableCell style={{}}>{formatDate(new Date(task.created_at))}</TableCell>
+                    <TableCell style={{}}>{task.deadline ? formatDate(task.deadline) : "No deadline"}</TableCell>
+                    <TableCell style={{}}>{formatDate(task.created_at)}</TableCell>
                     
                     <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>
                       {/* <Link to={`/editTask/${task._id}/`}>

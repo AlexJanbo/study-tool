@@ -50,6 +50,29 @@ export const taskResolvers = {
             } catch (error) {
                 throw new Error('Failed to fetch user from the database')
             }
+        },
+
+        async getTaskEvents(
+            _: any, 
+            { id }: { id: string },
+            context: { token: string }
+        ): Promise<any | null> {
+
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await VerifyJWT(token)
+
+            let userId
+            if(typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId
+            }
+
+            try {
+                const { rows } = await pool.query('SELECT * FROM TaskEvents WHERE task_id = $1', [id])
+                return rows || null
+            } catch (error) {
+                throw new Error('Failed to fetch task events from the database')
+            }
         }
     },
     

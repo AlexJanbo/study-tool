@@ -68,7 +68,7 @@ function TaskDetailsCard() {
                     React.createElement(Grid, { item: true, xs: 12 },
                         React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" },
                             "Created: ",
-                            formatDate(new Date(created_at)))),
+                            formatDate(created_at))),
                     deadline ?
                         React.createElement(Grid, { item: true, xs: 12 },
                             React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p" },
