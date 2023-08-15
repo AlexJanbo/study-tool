@@ -3,6 +3,7 @@ import TaskDetailsCard from '../../components/viewTasks/TaskDetailsCard';
 import ViewTaskBreadcrumbs from '../../components/viewTasks/ViewTaskBreadcrumbs';
 import { Stack } from '@mui/material';
 import TaskHistoryTable from '../../components/viewTasks/TaskHistoryTable';
+import TaskCommentTable from '../../components/viewTasks/TaskCommentTable';
 
 export default function ViewTask() {
 
@@ -13,6 +14,7 @@ export default function ViewTask() {
         <ViewTaskBreadcrumbs />
         <TaskDetailsCard />
         <TaskHistoryTable />
+        <TaskCommentTable />
       </Stack>
     </>
   );
