@@ -13,20 +13,24 @@ const taskTypeDefs_1 = require("./graphQL/tasks/taskTypeDefs");
 const taskResolvers_1 = require("./graphQL/tasks/taskResolvers");
 const projectResolvers_1 = require("./graphQL/projects/projectResolvers");
 const projectTypeDefs_1 = require("./graphQL/projects/projectTypeDefs");
+const commentResolvers_1 = require("./graphQL/comments/commentResolvers");
+const commentTypeDefs_1 = require("./graphQL/comments/commentTypeDefs");
 const allowedOrigins = [
     'http://localhost:3000'
 ];
-const typeDefs = [userTypeDefs_1.userTypeDefs, taskTypeDefs_1.taskTypeDefs, projectTypeDefs_1.projectTypeDefs];
+const typeDefs = [userTypeDefs_1.userTypeDefs, taskTypeDefs_1.taskTypeDefs, projectTypeDefs_1.projectTypeDefs, commentTypeDefs_1.commentTypeDefs];
 const resolvers = {
     Query: {
         ...userResolvers_1.userResolvers.Query,
         ...taskResolvers_1.taskResolvers.Query,
         ...projectResolvers_1.projectResolvers.Query,
+        ...commentResolvers_1.commentResolvers.Query,
     },
     Mutation: {
         ...userResolvers_1.userResolvers.Mutation,
         ...taskResolvers_1.taskResolvers.Mutation,
         ...projectResolvers_1.projectResolvers.Mutation,
+        ...commentResolvers_1.commentResolvers.Mutation,
     },
 };
 // Create an ApolloServer instance

@@ -2,10 +2,12 @@ import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, 
 import React, { useContext, ChangeEvent } from 'react'
 import { useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../../features/auth/AuthContext';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_TASK_EVENTS } from '../../features/tasks/taskQueries';
 import { formatDate } from '../../utils';
 import { GET_COMMENTS_BY_TASK } from '../../features/comments/commentQueries';
+import { DELETE_COMMENT } from '../../features/comments/commentMutations';
+import CommentImageModal from './CommentImageModal';
 
 type commentType = {
     comment_id: string,
@@ -22,7 +24,7 @@ function TaskCommentTable() {
     const { taskId } = useParams()
 
     const { token } = useContext(AuthContext)
-    const { data, loading, error, } = useQuery(GET_COMMENTS_BY_TASK, {
+    const { data, loading, error } = useQuery(GET_COMMENTS_BY_TASK, {
         variables: { id: taskId},
         context: {
             headers: {
@@ -30,7 +32,24 @@ function TaskCommentTable() {
             }
         }
     })
+
+    const [ deleteComment ] = useMutation(DELETE_COMMENT, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        },
+    })
+
     
+    const { refetch: refetchComments } = useQuery(GET_COMMENTS_BY_TASK, {
+        variables: { id: taskId },
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      });
     
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -75,21 +94,26 @@ function TaskCommentTable() {
                     >
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0"}}>{comment.comment_id}</TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{comment.user_id}</TableCell>
-                        {/* <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>
-                            
-                            {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}
-                        </TableCell> */}
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>{formatDate(comment.description)}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>{comment.description}</TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>
-                        {/* <Button onClick={(e) => {
-                            dispatch(deleteComment(comment._id))
-                            dispatch(reset())
-                            window.location.reload()
-                        }}>
-                            delete
-                        </Button> */}
+                            {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}comment
                         </TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{comment.created_at}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{formatDate(comment.created_at)}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>
+                            <Button onClick={() => {
+                                deleteComment({
+                                    variables: { id: comment.comment_id}
+                                })
+                                .then(() => {
+                                    refetchComments()
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                            }}>
+                                delete
+                            </Button>
+                        </TableCell>
                     </TableRow>
                     ))}
                     {emptyRows > 0 && (

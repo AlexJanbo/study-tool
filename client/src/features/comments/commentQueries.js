@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client'
-
-export const GET_COMMENTS_BY_TASK = gql`
+import { gql } from '@apollo/client';
+export const GET_COMMENTS_BY_TASK = gql `
     query getCommentsByTask($id: ID!) {
         getCommentsByTask(id: $id) {
             comment_id
@@ -11,4 +10,4 @@ export const GET_COMMENTS_BY_TASK = gql`
             created_at
         }
     }
-`
+`;

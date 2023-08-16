@@ -9,24 +9,28 @@ import { taskResolvers } from './graphQL/tasks/taskResolvers';
 import { authentication } from './middleware/authentication';
 import { projectResolvers } from './graphQL/projects/projectResolvers';
 import { projectTypeDefs } from './graphQL/projects/projectTypeDefs';
+import { commentResolvers } from './graphQL/comments/commentResolvers';
+import { commentTypeDefs } from './graphQL/comments/commentTypeDefs';
 
 
 const allowedOrigins = [
   'http://localhost:3000'
 ]
 
-const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs]
+const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs, commentTypeDefs]
 
 const resolvers = {
   Query: {
     ...userResolvers.Query,
     ...taskResolvers.Query,
     ...projectResolvers.Query,
+    ...commentResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,
     ...taskResolvers.Mutation,
     ...projectResolvers.Mutation,
+    ...commentResolvers.Mutation,
   },
 }
 
