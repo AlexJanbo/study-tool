@@ -96,7 +96,7 @@ function TaskCommentTable() {
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{comment.user_id}</TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>{comment.description}</TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>
-                            {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}comment
+                            {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}
                         </TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{formatDate(comment.created_at)}</TableCell>
                         <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>

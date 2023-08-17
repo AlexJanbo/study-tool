@@ -66,9 +66,7 @@ function TaskCommentTable() {
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0" } }, comment.comment_id),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, comment.user_id),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.description),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } },
-                                comment.image ? React.createElement(CommentImageModal, { image: comment.image }) : "No Attachments",
-                                "comment"),
+                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.image ? React.createElement(CommentImageModal, { image: comment.image }) : "No Attachments"),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, formatDate(comment.created_at)),
                             React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } },
                                 React.createElement(Button, { onClick: () => {

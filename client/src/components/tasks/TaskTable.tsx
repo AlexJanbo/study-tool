@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, ChangeEvent } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Skeleton } from '@mui/material/'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Skeleton, TableSortLabel, Grid } from '@mui/material/'
 import { Link } from 'react-router-dom'
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
@@ -33,8 +33,14 @@ function TaskTable() {
     })
 
     useEffect(() => {
-        refetch()
+      refetch()
     }, [])
+    
+    const [orderBy, setOrderBy] = useState<"title" | "description" | "priority" | "status" | "deadline" | "created_at">("created_at");
+    const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
+    const [sortedTasks, setSortedTasks] = useState<taskType[]>([])
+    const [hasUserSorted, setHasUserSorted] = useState(false)
+    
     
     
     //   const taskArray = Array.from(tasks)
@@ -45,18 +51,55 @@ function TaskTable() {
     
     if(loading) return <div>Loading</div>
     if(error) return <div>error</div>
+    
+    const handleSortRequest = (property: "title" | "description" | "priority" | "status" | "deadline" | "created_at") => {
+        setHasUserSorted(true)
+        setOrderDirection(orderDirection === "asc" ? 'desc' : 'asc');
+        setOrderBy(property);
+        setSortedTasks(newSortedTasks)
+      };
+
+      
+      
+      
+    const newSortedTasks = [...data.getTasksByUser].sort((a, b) => {
+      let comparison = 0;
+      switch(orderBy) {
+          case "title":
+              comparison = a.title.localeCompare(b.title)
+              break;
+          case "description":
+              comparison = a.description.localeCompare(b.description)
+              break;
+          case "priority":
+              comparison = a.priority.localeCompare(b.priority);
+              break;
+          case "status":
+              comparison = a.status.localeCompare(b.status);
+              break;
+          case "deadline":
+            comparison = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+            break;
+            case "created_at":
+              comparison = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+              break;
+            }
+
+      return orderDirection === "asc" ? -comparison : comparison;
+    });
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+      setPage(newPage);
     };
     
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
     };
 
     
     const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0
+    const taskToDisplay = hasUserSorted ? sortedTasks : data.getTasksByUser
 
 
 
@@ -67,39 +110,95 @@ function TaskTable() {
             <Table aria-label="simple table" >
               <TableHead>
                 <TableRow sx={{height: "2.5rem" }}>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Task Title</TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Description</TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}} key="priority">
-                    Priority
-                    {/* <TableSortLabel
-                      active={"priority" === "priority"}
-                      direction="asc"
-                      // onClick={createSortHandler("priority")}
+                  <TableCell 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    key="title"
+                    sortDirection={orderBy === "title" ? orderDirection : false}
                     >
-                    </TableSortLabel> */}
+                      <Grid sx={{display: "flex", flexDirection: "row"}}>
+                      Title
+                      <TableSortLabel
+                        active={orderBy === "title"}
+                        direction={orderDirection}
+                        onClick={() => handleSortRequest("title")}
+                      />
+                    </Grid>
+                    </TableCell>
+                  <TableCell 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    key="description"
+                    sortDirection={orderBy === "description" ? orderDirection : false}
+                    >
+                      <Grid sx={{display: "flex", flexDirection: "row"}}>
+                      Description
+                      <TableSortLabel
+                        active={orderBy === "description"}
+                        direction={orderDirection}
+                        onClick={() => handleSortRequest("description")}
+                      />
+                    </Grid>
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}} key="status">
-                    Status
-                    {/* <TableSortLabel
-                      active={"status" === "status"}
-                      direction="desc"
-                      // onClick={createSortHandler("status")}
-                    >
-                    </TableSortLabel> */}
+                  <TableCell 
+                    key="priority" 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    sortDirection={orderBy === "priority" ? orderDirection : false}
+                  >
+                    <Grid sx={{display: "flex", flexDirection: "row"}}>
+                      Priority
+                      <TableSortLabel
+                        active={orderBy === "priority"}
+                        direction={orderDirection}
+                        onClick={() => handleSortRequest("priority")}
+                      />
+                    </Grid>
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Deadline</TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}} key="created">
-                    Created
-                    {/* <TableSortLabel
-                      active={true}
+                  <TableCell 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    key="status"
+                    sortDirection={orderBy === "status" ? orderDirection : false}
+                  >
+                    <Grid sx={{display: "flex", flexDirection: "row"}}>
+                      Status
+                      <TableSortLabel
+                        active={orderBy === "status"}
+                        direction={orderDirection}
+                        onClick={() => handleSortRequest("status")}
+                      />
+                    </Grid>
+                  </TableCell>
+                  <TableCell 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    key="deadline"
+                    sortDirection={orderBy === "deadline" ? orderDirection : false}
+                  > 
+                    <Grid sx={{display: "flex", flexDirection: "row"}}>
+                      Deadline
+                      <TableSortLabel
+                        active={orderBy === "deadline"}
+                        direction={orderDirection}
+                        onClick={() => handleSortRequest("deadline")}
+                      />
+                    </Grid>
+                  </TableCell>
+                  <TableCell 
+                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    key="created_at"
+                    sortDirection={orderBy === "created_at" ? orderDirection : false}
                     >
-                    </TableSortLabel> */}
+                      <Grid sx={{ display: "flex", flexDirection: "row"}}>
+                        Created
+                        <TableSortLabel
+                          active={orderBy === "created_at"}
+                          direction={orderDirection}
+                          onClick={() => handleSortRequest("created_at")}
+                        />
+                      </Grid>
                   </TableCell>
                   <TableCell sx={{}}></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody >
-                {data.getTasksByUser
+                {taskToDisplay
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((task: taskType, index: number) => (
                   <TableRow
