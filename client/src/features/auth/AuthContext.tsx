@@ -15,14 +15,9 @@ export const AuthContext = createContext<AuthContextType>({
 })
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [ token, setToken ] = useState<string | null>(null)
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('jwt')
-        if(storedToken) {
-            setToken(storedToken)
-        }
-    }, [])
+    const initialToken = localStorage.getItem("jwt")
+    const [ token, setToken ] = useState<string | null>(initialToken)
 
     const login = (newToken: string) => {
         setToken(newToken)
