@@ -11,13 +11,15 @@ import { projectResolvers } from './graphQL/projects/projectResolvers';
 import { projectTypeDefs } from './graphQL/projects/projectTypeDefs';
 import { commentResolvers } from './graphQL/comments/commentResolvers';
 import { commentTypeDefs } from './graphQL/comments/commentTypeDefs';
+import { topicTypeDefs } from './graphQL/topics/topicTypeDefs';
+import { topicResolvers } from './graphQL/topics/topicResolvers';
 
 
 const allowedOrigins = [
   'http://localhost:3000'
 ]
 
-const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs, commentTypeDefs]
+const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs, commentTypeDefs, topicTypeDefs]
 
 const resolvers = {
   Query: {
@@ -31,6 +33,7 @@ const resolvers = {
     ...taskResolvers.Mutation,
     ...projectResolvers.Mutation,
     ...commentResolvers.Mutation,
+    ...topicResolvers.Mutation,
   },
 }
 

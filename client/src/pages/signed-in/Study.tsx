@@ -1,4 +1,5 @@
 import * as React from 'react';
+import CreateTopicModal from '../../components/study/CreateTopicsModal';
 
 export default function Study() {
 
@@ -7,6 +8,7 @@ export default function Study() {
     <>
       {/* <Layout /> */}
       <div>Study: Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, aperiam!</div>
+      <CreateTopicModal />
     </>
   );
 }
