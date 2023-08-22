@@ -15,52 +15,34 @@ import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from 'react-router-dom'
 
+interface CustomLinkProps {
+  to: string,
+  icon: React.ComponentType,
+  primary: string
+}
+
+const CustomLink: React.FC<CustomLinkProps> = ({ to, icon: IconComponent, primary}) => (
+  <Link to={to} style={{ textDecoration: 'none'}}>
+    <ListItemButton>
+      <ListItemIcon sx={{ color: "white"}}>
+        <IconComponent />
+      </ListItemIcon>
+      <ListItemText primary={primary} sx={{ color: "white"}} />
+    </ListItemButton>
+  </Link>
+);
+
 export const mainListItems = (
   <React.Fragment>
-    <Link to="/dashboard">
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItemButton>
-    </Link>
-    <Link to="/study">
-      <ListItemButton>
-        <ListItemIcon>
-          <AutoStoriesIcon />
-        </ListItemIcon>
-        <ListItemText primary="Study" />
-      </ListItemButton>
-    </Link>
-    <Link to="/tasks" >
-      <ListItemButton>
-        <ListItemIcon>
-          <TaskIcon />
-        </ListItemIcon>
-        <ListItemText primary="Tasks" />
-      </ListItemButton>
-    </Link>
-    <Link to="/projects">
-      <ListItemButton>
-        <ListItemIcon>
-          <WorkIcon />
-        </ListItemIcon>
-        <ListItemText primary="Projects" />
-      </ListItemButton>
-    </Link>
+    <CustomLink to="/dashboard" icon={DashboardIcon} primary="Dashboard" />
+    <CustomLink to="/study" icon={AutoStoriesIcon} primary="Study" />
+    <CustomLink to="/tasks" icon={TaskIcon} primary="Tasks" />
+    <CustomLink to="/projects" icon={WorkIcon} primary="Projects" />
   </React.Fragment>
 );
 
 export const secondaryListItems = (
   <React.Fragment>
-    <Link to="/profile">
-      <ListItemButton>
-        <ListItemIcon>
-          <AccountBoxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Profile" />
-      </ListItemButton>
-    </Link>
+    <CustomLink to="/profile" icon={AccountBoxIcon} primary="Profile" />
   </React.Fragment>
 );

@@ -86,7 +86,7 @@ export default function Login() {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ backgroundColor: "#202225"}}>
           <Box
             sx={{
               my: 8,
@@ -99,7 +99,7 @@ export default function Login() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" sx={{ color: "white"}}>
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
@@ -114,6 +114,9 @@ export default function Login() {
                 autoFocus
                 value={userInput.email}
                 onChange={handleChangeInput}
+                InputLabelProps={{ style: { color: "white" }}}
+                InputProps={{ inputProps: { style: { color: 'white' }}}}
+                sx={{ backgroundColor: "#2f3136"}}
               />
               <TextField
                 margin="normal"
@@ -126,10 +129,14 @@ export default function Login() {
                 autoComplete="current-password"
                 value={userInput.password}
                 onChange={handleChangeInput}
+                InputLabelProps={{ style: { color: "white" }}}
+                InputProps={{ inputProps: { style: { color: 'white' }}}}
+                sx={{ backgroundColor: "#2f3136"}}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
+                sx={{ color: "white"}}
               />
               <Button
                 type="submit"

@@ -65,6 +65,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     '& .MuiDrawer-paper': {
       position: 'relative',
       whiteSpace: 'nowrap',
+      backgroundColor: "#2f3136",
       width: drawerWidth,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -111,7 +112,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open} sx={{ backgroundColor: "#2f3136"}}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -145,7 +146,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} >
           <Toolbar
             sx={{
               display: 'flex',
@@ -154,7 +155,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={toggleDrawer} sx={{ color: "white"}}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
@@ -168,18 +169,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'light'
+            //     ? theme.palette.grey[100]
+            //     : theme.palette.grey[900],
+            backgroundColor: "#202225",
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 2 }}>
-            <Grid container spacing={2}>
+          <Container maxWidth="lg" sx={{ padding: 0, margin: 0}}>
+            <Grid container spacing={2} >
               {children}
             </Grid>
             <Copyright sx={{ pt: 4 }} />

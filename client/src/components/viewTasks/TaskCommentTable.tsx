@@ -70,70 +70,67 @@ function TaskCommentTable() {
 
     return (
         <>  
-            <Grid container >
-                
-                <TableContainer component={Paper}>
-                <Table aria-label="simple table" >
-                    <TableHead style={{}}>
-                        <TableRow >
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Comment Id</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Made By</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Description</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Attachments</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Created</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}></TableCell>
-                        </TableRow>
-                    </TableHead>
-                <TableBody>
-                    {data.getCommentsByTask
-                    // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((comment: commentType, index: number) => (
-                    <TableRow
-                        key={index}
-                        sx={{ height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0"}}>{comment.comment_id}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{comment.user_id}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>{comment.description}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>
-                            {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}
-                        </TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{formatDate(comment.created_at)}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>
-                            <Button onClick={() => {
-                                deleteComment({
-                                    variables: { id: comment.comment_id}
-                                })
-                                .then(() => {
-                                    refetchComments()
-                                })
-                                .catch((error) => {
-                                    console.log(error)
-                                })
-                            }}>
-                                delete
-                            </Button>
-                        </TableCell>
+            <TableContainer component={Paper} style={{ backgroundColor: "#43454a", marginLeft: "5%"}}>
+            <Table aria-label="simple table" >
+                <TableHead style={{}}>
+                    <TableRow >
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Comment Id</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Made By</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Description</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Attachments</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Created</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}></TableCell>
                     </TableRow>
-                    ))}
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 72 * emptyRows}}>
-                        <TableCell colSpan={6}></TableCell>
-                        </TableRow>
-                    )}
-                    </TableBody>
-                </Table>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10]}
-                    component="div"
-                    count={data.getCommentsByTask.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-                </TableContainer>
-            </Grid>
+                </TableHead>
+            <TableBody>
+                {data.getCommentsByTask
+                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((comment: commentType, index: number) => (
+                <TableRow
+                    key={index}
+                    sx={{ height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0"}}>{comment.comment_id}</TableCell>
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{comment.user_id}</TableCell>
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>{comment.description}</TableCell>
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0"}}>
+                        {comment.image ? <CommentImageModal image={comment.image}/> : "No Attachments"}
+                    </TableCell>
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>{formatDate(comment.created_at)}</TableCell>
+                    <TableCell sx={{paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0"}}>
+                        <Button onClick={() => {
+                            deleteComment({
+                                variables: { id: comment.comment_id}
+                            })
+                            .then(() => {
+                                refetchComments()
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                        }}>
+                            delete
+                        </Button>
+                    </TableCell>
+                </TableRow>
+                ))}
+                {emptyRows > 0 && (
+                    <TableRow style={{ height: 72 * emptyRows}}>
+                    <TableCell colSpan={6}></TableCell>
+                    </TableRow>
+                )}
+                </TableBody>
+            </Table>
+            <TablePagination
+                rowsPerPageOptions={[5, 10]}
+                component="div"
+                count={data.getCommentsByTask.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            </TableContainer>
         </>
   )
 }

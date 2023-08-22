@@ -1,8 +1,47 @@
-// src/theme.ts
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material";
 
-const theme = createTheme({
-  // Custom theme options here...
+const lightTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+    secondary: {
+      main: '#28a745',
+    },
+    warning: {
+      main: '#ffc107',
+    },
+    background: {
+      default: '#f8f9fa',
+      paper: '#FFF'
+    },
+    text: {
+      primary: '#000000',
+      secondary: '#343a40',
+    },
+  },
 });
 
-export default theme;
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#10083f',
+    },
+    secondary: {
+      main: '#28a745',
+    },
+    warning: {
+      main: '#ffc107',
+    },
+    background: {
+      default: '#4c4E52',
+      paper: '#68695E',
+    },
+    text: {
+      primary: '#F8F9Fa',
+      secondary: '#343a40'
+    },
+  },
+});
+
+export { lightTheme, darkTheme };

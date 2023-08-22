@@ -65,7 +65,7 @@ function ProjectDetailsCard() {
 
     return (
         <>
-            <Card style={{ maxWidth: 400, border: "2px solid blue", borderRadius: "5%"}}>
+            <Card style={{ maxWidth: 400, border: "1px solid white", backgroundColor: "#43454a", borderRadius: "5%", marginLeft: "5%", marginTop: "5%"}}>
                 <CardContent >
                 <Grid container spacing={3} >
                     <Grid item xs={12}>

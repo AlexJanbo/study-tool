@@ -164,24 +164,27 @@ export default function EditTaskForm() {
 
 
     return (
-        <Card style={{ maxWidth: 400, border: "2px solid blue", borderRadius: "5%"}}>
+        <Card style={{ maxWidth: 400, border: "1px solid white", borderRadius: "2%", marginLeft: "5%", backgroundColor: "#43454a"}}>
             <CardContent >
-                <Grid container spacing={3} sx={{ display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center"}} >
+                <Grid container m={1} sx={{ display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center"}} >
                     <Grid item xs={12}>
                         <TextField
                             id="title"
-                            label="Title"
                             variant="outlined"
+                            label="Title"
                             type="text"
                             name="title"
                             value={editTaskInput.title}
                             onChange={handleChangeInput}
+                            sx={{ color: "white", justifyContent: "center", alignContent: "center"}}
+                            InputLabelProps={{ style: { color: "white" }}}
+                            InputProps={{ inputProps: { style: { color: 'white' }}}}
                             // error={usernameError}
                             // helperText={usernameError ? "Please enter a valid username" : null}
                         />
                         <Button onClick={handleUpdateTaskTitle}>Set Title</Button>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ marginTop: "2%"}}>
                         <TextField
                             id="description"
                             label="Description"
@@ -190,6 +193,8 @@ export default function EditTaskForm() {
                             name="description"
                             value={editTaskInput.description}
                             onChange={handleChangeInput}
+                            InputLabelProps={{ style: { color: "white" }}}
+                            InputProps={{ inputProps: { style: { color: 'white' }}}}
                             // error={emailError}
                             // helperText={emailError ? "Please enter a valid email" : null}
                         />
@@ -197,32 +202,32 @@ export default function EditTaskForm() {
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl>
-                        <FormLabel style={{textAlign:"center"}}>Priority</FormLabel>
+                        <FormLabel style={{textAlign:"center", color: "white"}}>Priority</FormLabel>
                             <RadioGroup
                             row
                             value={editTaskInput.priority}
                             name="priority"
                             onChange={handleChangeInput}
                             >
-                                <FormControlLabel value={PriorityTypes.Low} control={<Radio />} label="Low" />
-                                <FormControlLabel value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
-                                <FormControlLabel value={PriorityTypes.High} control={<Radio />} label="High" />
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.Low} control={<Radio />} label="Low" />
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.High} control={<Radio />} label="High" />
                             </RadioGroup>
                             <Button onClick={handleUpdateTaskPriority}>Set Priority</Button>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl>
-                        <FormLabel style={{textAlign:"center"}}>Status</FormLabel>
+                        <FormLabel style={{textAlign:"center", color: "white"}}>Status</FormLabel>
                             <RadioGroup
                             row
                             value={editTaskInput.status}
                             name="status"
                             onChange={handleChangeInput}
                             >
-                                <FormControlLabel value={StatusTypes.Completed} control={<Radio />} label="Completed" />
-                                <FormControlLabel value={StatusTypes.InProgress} control={<Radio />} label="In Progress" />
-                                <FormControlLabel value={StatusTypes.Created} control={<Radio />} label="Created" />
+                                <FormControlLabel sx={{ color: "white"}} value={StatusTypes.Completed} control={<Radio />} label="Completed" />
+                                <FormControlLabel sx={{ color: "white"}} value={StatusTypes.InProgress} control={<Radio />} label="In Progress" />
+                                <FormControlLabel sx={{ color: "white"}} value={StatusTypes.Created} control={<Radio />} label="Created" />
                             </RadioGroup>
                             <Button onClick={handleUpdateTaskStatus}>Set Status</Button>
                         </FormControl>
@@ -239,9 +244,9 @@ export default function EditTaskForm() {
                         </FormControl>
                         <Button onClick={handleUpdateTaskDeadline}>Set Deadline</Button>
                     </Grid>
-                    <Button type="submit" onClick={handleUpdateTask}>
+                    {/* <Button type="submit" onClick={handleUpdateTask}>
                         Edit Task!
-                    </Button>
+                    </Button> */}
                 </Grid>
             </CardContent>
         </Card>

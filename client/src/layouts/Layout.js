@@ -43,7 +43,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }))));
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-    '& .MuiDrawer-paper': Object.assign({ position: 'relative', whiteSpace: 'nowrap', width: drawerWidth, transition: theme.transitions.create('width', {
+    '& .MuiDrawer-paper': Object.assign({ position: 'relative', whiteSpace: 'nowrap', backgroundColor: "#2f3136", width: drawerWidth, transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }), boxSizing: 'border-box' }, (!open && {
@@ -74,7 +74,7 @@ export const Layout = ({ children }) => {
     return (React.createElement(ThemeProvider, { theme: defaultTheme },
         React.createElement(Box, { sx: { display: 'flex' } },
             React.createElement(CssBaseline, null),
-            React.createElement(AppBar, { position: "absolute", open: open },
+            React.createElement(AppBar, { position: "absolute", open: open, sx: { backgroundColor: "#2f3136" } },
                 React.createElement(Toolbar, { sx: {
                         pr: '24px', // keep right padding when drawer closed
                     } },
@@ -91,7 +91,7 @@ export const Layout = ({ children }) => {
                         justifyContent: 'flex-end',
                         px: [1],
                     } },
-                    React.createElement(IconButton, { onClick: toggleDrawer },
+                    React.createElement(IconButton, { onClick: toggleDrawer, sx: { color: "white" } },
                         React.createElement(ChevronLeftIcon, null))),
                 React.createElement(Divider, null),
                 React.createElement(List, { component: "nav" },
@@ -99,15 +99,17 @@ export const Layout = ({ children }) => {
                     React.createElement(Divider, { sx: { my: 1 } }),
                     secondaryListItems)),
             React.createElement(Box, { component: "main", sx: {
-                    backgroundColor: (theme) => theme.palette.mode === 'light'
-                        ? theme.palette.grey[100]
-                        : theme.palette.grey[900],
+                    // backgroundColor: (theme) =>
+                    //   theme.palette.mode === 'light'
+                    //     ? theme.palette.grey[100]
+                    //     : theme.palette.grey[900],
+                    backgroundColor: "#202225",
                     flexGrow: 1,
                     height: '100vh',
                     overflow: 'auto',
                 } },
                 React.createElement(Toolbar, null),
-                React.createElement(Container, { maxWidth: "lg", sx: { mt: 4, mb: 2 } },
+                React.createElement(Container, { maxWidth: "lg", sx: { padding: 0, margin: 0 } },
                     React.createElement(Grid, { container: true, spacing: 2 }, children),
                     React.createElement(Copyright, { sx: { pt: 4 } }))))));
 };

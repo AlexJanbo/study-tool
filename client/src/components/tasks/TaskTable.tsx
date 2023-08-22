@@ -49,6 +49,37 @@ function TaskTable() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     
+    useEffect(() => {
+      if(data && data.getTasksByUser) {
+        const sortedTasks = [...data.getTasksByUser].sort((a, b) => {
+          let comparison = 0;
+          switch(orderBy) {
+              case "title":
+                  comparison = a.title.localeCompare(b.title)
+                  break;
+              case "description":
+                  comparison = a.description.localeCompare(b.description)
+                  break;
+              case "priority":
+                  comparison = a.priority.localeCompare(b.priority);
+                  break;
+              case "status":
+                  comparison = a.status.localeCompare(b.status);
+                  break;
+              case "deadline":
+                comparison = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+                break;
+                case "created_at":
+                  comparison = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                  break;
+                }
+    
+          return orderDirection === "asc" ? comparison : -comparison;
+        });
+        setSortedTasks(sortedTasks)
+      }
+    }, [data, orderBy, orderDirection])
+
     if(loading) return <div>Loading</div>
     if(error) return <div>error</div>
     
@@ -56,37 +87,10 @@ function TaskTable() {
         setHasUserSorted(true)
         setOrderDirection(orderDirection === "asc" ? 'desc' : 'asc');
         setOrderBy(property);
-        setSortedTasks(newSortedTasks)
       };
 
       
       
-      
-    const newSortedTasks = [...data.getTasksByUser].sort((a, b) => {
-      let comparison = 0;
-      switch(orderBy) {
-          case "title":
-              comparison = a.title.localeCompare(b.title)
-              break;
-          case "description":
-              comparison = a.description.localeCompare(b.description)
-              break;
-          case "priority":
-              comparison = a.priority.localeCompare(b.priority);
-              break;
-          case "status":
-              comparison = a.status.localeCompare(b.status);
-              break;
-          case "deadline":
-            comparison = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
-            break;
-            case "created_at":
-              comparison = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-              break;
-            }
-
-      return orderDirection === "asc" ? -comparison : comparison;
-    });
 
     const handleChangePage = (event: unknown, newPage: number) => {
       setPage(newPage);
@@ -99,19 +103,19 @@ function TaskTable() {
 
     
     const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0
-    const taskToDisplay = hasUserSorted ? sortedTasks : data.getTasksByUser
+    const taskToDisplay = sortedTasks
 
 
 
     return (
       <>
-        <Box flex={5} p={1} m={2} style={{ marginTop: "5%" }} sx={{ display: {lg: "block" } }}>
-          <TableContainer component={Paper} style={{}}>
+        <Box flex={5} p={1} m={2} style={{ marginTop: "5%" }} sx={{ display: {lg: "block"  } }}>
+          <TableContainer component={Paper} sx={{ backgroundColor: "#373c43", height: "90vh", width: "80vw"}}>
             <Table aria-label="simple table" >
-              <TableHead>
-                <TableRow sx={{height: "2.5rem" }}>
+              <TableHead sx={{ border: "1px solid white", borderRadius: "2px"}}>
+                <TableRow sx={{height: "7.5vh" }}>
                   <TableCell 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "10vw"}}
                     key="title"
                     sortDirection={orderBy === "title" ? orderDirection : false}
                     >
@@ -121,11 +125,12 @@ function TaskTable() {
                         active={orderBy === "title"}
                         direction={orderDirection}
                         onClick={() => handleSortRequest("title")}
+                        sx={{ color: "white"}}
                       />
                     </Grid>
                     </TableCell>
                   <TableCell 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "30vw"}}
                     key="description"
                     sortDirection={orderBy === "description" ? orderDirection : false}
                     >
@@ -140,7 +145,7 @@ function TaskTable() {
                   </TableCell>
                   <TableCell 
                     key="priority" 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "8vw"}} 
                     sortDirection={orderBy === "priority" ? orderDirection : false}
                   >
                     <Grid sx={{display: "flex", flexDirection: "row"}}>
@@ -153,7 +158,7 @@ function TaskTable() {
                     </Grid>
                   </TableCell>
                   <TableCell 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "8vw"}} 
                     key="status"
                     sortDirection={orderBy === "status" ? orderDirection : false}
                   >
@@ -167,7 +172,7 @@ function TaskTable() {
                     </Grid>
                   </TableCell>
                   <TableCell 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}}
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "8vw"}}
                     key="deadline"
                     sortDirection={orderBy === "deadline" ? orderDirection : false}
                   > 
@@ -181,7 +186,7 @@ function TaskTable() {
                     </Grid>
                   </TableCell>
                   <TableCell 
-                    sx={{ fontWeight: "bold", fontSize: "20px"}} 
+                    sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "8vw"}} 
                     key="created_at"
                     sortDirection={orderBy === "created_at" ? orderDirection : false}
                     >
@@ -194,30 +199,35 @@ function TaskTable() {
                         />
                       </Grid>
                   </TableCell>
-                  <TableCell sx={{}}></TableCell>
+                  <TableCell sx={{ widht: "8vw" }}></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody >
+              <TableBody sx={{ border: "1px solid white"}} >
                 {taskToDisplay
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((task: taskType, index: number) => (
                   <TableRow
                     key={task.id}
                     
-                    sx={{ height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ 
+                      height: "7.5vh",
+                      '&:nth-child(odd)': {
+                        backgroundColor: "#43454a"
+                      },
+                      '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell style={{}}>{task.title}</TableCell>
-                    <TableCell style={{}}>{task.description}</TableCell>
-                    <TableCell style={{}}>{task.priority}</TableCell>
-                    <TableCell style={{}}>
+                    <TableCell sx={{ color: "white", width: "10vw"}}>{task.title}</TableCell>
+                    <TableCell sx={{ color: "white", overflow: "hidden", width: "30vw" }}>{task.description}</TableCell>
+                    <TableCell sx={{ color: "white", width: "8vw"}}>{task.priority}</TableCell>
+                    <TableCell sx={{ color: "white", width: "8vw"}}>
                       {task.status === "Completed" && <CheckBoxIcon color="success" />}
                       {task.status === "InProgress" && "In Progress"}
                       {task.status === "Created" && task.status}
                     </TableCell>
-                    <TableCell style={{}}>{task.deadline ? formatDate(task.deadline) : "No deadline"}</TableCell>
-                    <TableCell style={{}}>{formatDate(task.created_at)}</TableCell>
+                    <TableCell sx={{ color: "white", width: "8vw"}}>{task.deadline ? formatDate(task.deadline) : "No deadline"}</TableCell>
+                    <TableCell sx={{ color: "white", width: "8vw"}}>{formatDate(task.created_at)}</TableCell>
                     
-                    <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>
+                    <TableCell sx={{ width: "8vw"}}>
                       {/* <Link to={`/editTask/${task._id}/`}>
                         <Button>
                           Edit
@@ -249,6 +259,7 @@ function TaskTable() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            sx={{ color: "white"}}
           />
           </TableContainer>
         </Box>

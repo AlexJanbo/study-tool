@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router';
 import { AuthContext } from '../../features/auth/AuthContext';
@@ -48,40 +48,39 @@ function TaskCommentTable() {
     };
     const emptyRows = data.getTaskEvents ? rowsPerPage - Math.min(rowsPerPage, data.getTaskEvents.length - page * rowsPerPage) : 0;
     return (React.createElement(React.Fragment, null,
-        React.createElement(Grid, { container: true },
-            React.createElement(TableContainer, { component: Paper },
-                React.createElement(Table, { "aria-label": "simple table" },
-                    React.createElement(TableHead, { style: {} },
-                        React.createElement(TableRow, null,
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Comment Id"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Made By"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Description"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Attachments"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }, "Created"),
-                            React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px" } }))),
-                    React.createElement(TableBody, null,
-                        data.getCommentsByTask
-                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((comment, index) => (React.createElement(TableRow, { key: index, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0" } }, comment.comment_id),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, comment.user_id),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.description),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.image ? React.createElement(CommentImageModal, { image: comment.image }) : "No Attachments"),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, formatDate(comment.created_at)),
-                            React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } },
-                                React.createElement(Button, { onClick: () => {
-                                        deleteComment({
-                                            variables: { id: comment.comment_id }
-                                        })
-                                            .then(() => {
-                                            refetchComments();
-                                        })
-                                            .catch((error) => {
-                                            console.log(error);
-                                        });
-                                    } }, "delete"))))),
-                        emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
-                            React.createElement(TableCell, { colSpan: 6 }))))),
-                React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getCommentsByTask.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage })))));
+        React.createElement(TableContainer, { component: Paper, style: { backgroundColor: "#43454a", marginLeft: "5%" } },
+            React.createElement(Table, { "aria-label": "simple table" },
+                React.createElement(TableHead, { style: {} },
+                    React.createElement(TableRow, null,
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }, "Comment Id"),
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }, "Made By"),
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }, "Description"),
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }, "Attachments"),
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }, "Created"),
+                        React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }))),
+                React.createElement(TableBody, null,
+                    data.getCommentsByTask
+                        // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((comment, index) => (React.createElement(TableRow, { key: index, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0" } }, comment.comment_id),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, comment.user_id),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.description),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "10%", paddingBottom: '0', paddingTop: "0" } }, comment.image ? React.createElement(CommentImageModal, { image: comment.image }) : "No Attachments"),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, formatDate(comment.created_at)),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } },
+                            React.createElement(Button, { onClick: () => {
+                                    deleteComment({
+                                        variables: { id: comment.comment_id }
+                                    })
+                                        .then(() => {
+                                        refetchComments();
+                                    })
+                                        .catch((error) => {
+                                        console.log(error);
+                                    });
+                                } }, "delete"))))),
+                    emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
+                        React.createElement(TableCell, { colSpan: 6 }))))),
+            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getCommentsByTask.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage }))));
 }
 export default TaskCommentTable;

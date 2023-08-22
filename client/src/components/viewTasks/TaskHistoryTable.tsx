@@ -52,18 +52,16 @@ function TaskHistoryTable() {
 
     return (
         <>  
-            <Grid container >
-                
-                <TableContainer component={Paper}>
+            <TableContainer component={Paper} style={{ backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%"}}>
                 <Table aria-label="simple table" >
-                    <TableHead style={{}}>
+                    <TableHead >
                         <TableRow >
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px"}}>Event Id</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", }}>Field Changed</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", }}>New Value</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", }}>Old Value</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", }}>Made By</TableCell>
-                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", }}>Updated At</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Event Id</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Field Changed</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>New Value</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Old Value</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Made By</TableCell>
+                            <TableCell sx={{ fontWeight: "bold", fontSize: "20px", color: "white"}}>Updated At</TableCell>
                         </TableRow>
                     </TableHead>
                 <TableBody>
@@ -98,8 +96,7 @@ function TaskHistoryTable() {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-                </TableContainer>
-            </Grid>
+            </TableContainer>
         </>
   )
 }

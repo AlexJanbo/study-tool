@@ -53,7 +53,7 @@ function ProjectDetailsCard() {
         return formattedDate;
     };
     return (React.createElement(React.Fragment, null,
-        React.createElement(Card, { style: { maxWidth: 400, border: "2px solid blue", borderRadius: "5%" } },
+        React.createElement(Card, { style: { maxWidth: 400, border: "1px solid white", backgroundColor: "#43454a", borderRadius: "5%", marginLeft: "5%", marginTop: "5%" } },
             React.createElement(CardContent, null,
                 React.createElement(Grid, { container: true, spacing: 3 },
                     React.createElement(Grid, { item: true, xs: 12 },

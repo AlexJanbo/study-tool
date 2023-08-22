@@ -61,11 +61,7 @@ function ProjectTable() {
 
   return (
     <>
-        <Box flex={5} p={1} sx={{ display: {lg: "block" } }}>
-        <Grid style={{ marginLeft: "5%", marginRight: "5%", marginTop: "7%", height: "4rem", border: "2px solid black", borderRadius: "1rem" }}>
-            <Typography variant="h3" style={{paddingTop: ".2rem", textAlign: "center"}}>My Projects!</Typography>
-        </Grid>
-        <TableContainer  component={Paper} style={{}}>
+        <TableContainer  component={Paper} style={{marginLeft: "5%", marginTop: "5%", backgroundColor: "#43454a"}}>
             <Table aria-label="simple table" >
             <TableHead >
                 <TableRow  sx={{height: "2.5rem"}}>
@@ -110,7 +106,6 @@ function ProjectTable() {
             onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </TableContainer>
-        </Box>
     </>
   )
 }

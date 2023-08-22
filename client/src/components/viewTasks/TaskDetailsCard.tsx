@@ -58,49 +58,49 @@ function TaskDetailsCard() {
 
     return (
         <>
-            <Card style={{ maxWidth: 400, border: "2px solid blue", borderRadius: "5%"}}>
+            <Card style={{ maxWidth: 400, border: "1px solid white", borderRadius: "5%", marginLeft: "5%", backgroundColor: "#43454a" }}>
                 <CardContent >
-                <Grid container spacing={3} >
-                    <Grid item xs={12}>
-                        <Typography variant="h5" component="h2">
+                <Grid container spacing={3}>
+                    <Grid item xs={12} >
+                        <Typography variant="h5" component="h2" sx={{ color: "white"}}>
                         {title}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1" component="p">
+                        <Typography variant="body1" component="p" sx={{ color: "white"}}>
                         {description}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                         Status: {status}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                         Priority: {priority}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                         ID: {taskId}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                             Created: {formatDate(created_at)}
                         </Typography>
                     </Grid>
                     {
                         deadline ?
                         <Grid item xs={12}>
-                            <Typography variant="body2" color="textSecondary" component="p">
+                            <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                                 Deadline: {formatDate(deadline)}
                             </Typography>
                         </Grid>
                         :
                         <Grid item xs={12}>
-                            <Typography variant="body2" color="textSecondary" component="p">
+                            <Typography variant="body2" color="textSecondary" component="p" sx={{ color: "white"}}>
                                 Deadline: None
                             </Typography>
                         </Grid>

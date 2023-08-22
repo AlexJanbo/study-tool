@@ -8,30 +8,15 @@ import TaskIcon from '@mui/icons-material/Task';
 import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from 'react-router-dom';
+const CustomLink = ({ to, icon: IconComponent, primary }) => (React.createElement(Link, { to: to, style: { textDecoration: 'none' } },
+    React.createElement(ListItemButton, null,
+        React.createElement(ListItemIcon, { sx: { color: "white" } },
+            React.createElement(IconComponent, null)),
+        React.createElement(ListItemText, { primary: primary, sx: { color: "white" } }))));
 export const mainListItems = (React.createElement(React.Fragment, null,
-    React.createElement(Link, { to: "/dashboard" },
-        React.createElement(ListItemButton, null,
-            React.createElement(ListItemIcon, null,
-                React.createElement(DashboardIcon, null)),
-            React.createElement(ListItemText, { primary: "Dashboard" }))),
-    React.createElement(Link, { to: "/study" },
-        React.createElement(ListItemButton, null,
-            React.createElement(ListItemIcon, null,
-                React.createElement(AutoStoriesIcon, null)),
-            React.createElement(ListItemText, { primary: "Study" }))),
-    React.createElement(Link, { to: "/tasks" },
-        React.createElement(ListItemButton, null,
-            React.createElement(ListItemIcon, null,
-                React.createElement(TaskIcon, null)),
-            React.createElement(ListItemText, { primary: "Tasks" }))),
-    React.createElement(Link, { to: "/projects" },
-        React.createElement(ListItemButton, null,
-            React.createElement(ListItemIcon, null,
-                React.createElement(WorkIcon, null)),
-            React.createElement(ListItemText, { primary: "Projects" })))));
+    React.createElement(CustomLink, { to: "/dashboard", icon: DashboardIcon, primary: "Dashboard" }),
+    React.createElement(CustomLink, { to: "/study", icon: AutoStoriesIcon, primary: "Study" }),
+    React.createElement(CustomLink, { to: "/tasks", icon: TaskIcon, primary: "Tasks" }),
+    React.createElement(CustomLink, { to: "/projects", icon: WorkIcon, primary: "Projects" })));
 export const secondaryListItems = (React.createElement(React.Fragment, null,
-    React.createElement(Link, { to: "/profile" },
-        React.createElement(ListItemButton, null,
-            React.createElement(ListItemIcon, null,
-                React.createElement(AccountBoxIcon, null)),
-            React.createElement(ListItemText, { primary: "Profile" })))));
+    React.createElement(CustomLink, { to: "/profile", icon: AccountBoxIcon, primary: "Profile" })));
