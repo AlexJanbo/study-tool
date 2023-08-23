@@ -1,5 +1,5 @@
 import React, { useState, useContext, ChangeEvent, FormEvent } from 'react'
-import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Grid } from '@mui/material'
 import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TASK } from '../../features/tasks/taskMutations';
@@ -11,8 +11,9 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
   border: '2px solid #000',
+  borderRadius: "2%",
+  backgroundColor: "#373c43",
   boxShadow: 24,
   p: 4,
 };
@@ -94,70 +95,88 @@ export default function TaskFormModal() {
     }
 
     return (
-        <div>
-        <Button onClick={handleOpen} 
-            sx={{ 
-                margin: 3, 
-                color: "white", 
-                backgroundColor: "#676767", 
-                border: "1px solid black", 
-                borderRadius: "10px", 
-                '&:hover': { 
-                    backgroundColor: "#a9f6ae", 
-                    color: "black"} 
-            }}>
-            New Task!
-        </Button>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-                <FormControl variant="standard">
-                    <TextField
-                        id="title"
-                        label="Title"
-                        variant="outlined"
-                        type="text"
-                        name="title"
-                        value={taskInput.title}
-                        onChange={handleChangeInput}
-                        // error={usernameError}
-                        // helperText={usernameError ? "Please enter a valid username" : null}
-                    />
-                    <TextField
-                        id="description"
-                        label="Description"
-                        variant="outlined"
-                        type="text"
-                        name="description"
-                        value={taskInput.description}
-                        onChange={handleChangeInput}
-                        // error={emailError}
-                        // helperText={emailError ? "Please enter a valid email" : null}
-                    />
-                    <FormControl>
-                    <FormLabel style={{textAlign:"center"}}>Priority</FormLabel>
-                    <RadioGroup
-                    row
-                    value={taskInput.priority}
-                    name="priority"
-                    onChange={handleChangeInput}
-                    >
-                        <FormControlLabel value={PriorityTypes.Low} control={<Radio />} label="Low" />
-                        <FormControlLabel value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
-                        <FormControlLabel value={PriorityTypes.High} control={<Radio />} label="High" />
-                    </RadioGroup>
-                    </FormControl>
-                
-                    <Button type="submit" onClick={handleCreateTask}>
-                        Create Task!
-                    </Button>
-                </FormControl>
-            </Box>
-        </Modal>
-        </div>
+        <Grid p={0} sx={{ marginTop: "3%", width: "15vw"}}>
+            <Button onClick={handleOpen} 
+                sx={{ 
+                    margin: 3, 
+                    color: "white", 
+                    backgroundColor: "#676767", 
+                    border: "1px solid black", 
+                    borderRadius: "10px", 
+                    '&:hover': { 
+                        backgroundColor: "#a9f6ae", 
+                        color: "black"} 
+                }}>
+                Create a New Task!
+            </Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style} >
+                    <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center"}}>
+                        <FormControl variant="standard">
+                            <TextField
+                                id="title"
+                                label="Title"
+                                variant="outlined"
+                                type="text"
+                                name="title"
+                                value={taskInput.title}
+                                onChange={handleChangeInput}
+                                InputLabelProps={{ style: { color: "white" }}}
+                                InputProps={{ inputProps: { style: { color: 'white' }}}}
+                                sx={{ backgroundColor: "#43454a"}}
+                                // error={usernameError}
+                                // helperText={usernameError ? "Please enter a valid username" : null}
+                            />
+                            <TextField
+                                id="description"
+                                label="Description"
+                                variant="outlined"
+                                type="text"
+                                name="description"
+                                value={taskInput.description}
+                                onChange={handleChangeInput}
+                                InputLabelProps={{ style: { color: "white" }}}
+                                InputProps={{ inputProps: { style: { color: 'white' }}}}
+                                sx={{ backgroundColor: "#43454a", marginTop: "2%"}}
+                                // error={emailError}
+                                // helperText={emailError ? "Please enter a valid email" : null}
+                            />
+                            <FormControl>
+                            <FormLabel style={{textAlign:"center", color: "white", marginTop: "2%"}}>Priority</FormLabel>
+                            <RadioGroup
+                            row
+                            value={taskInput.priority}
+                            name="priority"
+                            onChange={handleChangeInput}
+                            >
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.Low} control={<Radio />} label="Low" />
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.Medium} control={<Radio />} label="Medium" />
+                                <FormControlLabel sx={{ color: "white"}} value={PriorityTypes.High} control={<Radio />} label="High" />
+                            </RadioGroup>
+                            </FormControl>
+                        
+                            <Button type="submit" onClick={handleCreateTask}
+                                sx={{ 
+                                margin: 3, 
+                                color: "white", 
+                                backgroundColor: "#676767", 
+                                border: "1px solid white", 
+                                borderRadius: "10px", 
+                                '&:hover': { 
+                                    backgroundColor: "#a9f6ae", 
+                                    color: "black"} 
+                            }}>
+                                Create Task!
+                            </Button>
+                        </FormControl>
+                    </Grid>
+                </Box>
+            </Modal>
+        </Grid>
     );
 }

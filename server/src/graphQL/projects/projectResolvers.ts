@@ -87,7 +87,6 @@ export const projectResolvers = {
             { input }: { input: {title: string, description: string, members: [string] }},
             context: { token: string }
         ): Promise<any> {
-            console.log("ping")
             // Access the token from the context
             const token = context.token;
             const decodedToken = await VerifyJWT(token)
@@ -114,6 +113,54 @@ export const projectResolvers = {
                 [userId, title, description, memberIds]
                 );
             return result.rows[0];
+        },
+
+        async addMembersToProject(
+            _: any,
+            { input }: { input: {id: string, newMembers: string[]}},
+            context: { token: string }
+        ): Promise<any> {
+            // Access the token from the context
+            const token = context.token;
+            // Destructure the input values for the update
+            const { id, newMembers } = input;
+                    
+            if(!token) {
+                throw new Error("Invalid token")
+            }
+
+            const decodedToken = await VerifyJWT(token)
+
+            let userId
+            if(typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId
+            }
+
+            // Check if the project with the given ID belongs to the authenticated user
+            const project = await pool.query(
+                'SELECT * FROM projects WHERE id = $1 AND owner = $2',
+                [id, userId]
+            )
+
+            if (project.rows.length === 0) {
+                throw new Error('Project not found or unauthorized to update');
+            }
+
+            const membersIdFromUsernames = await pool.query(
+                // Query to get member IDs based on usernames
+                'SELECT id FROM users WHERE username = ANY($1)',
+                [newMembers]
+            );
+
+            let memberIds = membersIdFromUsernames.rows.map(row => row.id)
+
+             // Update the projects in the database
+             const updatedProject = await pool.query(
+                'UPDATE projects SET members = array_cat(members, $1) WHERE id = $2 RETURNING *',
+                [memberIds, id]
+            );
+
+            return updatedProject.rows[0];
         },
             
         async updateProject(

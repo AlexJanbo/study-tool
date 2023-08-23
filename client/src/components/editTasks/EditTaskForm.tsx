@@ -166,7 +166,7 @@ export default function EditTaskForm() {
     return (
         <Card style={{ maxWidth: 400, border: "1px solid white", borderRadius: "2%", marginLeft: "5%", backgroundColor: "#43454a"}}>
             <CardContent >
-                <Grid container m={1} sx={{ display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center"}} >
+                <Grid container m={1} sx={{ display: "flex", flexDirection: "column", justifyItems: "space-evenly", alignItems: "center"}} >
                     <Grid item xs={12}>
                         <TextField
                             id="title"
@@ -176,7 +176,7 @@ export default function EditTaskForm() {
                             name="title"
                             value={editTaskInput.title}
                             onChange={handleChangeInput}
-                            sx={{ color: "white", justifyContent: "center", alignContent: "center"}}
+                            sx={{ color: "white" }}
                             InputLabelProps={{ style: { color: "white" }}}
                             InputProps={{ inputProps: { style: { color: 'white' }}}}
                             // error={usernameError}

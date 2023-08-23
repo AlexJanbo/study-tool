@@ -14,6 +14,11 @@ export const projectTypeDefs = gql`
         members: [ID!]!,
     }
 
+    input AddMembersToProjectInput {
+        id: ID!,
+        newMembers: [String!]!,
+    }
+
     input UpdateProjectInput {
         id: ID!,
         title: String!,
@@ -41,6 +46,7 @@ export const projectTypeDefs = gql`
     type Mutation {
         createProject(input: CreateProjectInput!): Project!
         createGroupProject(input: CreateGroupProjectInput!): Project!
+        addMembersToProject(input: AddMembersToProjectInput!): Project!
         updateProject(input: UpdateProjectInput!): Project!
         deleteProject(id: ID!): DeleteProjectResponse!
     }

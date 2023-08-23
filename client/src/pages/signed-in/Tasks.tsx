@@ -7,8 +7,8 @@ export default function Tasks() {
 
   return (
     <>
-      <TaskTable />
       <TaskFormModal />
+      <TaskTable />
     </>
   );
 }

@@ -16,6 +16,11 @@ exports.projectTypeDefs = (0, apollo_server_express_1.gql) `
         members: [ID!]!,
     }
 
+    input AddMembersToProjectInput {
+        id: ID!,
+        newMembers: [String!]!,
+    }
+
     input UpdateProjectInput {
         id: ID!,
         title: String!,
@@ -43,6 +48,7 @@ exports.projectTypeDefs = (0, apollo_server_express_1.gql) `
     type Mutation {
         createProject(input: CreateProjectInput!): Project!
         createGroupProject(input: CreateGroupProjectInput!): Project!
+        addMembersToProject(input: AddMembersToProjectInput!): Project!
         updateProject(input: UpdateProjectInput!): Project!
         deleteProject(id: ID!): DeleteProjectResponse!
     }

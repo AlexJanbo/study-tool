@@ -109,7 +109,7 @@ function TaskTable() {
 
     return (
       <>
-        <Box flex={5} p={1} m={2} style={{ marginTop: "5%" }} sx={{ display: {lg: "block"  } }}>
+        <Box flex={5} p={1} m={2} sx={{ display: {lg: "block"  } }}>
           <TableContainer component={Paper} sx={{ backgroundColor: "#373c43", height: "90vh", width: "80vw"}}>
             <Table aria-label="simple table" >
               <TableHead sx={{ border: "1px solid white", borderRadius: "2px"}}>
@@ -211,7 +211,7 @@ function TaskTable() {
                     
                     sx={{ 
                       height: "7.5vh",
-                      '&:nth-child(odd)': {
+                      '&:nth-of-type(odd)': {
                         backgroundColor: "#43454a"
                       },
                       '&:last-child td, &:last-child th': { border: 0 } }}

@@ -76,7 +76,7 @@ function TaskTable() {
     const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0;
     const taskToDisplay = sortedTasks;
     return (React.createElement(React.Fragment, null,
-        React.createElement(Box, { flex: 5, p: 1, m: 2, style: { marginTop: "5%" }, sx: { display: { lg: "block" } } },
+        React.createElement(Box, { flex: 5, p: 1, m: 2, sx: { display: { lg: "block" } } },
             React.createElement(TableContainer, { component: Paper, sx: { backgroundColor: "#373c43", height: "90vh", width: "80vw" } },
                 React.createElement(Table, { "aria-label": "simple table" },
                     React.createElement(TableHead, { sx: { border: "1px solid white", borderRadius: "2px" } },
@@ -111,7 +111,7 @@ function TaskTable() {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((task, index) => (React.createElement(TableRow, { key: task.id, sx: {
                                 height: "7.5vh",
-                                '&:nth-child(odd)': {
+                                '&:nth-of-type(odd)': {
                                     backgroundColor: "#43454a"
                                 },
                                 '&:last-child td, &:last-child th': { border: 0 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Modal, FormControl, TextField } from '@mui/material';
+import { Box, Button, Modal, FormControl, TextField, Grid } from '@mui/material';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_PROJECT } from '../../features/projects/projectMutations';
@@ -10,8 +10,9 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
     border: '2px solid #000',
+    borderRadius: "2%",
+    backgroundColor: "#373c43",
     boxShadow: 24,
     p: 4,
 };
@@ -59,12 +60,23 @@ export default function ProjectFormModal() {
             description: "",
         });
     };
-    return (React.createElement("div", null,
-        React.createElement(Button, { onClick: handleOpen }, "Create a new Project!"),
+    return (React.createElement(Grid, { sx: { marginLeft: "5%", marginTop: "5%" } },
+        React.createElement(Button, { onClick: handleOpen, sx: { margin: 3, color: "white", backgroundColor: "#676767", border: "1px solid black", borderRadius: "10px", '&:hover': { backgroundColor: "#a9f6ae", color: "black" } } }, "Create a New Project!"),
         React.createElement(Modal, { open: open, onClose: handleClose, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
             React.createElement(Box, { sx: style },
-                React.createElement(FormControl, { variant: "standard" },
-                    React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: projectInput.title, onChange: handleChangeInput }),
-                    React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: projectInput.description, onChange: handleChangeInput }),
-                    React.createElement(Button, { type: "submit", onClick: handleCreateProject }, "Create Project!"))))));
+                React.createElement(Grid, { sx: { display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center" } },
+                    React.createElement(FormControl, { variant: "standard" },
+                        React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: projectInput.title, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } }, sx: { backgroundColor: "#43454a" } }),
+                        React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: projectInput.description, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } }, sx: { backgroundColor: "#43454a", marginTop: "2%" } }),
+                        React.createElement(Button, { type: "submit", onClick: handleCreateProject, sx: {
+                                margin: 3,
+                                color: "white",
+                                backgroundColor: "#676767",
+                                border: "1px solid white",
+                                borderRadius: "10px",
+                                '&:hover': {
+                                    backgroundColor: "#a9f6ae",
+                                    color: "black"
+                                }
+                            } }, "Create Project!")))))));
 }

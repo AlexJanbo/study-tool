@@ -33,6 +33,18 @@ export const UPDATE_PROJECT = gql `
     }
   }
 `;
+export const ADD_MEMBERS_TO_PROJECT = gql `
+  mutation addMembersToProject($input: AddMembersToProjectInput!) {
+    addMembersToProject(input: $input) {
+        id
+        owner
+        title
+        description
+        members
+        created_at
+    }
+  }
+`;
 export const DELETE_PROJECT = gql `
     mutation deleteProject($id: ID!) {
         deleteProject(id: $id) {

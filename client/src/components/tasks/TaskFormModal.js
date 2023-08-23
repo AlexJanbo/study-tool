@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Grid } from '@mui/material';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TASK } from '../../features/tasks/taskMutations';
@@ -10,8 +10,9 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
     border: '2px solid #000',
+    borderRadius: "2%",
+    backgroundColor: "#373c43",
     boxShadow: 24,
     p: 4,
 };
@@ -73,7 +74,7 @@ export default function TaskFormModal() {
             status: StatusTypes.Created,
         });
     };
-    return (React.createElement("div", null,
+    return (React.createElement(Grid, { p: 0, sx: { marginTop: "3%", width: "15vw" } },
         React.createElement(Button, { onClick: handleOpen, sx: {
                 margin: 3,
                 color: "white",
@@ -84,17 +85,28 @@ export default function TaskFormModal() {
                     backgroundColor: "#a9f6ae",
                     color: "black"
                 }
-            } }, "New Task!"),
+            } }, "Create a New Task!"),
         React.createElement(Modal, { open: open, onClose: handleClose, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
             React.createElement(Box, { sx: style },
-                React.createElement(FormControl, { variant: "standard" },
-                    React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: taskInput.title, onChange: handleChangeInput }),
-                    React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: taskInput.description, onChange: handleChangeInput }),
-                    React.createElement(FormControl, null,
-                        React.createElement(FormLabel, { style: { textAlign: "center" } }, "Priority"),
-                        React.createElement(RadioGroup, { row: true, value: taskInput.priority, name: "priority", onChange: handleChangeInput },
-                            React.createElement(FormControlLabel, { value: PriorityTypes.Low, control: React.createElement(Radio, null), label: "Low" }),
-                            React.createElement(FormControlLabel, { value: PriorityTypes.Medium, control: React.createElement(Radio, null), label: "Medium" }),
-                            React.createElement(FormControlLabel, { value: PriorityTypes.High, control: React.createElement(Radio, null), label: "High" }))),
-                    React.createElement(Button, { type: "submit", onClick: handleCreateTask }, "Create Task!"))))));
+                React.createElement(Grid, { sx: { display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center" } },
+                    React.createElement(FormControl, { variant: "standard" },
+                        React.createElement(TextField, { id: "title", label: "Title", variant: "outlined", type: "text", name: "title", value: taskInput.title, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } }, sx: { backgroundColor: "#43454a" } }),
+                        React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: taskInput.description, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } }, sx: { backgroundColor: "#43454a", marginTop: "2%" } }),
+                        React.createElement(FormControl, null,
+                            React.createElement(FormLabel, { style: { textAlign: "center", color: "white", marginTop: "2%" } }, "Priority"),
+                            React.createElement(RadioGroup, { row: true, value: taskInput.priority, name: "priority", onChange: handleChangeInput },
+                                React.createElement(FormControlLabel, { sx: { color: "white" }, value: PriorityTypes.Low, control: React.createElement(Radio, null), label: "Low" }),
+                                React.createElement(FormControlLabel, { sx: { color: "white" }, value: PriorityTypes.Medium, control: React.createElement(Radio, null), label: "Medium" }),
+                                React.createElement(FormControlLabel, { sx: { color: "white" }, value: PriorityTypes.High, control: React.createElement(Radio, null), label: "High" }))),
+                        React.createElement(Button, { type: "submit", onClick: handleCreateTask, sx: {
+                                margin: 3,
+                                color: "white",
+                                backgroundColor: "#676767",
+                                border: "1px solid white",
+                                borderRadius: "10px",
+                                '&:hover': {
+                                    backgroundColor: "#a9f6ae",
+                                    color: "black"
+                                }
+                            } }, "Create Task!")))))));
 }

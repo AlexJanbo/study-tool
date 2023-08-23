@@ -35,24 +35,30 @@ function ProjectTable() {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     console.log(data.getProjectsByUser);
     return (React.createElement(React.Fragment, null,
-        React.createElement(TableContainer, { component: Paper, style: { marginLeft: "5%", marginTop: "5%", backgroundColor: "#43454a" } },
+        React.createElement(TableContainer, { component: Paper, style: { marginLeft: "5%", marginTop: "5%", backgroundColor: "#373c43", border: "1px solid white", borderRadius: "2%" } },
             React.createElement(Table, { "aria-label": "simple table" },
                 React.createElement(TableHead, null,
-                    React.createElement(TableRow, { sx: { height: "2.5rem" } },
-                        React.createElement(TableCell, { style: {} }, "Title"),
-                        React.createElement(TableCell, { style: {} }, "Description"),
+                    React.createElement(TableRow, { sx: { height: "2.5rem", border: "1px solid white" } },
+                        React.createElement(TableCell, { sx: { color: "white" } }, "Title"),
+                        React.createElement(TableCell, { sx: { color: "white" } }, "Description"),
                         React.createElement(TableCell, null))),
                 React.createElement(TableBody, null,
                     data.getProjectsByUser
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((project, index) => (React.createElement(TableRow, { key: project.id, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
-                        React.createElement(TableCell, { style: {} }, project.title),
-                        React.createElement(TableCell, { style: {} }, project.description),
-                        React.createElement(TableCell, { style: {} },
+                        .map((project, index) => (React.createElement(TableRow, { key: project.id, sx: {
+                            height: "4.5rem",
+                            '&:nth-of-type(odd)': {
+                                backgroundColor: "#43454a"
+                            },
+                            '&:last-child td, &:last-child th': { border: 0 }
+                        } },
+                        React.createElement(TableCell, { sx: { color: "white" } }, project.title),
+                        React.createElement(TableCell, { sx: { color: "white" } }, project.description),
+                        React.createElement(TableCell, { sx: { color: "white" } },
                             React.createElement(Link, { to: `/projects/${project.id}/` },
                                 React.createElement(Button, null, "View")))))),
                     emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                         React.createElement(TableCell, { colSpan: 6 }))))),
-            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10, 25], component: "div", count: data.getProjectsByUser.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage }))));
+            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10, 25], component: "div", count: data.getProjectsByUser.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage, sx: { color: "white" } }))));
 }
 export default ProjectTable;

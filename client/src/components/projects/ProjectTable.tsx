@@ -61,13 +61,13 @@ function ProjectTable() {
 
   return (
     <>
-        <TableContainer  component={Paper} style={{marginLeft: "5%", marginTop: "5%", backgroundColor: "#43454a"}}>
+        <TableContainer  component={Paper} style={{marginLeft: "5%", marginTop: "5%", backgroundColor: "#373c43", border: "1px solid white", borderRadius: "2%"}}>
             <Table aria-label="simple table" >
             <TableHead >
-                <TableRow  sx={{height: "2.5rem"}}>
-                <TableCell style={{}}>Title</TableCell>
-                <TableCell style={{}}>Description</TableCell>
-                <TableCell ></TableCell>
+                <TableRow  sx={{height: "2.5rem", border: "1px solid white"}}>
+                    <TableCell sx={{ color: "white"}}>Title</TableCell>
+                    <TableCell sx={{ color: "white"}}>Description</TableCell>
+                    <TableCell ></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -76,11 +76,16 @@ function ProjectTable() {
                 .map((project: projectType, index: number) => (
                 <TableRow
                     key={project.id}
-                    sx={{ height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ 
+                        height: "4.5rem", 
+                        '&:nth-of-type(odd)': {
+                            backgroundColor: "#43454a"
+                        },
+                        '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                    <TableCell style={{}}>{project.title}</TableCell>
-                    <TableCell style={{}}>{project.description}</TableCell>
-                    <TableCell style={{}}>
+                    <TableCell sx={{ color: "white"}}>{project.title}</TableCell>
+                    <TableCell sx={{ color: "white"}}>{project.description}</TableCell>
+                    <TableCell sx={{ color: "white"}}>
                     <Link to={`/projects/${project.id}/`}>
                         <Button>
                         View
@@ -97,13 +102,14 @@ function ProjectTable() {
             </TableBody>
             </Table>
             <TablePagination 
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={data.getProjectsByUser.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={data.getProjectsByUser.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ color: "white"}}
             />
         </TableContainer>
     </>

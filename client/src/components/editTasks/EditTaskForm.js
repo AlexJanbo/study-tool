@@ -132,9 +132,9 @@ export default function EditTaskForm() {
         return React.createElement("div", null, "Error");
     return (React.createElement(Card, { style: { maxWidth: 400, border: "1px solid white", borderRadius: "2%", marginLeft: "5%", backgroundColor: "#43454a" } },
         React.createElement(CardContent, null,
-            React.createElement(Grid, { container: true, m: 1, sx: { display: "flex", flexDirection: "column", justifyItems: "center", alignContent: "center" } },
+            React.createElement(Grid, { container: true, m: 1, sx: { display: "flex", flexDirection: "column", justifyItems: "space-evenly", alignItems: "center" } },
                 React.createElement(Grid, { item: true, xs: 12 },
-                    React.createElement(TextField, { id: "title", variant: "outlined", label: "Title", type: "text", name: "title", value: editTaskInput.title, onChange: handleChangeInput, sx: { color: "white", justifyContent: "center", alignContent: "center" }, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } } }),
+                    React.createElement(TextField, { id: "title", variant: "outlined", label: "Title", type: "text", name: "title", value: editTaskInput.title, onChange: handleChangeInput, sx: { color: "white" }, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } } }),
                     React.createElement(Button, { onClick: handleUpdateTaskTitle }, "Set Title")),
                 React.createElement(Grid, { item: true, xs: 12, sx: { marginTop: "2%" } },
                     React.createElement(TextField, { id: "description", label: "Description", variant: "outlined", type: "text", name: "description", value: editTaskInput.description, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } } }),
