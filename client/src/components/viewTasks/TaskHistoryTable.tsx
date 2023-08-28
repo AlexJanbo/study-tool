@@ -72,12 +72,12 @@ function TaskHistoryTable() {
                         key={index}
                         sx={{ height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>{event.event_id}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>{event.field_changed}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>{event.new_value}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>{event.old_value}</TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}></TableCell>
-                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0"}}>{formatDate(event.updated_at)}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}>{event.event_id}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}>{event.field_changed}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}>{event.new_value}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}>{event.old_value}</TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}></TableCell>
+                        <TableCell sx={{paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white"}}>{formatDate(event.updated_at)}</TableCell>
                     </TableRow>
                     ))}
                     {emptyRows > 0 && (
@@ -88,13 +88,14 @@ function TaskHistoryTable() {
                     </TableBody>
                 </Table>
                 <TablePagination
-                rowsPerPageOptions={[5, 10]}
-                component="div"
-                count={data.getTaskEvents.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[5, 10]}
+                    component="div"
+                    count={data.getTaskEvents.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    sx={{ color: "white"}}
                 />
             </TableContainer>
         </>

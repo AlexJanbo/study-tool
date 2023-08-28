@@ -17,10 +17,12 @@ const commentResolvers_1 = require("./graphQL/comments/commentResolvers");
 const commentTypeDefs_1 = require("./graphQL/comments/commentTypeDefs");
 const topicTypeDefs_1 = require("./graphQL/topics/topicTypeDefs");
 const topicResolvers_1 = require("./graphQL/topics/topicResolvers");
+const flashcardResolvers_1 = require("./graphQL/flashcards/flashcardResolvers");
+const flashcardTypeDefs_1 = require("./graphQL/flashcards/flashcardTypeDefs");
 const allowedOrigins = [
     'http://localhost:3000'
 ];
-const typeDefs = [userTypeDefs_1.userTypeDefs, taskTypeDefs_1.taskTypeDefs, projectTypeDefs_1.projectTypeDefs, commentTypeDefs_1.commentTypeDefs, topicTypeDefs_1.topicTypeDefs];
+const typeDefs = [userTypeDefs_1.userTypeDefs, taskTypeDefs_1.taskTypeDefs, projectTypeDefs_1.projectTypeDefs, commentTypeDefs_1.commentTypeDefs, topicTypeDefs_1.topicTypeDefs, flashcardTypeDefs_1.flashcardTypeDefs];
 const resolvers = {
     Query: {
         ...userResolvers_1.userResolvers.Query,
@@ -34,6 +36,7 @@ const resolvers = {
         ...projectResolvers_1.projectResolvers.Mutation,
         ...commentResolvers_1.commentResolvers.Mutation,
         ...topicResolvers_1.topicResolvers.Mutation,
+        ...flashcardResolvers_1.flashcardResolvers.Mutation,
     },
 };
 // Create an ApolloServer instance

@@ -47,14 +47,14 @@ function TaskHistoryTable() {
                     data.getTaskEvents
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((event, index) => (React.createElement(TableRow, { key: index, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }, event.event_id),
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }, event.field_changed),
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }, event.new_value),
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }, event.old_value),
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }),
-                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0" } }, formatDate(event.updated_at))))),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }, event.event_id),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }, event.field_changed),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }, event.new_value),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }, event.old_value),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }),
+                        React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", paddingBottom: '0', paddingTop: "0", color: "white" } }, formatDate(event.updated_at))))),
                     emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                         React.createElement(TableCell, { colSpan: 6 }))))),
-            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getTaskEvents.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage }))));
+            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getTaskEvents.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage, sx: { color: "white" } }))));
 }
 export default TaskHistoryTable;

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Box, Button, Modal, FormControl, TextField } from '@mui/material';
-import { AuthContext } from '../../features/auth/AuthContext';
+import { AuthContext } from '../../../features/auth/AuthContext';
 import { useMutation } from '@apollo/client';
-import { CREATE_TOPIC } from '../../features/topics/topicMutations';
+import { CREATE_TOPIC } from '../../../features/topics/topicMutations';
 const style = {
     position: 'absolute',
     top: '50%',

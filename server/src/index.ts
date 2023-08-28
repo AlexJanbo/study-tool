@@ -13,13 +13,15 @@ import { commentResolvers } from './graphQL/comments/commentResolvers';
 import { commentTypeDefs } from './graphQL/comments/commentTypeDefs';
 import { topicTypeDefs } from './graphQL/topics/topicTypeDefs';
 import { topicResolvers } from './graphQL/topics/topicResolvers';
+import { flashcardResolvers } from './graphQL/flashcards/flashcardResolvers';
+import { flashcardTypeDefs } from './graphQL/flashcards/flashcardTypeDefs';
 
 
 const allowedOrigins = [
   'http://localhost:3000'
 ]
 
-const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs, commentTypeDefs, topicTypeDefs]
+const typeDefs = [userTypeDefs, taskTypeDefs, projectTypeDefs, commentTypeDefs, topicTypeDefs, flashcardTypeDefs]
 
 const resolvers = {
   Query: {
@@ -34,6 +36,7 @@ const resolvers = {
     ...projectResolvers.Mutation,
     ...commentResolvers.Mutation,
     ...topicResolvers.Mutation,
+    ...flashcardResolvers.Mutation,
   },
 }
 
