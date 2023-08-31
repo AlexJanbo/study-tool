@@ -29,6 +29,8 @@ const resolvers = {
         ...taskResolvers_1.taskResolvers.Query,
         ...projectResolvers_1.projectResolvers.Query,
         ...commentResolvers_1.commentResolvers.Query,
+        ...topicResolvers_1.topicResolvers.Query,
+        ...flashcardResolvers_1.flashcardResolvers.Query,
     },
     Mutation: {
         ...userResolvers_1.userResolvers.Mutation,

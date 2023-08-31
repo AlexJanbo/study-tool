@@ -4,6 +4,8 @@ import { AuthContext } from '../../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TOPIC } from '../../../features/topics/topicMutations';
 import { CREATE_FLASHCARD } from '../../../features/flashcards/flashcardMutation';
+import { useParams } from 'react-router';
+import { GET_FLASHCARDS_BY_TOPIC } from '../../../features/flashcards/flashcardQueries';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -24,32 +26,46 @@ enum FlashcardTypes {
 
 type flashcardType = {
     card_type: FlashcardTypes,
-    content: String,
-    answer: String,
+    content: string,
+    answer: string,
+    topic_id: string,
 }
 
 
 export default function CreateFlashcardModal() {
 
+    const { topicId } = useParams()
+
+    
+    
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    const [ flashcardInput, setFlashcardInput ] = useState<flashcardType>({ card_type: FlashcardTypes.Basic, content: "", answer: "" })
+    
+    const [ flashcardInput, setFlashcardInput ] = useState<flashcardType>({ card_type: FlashcardTypes.Basic, content: "", answer: "", topic_id: topicId ?? "" })
     const { token } = useContext(AuthContext)
     
+    const { refetch: refetchFlashcards } = useQuery(GET_FLASHCARDS_BY_TOPIC, {
+        variables: {id: topicId},
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+    });
+
     const [ createFlashcard ] = useMutation(CREATE_FLASHCARD, {
         context: {
             headers: {
                 authorization: `Bearer ${token}`
             },
         },
-        // onCompleted: () => {
-        //     refetch()
-        //     handleClose()
-        // },
+        onCompleted: () => {
+            refetchFlashcards()
+            handleClose()
+        },
         // onError: (error) => {
-        //     console.log(error)
+            //     console.log(error)
         // }
     })
 
@@ -74,7 +90,7 @@ export default function CreateFlashcardModal() {
         // const decoded = jwt.verify(token, APP_SECRET)
         // console.log(APP_SECRET)
         createFlashcard({ variables: {input: flashcardInput}})
-        setFlashcardInput({card_type: FlashcardTypes.Basic, content: "", answer: ""})
+        setFlashcardInput({card_type: FlashcardTypes.Basic, content: "", answer: "", topic_id: topicId ?? ""})
     }
 
     return (

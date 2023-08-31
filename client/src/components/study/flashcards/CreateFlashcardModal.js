@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { AuthContext } from '../../../features/auth/AuthContext';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_FLASHCARD } from '../../../features/flashcards/flashcardMutation';
+import { useParams } from 'react-router';
+import { GET_FLASHCARDS_BY_TOPIC } from '../../../features/flashcards/flashcardQueries';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -20,21 +22,30 @@ var FlashcardTypes;
     FlashcardTypes["Cloze"] = "Cloze";
 })(FlashcardTypes || (FlashcardTypes = {}));
 export default function CreateFlashcardModal() {
+    const { topicId } = useParams();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [flashcardInput, setFlashcardInput] = useState({ card_type: FlashcardTypes.Basic, content: "", answer: "" });
+    const [flashcardInput, setFlashcardInput] = useState({ card_type: FlashcardTypes.Basic, content: "", answer: "", topic_id: topicId !== null && topicId !== void 0 ? topicId : "" });
     const { token } = useContext(AuthContext);
+    const { refetch: refetchFlashcards } = useQuery(GET_FLASHCARDS_BY_TOPIC, {
+        variables: { id: topicId },
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
+    });
     const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
         context: {
             headers: {
                 authorization: `Bearer ${token}`
             },
         },
-        // onCompleted: () => {
-        //     refetch()
-        //     handleClose()
-        // },
+        onCompleted: () => {
+            refetchFlashcards();
+            handleClose();
+        },
         // onError: (error) => {
         //     console.log(error)
         // }
@@ -58,7 +69,7 @@ export default function CreateFlashcardModal() {
         // const decoded = jwt.verify(token, APP_SECRET)
         // console.log(APP_SECRET)
         createFlashcard({ variables: { input: flashcardInput } });
-        setFlashcardInput({ card_type: FlashcardTypes.Basic, content: "", answer: "" });
+        setFlashcardInput({ card_type: FlashcardTypes.Basic, content: "", answer: "", topic_id: topicId !== null && topicId !== void 0 ? topicId : "" });
     };
     return (React.createElement("div", null,
         React.createElement(Button, { onClick: handleOpen, sx: {

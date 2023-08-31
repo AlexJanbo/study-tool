@@ -127,7 +127,7 @@ exports.projectResolvers = {
             // Check if the task with the given id belongs to the authenticated user
             const project = await dbConnection_1.pool.query('SELECT id FROM projects WHERE id = $1 AND owner = $2', [id, userId]);
             if (project.rows.length === 0) {
-                throw new Error("Task not found or unauthorized to delete");
+                throw new Error("Project not found or unauthorized to delete");
             }
             await dbConnection_1.pool.query('DELETE FROM projects WHERE id = $1', [id]);
             return { message: `Project: ${id} deleted successfully` };

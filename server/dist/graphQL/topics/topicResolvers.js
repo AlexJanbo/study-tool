@@ -4,49 +4,43 @@ exports.topicResolvers = void 0;
 const dbConnection_1 = require("../../config/dbConnection");
 const utils_1 = require("../../utils/utils");
 exports.topicResolvers = {
-    // Query: {
-    //     async getProjectsByUser(
-    //         _: any,
-    //         {}: {},
-    //         context: { token: string}
-    //     ): Promise<any | null> {
-    //         // Access the token from the context
-    //         const token = context.token;
-    //         const decodedToken = await VerifyJWT(token)
-    //         let userId
-    //         if(typeof decodedToken !== "string" && decodedToken.userId) {
-    //             userId = decodedToken.userId
-    //         }
-    //         try { 
-    //             const { rows } = await pool.query(
-    //                 'SELECT id, owner, title, description, members, created_at FROM projects WHERE $1 = ANY(members)',
-    //                 [userId]
-    //             )
-    //             return rows
-    //         } catch (error) {
-    //             throw new Error('Failed to fetch projects from the database')
-    //         }
-    //     },
-    //     async getProject(
-    //         _: any, 
-    //         { id }: { id: string },
-    //         context: { token: string }
-    //     ): Promise<any | null> {
-    //         // Access the token from the context
-    //         const token = context.token;
-    //         const decodedToken = await VerifyJWT(token)
-    //         let userId
-    //         if(typeof decodedToken !== "string" && decodedToken.userId) {
-    //             userId = decodedToken.userId
-    //         }
-    //         try {
-    //             const { rows } = await pool.query('SELECT id, owner, title, description, members, created_at FROM projects WHERE id = $1', [id])
-    //             return rows[0] || null
-    //         } catch (error) {
-    //             throw new Error('Failed to fetch project from the database')
-    //         }
-    //     }
-    // },
+    Query: {
+        async getTopicsByUser(_, {}, context) {
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            let userId;
+            if (typeof decodedToken !== "string" && decodedToken.userId) {
+                userId = decodedToken.userId;
+            }
+            try {
+                const { rows } = await dbConnection_1.pool.query('SELECT * FROM topics WHERE $1 = user_id', [userId]);
+                return rows;
+            }
+            catch (error) {
+                throw new Error('Failed to fetch topics from the database');
+            }
+        },
+        // async getProject(
+        //     _: any, 
+        //     { id }: { id: string },
+        //     context: { token: string }
+        // ): Promise<any | null> {
+        //     // Access the token from the context
+        //     const token = context.token;
+        //     const decodedToken = await VerifyJWT(token)
+        //     let userId
+        //     if(typeof decodedToken !== "string" && decodedToken.userId) {
+        //         userId = decodedToken.userId
+        //     }
+        //     try {
+        //         const { rows } = await pool.query('SELECT id, owner, title, description, members, created_at FROM projects WHERE id = $1', [id])
+        //         return rows[0] || null
+        //     } catch (error) {
+        //         throw new Error('Failed to fetch project from the database')
+        //     }
+        // }
+    },
     Mutation: {
         async createTopic(_, { input }, context) {
             // Access the token from the context

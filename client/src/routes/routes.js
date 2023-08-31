@@ -13,6 +13,7 @@ import ViewTask from '../pages/signed-in/ViewTask';
 import EditTask from '../pages/signed-in/EditTask';
 import ViewProject from '../pages/signed-in/ViewProject';
 import EditProject from '../pages/signed-in/EditProject';
+import ViewTopic from '../pages/signed-in/ViewTopic';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -75,6 +76,12 @@ const router = createBrowserRouter([
         element: React.createElement(ProtectedRoute, null,
             React.createElement(Layout, null,
                 React.createElement(Profile, null)))
+    },
+    {
+        path: "/study/:topicId",
+        element: React.createElement(ProtectedRoute, null,
+            React.createElement(Layout, null,
+                React.createElement(ViewTopic, null)))
     },
     {
         path: "*",

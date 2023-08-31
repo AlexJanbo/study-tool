@@ -22,10 +22,10 @@ export const CREATE_TOPIC = gql`
 //     }
 //   }
 // `
-// export const DELETE_TASK = gql`
-//     mutation deleteTask($id: ID!) {
-//         deleteTask(id: $id) {
-//             message
-//         }
-//     }
-// `
+export const DELETE_TOPIC = gql`
+    mutation deleteTopic($id: ID!) {
+        deleteTopic(id: $id) {
+            message
+        }
+    }
+`

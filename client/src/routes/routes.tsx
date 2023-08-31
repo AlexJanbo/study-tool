@@ -13,6 +13,7 @@ import ViewTask from '../pages/signed-in/ViewTask';
 import EditTask from '../pages/signed-in/EditTask';
 import ViewProject from '../pages/signed-in/ViewProject';
 import EditProject from '../pages/signed-in/EditProject';
+import ViewTopic from '../pages/signed-in/ViewTopic';
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,15 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <Profile />
+        </Layout>
+      </ProtectedRoute>
+  },
+  {
+    path:"/study/:topicId",
+    element:
+      <ProtectedRoute>
+        <Layout>
+          <ViewTopic />
         </Layout>
       </ProtectedRoute>
   },

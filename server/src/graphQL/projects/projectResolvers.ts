@@ -228,7 +228,7 @@ export const projectResolvers = {
             );
 
             if (project.rows.length === 0) {
-                throw new Error("Task not found or unauthorized to delete");
+                throw new Error("Project not found or unauthorized to delete");
             }
 
             await pool.query('DELETE FROM projects WHERE id = $1', [id]);
