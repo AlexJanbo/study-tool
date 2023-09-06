@@ -26,5 +26,6 @@ exports.topicTypeDefs = (0, apollo_server_express_1.gql) `
 
     type Mutation {
         createTopic(input: CreateTopicInput!): Topic!
+        deleteTopic(id: ID!): DeleteTopicResponse!
     }
 `;

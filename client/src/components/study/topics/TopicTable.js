@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Grid } from '@mui/material/';
 import { Link } from 'react-router-dom';
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { GET_TOPICS_BY_USER } from '../../../features/topics/topicQueries';
+import { DELETE_TOPIC } from '../../../features/topics/topicMutations';
 export default function TopicTable() {
     const { token } = useContext(AuthContext);
     const { data, loading, error, refetch } = useQuery(GET_TOPICS_BY_USER, {
@@ -15,9 +16,20 @@ export default function TopicTable() {
             }
         }
     });
-    useEffect(() => {
-        refetch();
-    }, []);
+    const [deleteTopic] = useMutation(DELETE_TOPIC, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+    });
+    const { refetch: refetchTopics } = useQuery(GET_TOPICS_BY_USER, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
+    });
     // const [orderBy, setOrderBy] = useState<"title" | "description" | "priority" | "status" | "deadline" | "created_at">("created_at");
     // const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
     // const [sortedTasks, setSortedTasks] = useState<taskType[]>([])
@@ -73,6 +85,10 @@ export default function TopicTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    const handleDeleteTopic = (id) => {
+        deleteTopic({ variables: { id: id } });
+        refetchTopics();
+    };
     const emptyRows = data.getTopicsByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTopicsByUser.length - page * rowsPerPage) : 0;
     // const taskToDisplay = sortedTasks
     return (React.createElement(React.Fragment, null,
@@ -97,7 +113,8 @@ export default function TopicTable() {
                             React.createElement(TableCell, { sx: { color: "white", overflow: "hidden", width: "10vw" } }, topic.title),
                             React.createElement(TableCell, { sx: { width: "8vw" } },
                                 React.createElement(Link, { to: `/study/${topic.topic_id}/`, style: { textDecoration: "none" } },
-                                    React.createElement(Button, null, "View")))))),
+                                    React.createElement(Button, null, "View")),
+                                React.createElement(Button, { onClick: () => handleDeleteTopic(topic.topic_id) }, "Delete"))))),
                         emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                             React.createElement(TableCell, { colSpan: 6 }))))),
                 React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getTopicsByUser.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage, sx: { color: "white" } })))));

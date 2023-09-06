@@ -111,28 +111,21 @@ exports.topicResolvers = {
         //     );
         //     return updatedProject.rows[0];
         // },
-        // async deleteProject(
-        //     _: any, 
-        //     { id }: { id: string},
-        //     context: { token: string }
-        // ): Promise<any> {
-        //     // Access the token from the context
-        //     const token = context.token;
-        //     const decodedToken = await VerifyJWT(token)
-        //     if(typeof decodedToken === "string" || !decodedToken.userId) {
-        //         throw new Error("Invalid or missing token")
-        //     }
-        //     const userId = decodedToken.userId
-        //     // Check if the task with the given id belongs to the authenticated user
-        //     const project = await pool.query(
-        //         'SELECT id FROM projects WHERE id = $1 AND owner = $2',
-        //         [id, userId]
-        //     );
-        //     if (project.rows.length === 0) {
-        //         throw new Error("Task not found or unauthorized to delete");
-        //     }
-        //     await pool.query('DELETE FROM projects WHERE id = $1', [id]);
-        //     return { message: `Project: ${id} deleted successfully`};
-        // },
+        async deleteTopic(_, { id }, context) {
+            // Access the token from the context
+            const token = context.token;
+            const decodedToken = await (0, utils_1.VerifyJWT)(token);
+            if (typeof decodedToken === "string" || !decodedToken.userId) {
+                throw new Error("Invalid or missing token");
+            }
+            const userId = decodedToken.userId;
+            // Check if the task with the given id belongs to the authenticated user
+            const topic = await dbConnection_1.pool.query('SELECT topic_id FROM topics WHERE topic_id = $1 AND user_id = $2', [id, userId]);
+            if (topic.rows.length === 0) {
+                throw new Error("Topic not found or unauthorized to delete");
+            }
+            await dbConnection_1.pool.query('DELETE FROM topics WHERE topic_id = $1', [id]);
+            return { message: `Topic: ${id} deleted successfully` };
+        },
     }
 };

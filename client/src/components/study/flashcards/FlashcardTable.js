@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Grid } from '@mui/material/';
-import { Link, useParams } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid } from '@mui/material/';
+import { useParams } from 'react-router-dom';
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
 import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { GET_FLASHCARDS_BY_TOPIC } from '../../../features/flashcards/flashcardQueries';
 import EditFlashcardModal from './EditFlashcardModal';
+import ReviewFlashcardModal from './ReviewFlashcardModal';
 export default function FlashcardTable() {
     const { topicId } = useParams();
     const { token } = useContext(AuthContext);
@@ -111,8 +112,7 @@ export default function FlashcardTable() {
                             React.createElement(TableCell, { sx: { color: "white", width: "10vw" } }, flashcard.last_reviewed),
                             React.createElement(TableCell, { sx: { color: "white", width: "8vw" } }, flashcard.created_at),
                             React.createElement(TableCell, { sx: { width: "8vw" } },
-                                React.createElement(Link, { to: `/flashcard/${flashcard.flashcard_id}/`, style: { textDecoration: "none" } },
-                                    React.createElement(Button, null, "Edit")),
+                                React.createElement(ReviewFlashcardModal, { flashcard: flashcard }),
                                 React.createElement(EditFlashcardModal, { flashcard: flashcard }))))),
                         emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                             React.createElement(TableCell, { colSpan: 6 }))))),

@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { Box, Button, Modal, FormControl, TextField } from '@mui/material';
 import { AuthContext } from '../../../features/auth/AuthContext';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TOPIC } from '../../../features/topics/topicMutations';
+import { GET_TOPICS_BY_USER } from '../../../features/topics/topicQueries';
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
+    backgroundColor: "#373c43",
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
@@ -34,13 +35,13 @@ export default function CreateTopicModal() {
         //     console.log(error)
         // }
     });
-    // const { refetch: refetchTasks } = useQuery(GET_TASKS_BY_USER, {
-    //     context: {
-    //       headers: {
-    //         authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   });
+    const { refetch: refetchTopics } = useQuery(GET_TOPICS_BY_USER, {
+        context: {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
+    });
     const handleCreateTopic = (event) => {
         event.preventDefault();
         if (!token) {
@@ -50,6 +51,7 @@ export default function CreateTopicModal() {
         // console.log(APP_SECRET)
         createTopic({ variables: { input: topicInput } });
         setTopicInput({ title: "" });
+        refetchTopics();
     };
     return (React.createElement("div", null,
         React.createElement(Button, { onClick: handleOpen, sx: {

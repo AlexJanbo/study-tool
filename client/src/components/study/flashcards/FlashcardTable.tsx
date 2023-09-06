@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { GET_FLASHCARDS_BY_TOPIC  } from '../../../features/flashcards/flashcardQueries';
 import EditFlashcardModal from './EditFlashcardModal';
+import ReviewFlashcardModal from './ReviewFlashcardModal';
 // import { formatDate } from '../../utils';
 
 type flashcardType = {
@@ -216,11 +217,7 @@ export default function FlashcardTable() {
                           Edit
                         </Button>
                       </Link> */}
-                      <Link to={`/flashcard/${flashcard.flashcard_id}/`} style={{ textDecoration: "none"}}>
-                        <Button>
-                          Edit
-                        </Button>
-                      </Link>
+                      <ReviewFlashcardModal flashcard={flashcard}/>
                       <EditFlashcardModal flashcard={flashcard}/>
                       {/* <Button onClick={() => dispatch(deleteTask(task._id))}>
                         Delete

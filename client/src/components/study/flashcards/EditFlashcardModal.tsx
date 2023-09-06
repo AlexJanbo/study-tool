@@ -27,7 +27,7 @@ type flashcardType = {
     created_at: string,
 }
 
-type EditFlashCardModalProps = {
+type EditFlashcardModalProps = {
     flashcard: flashcardType
 }
 
@@ -44,7 +44,7 @@ type FlashcardInput = {
 }
 
 
-export default function EditFlashcardModal(props: EditFlashCardModalProps) {
+export default function EditFlashcardModal(props: EditFlashcardModalProps) {
 
     const { flashcard_id, card_type, content, answer } = props.flashcard
     const { topicId } = useParams()

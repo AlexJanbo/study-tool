@@ -4,9 +4,10 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { Link } from 'react-router-dom'
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { GET_TOPICS_BY_USER } from '../../../features/topics/topicQueries';
+import { DELETE_TOPIC } from '../../../features/topics/topicMutations';
 // import { formatDate } from '../../utils';
 
 type topicType = {
@@ -26,9 +27,22 @@ export default function TopicTable() {
         }
     })
 
-    useEffect(() => {
-      refetch()
-    }, [])
+    const [ deleteTopic ] = useMutation(DELETE_TOPIC, {
+      context: {
+          headers: {
+              authorization: `Bearer ${token}`
+          }
+      }
+    })
+
+    const { refetch: refetchTopics } = useQuery(GET_TOPICS_BY_USER, {
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      });
+
     
     // const [orderBy, setOrderBy] = useState<"title" | "description" | "priority" | "status" | "deadline" | "created_at">("created_at");
     // const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
@@ -96,6 +110,11 @@ export default function TopicTable() {
       setPage(0);
     };
 
+    const handleDeleteTopic = (id: string) => {
+        deleteTopic({ variables: { id: id}})
+        refetchTopics()
+    }
+
     
     const emptyRows = data.getTopicsByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTopicsByUser.length - page * rowsPerPage) : 0
     // const taskToDisplay = sortedTasks
@@ -154,9 +173,9 @@ export default function TopicTable() {
                           View
                         </Button>
                       </Link>
-                      {/* <Button onClick={() => dispatch(deleteTask(task._id))}>
+                      <Button onClick={() => handleDeleteTopic(topic.topic_id)}>
                         Delete
-                      </Button> */}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
