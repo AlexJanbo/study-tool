@@ -13,9 +13,11 @@ export default function ViewTask() {
     <>
       <Stack direction="column" spacing={2}>
         <ViewTaskBreadcrumbs />
-        <TaskDetailsCard />
+        <Stack direction="row">
+          <TaskDetailsCard />
+          <TaskCommentTable />
+        </Stack>
         <TaskHistoryTable />
-        <TaskCommentTable />
         <CreateCommentModal />
       </Stack>
     </>

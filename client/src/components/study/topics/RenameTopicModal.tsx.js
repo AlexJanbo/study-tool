@@ -15,7 +15,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-export default function CreateTopicModal() {
+export default function RenameTopicModal() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

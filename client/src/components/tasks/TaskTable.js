@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TableSortLabel, Grid } from '@mui/material/';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, TableSortLabel, Grid } from '@mui/material/';
 import { Link } from 'react-router-dom';
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
@@ -8,6 +8,49 @@ import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { GET_TASKS_BY_USER } from '../../features/tasks/taskQueries';
 import { formatDate } from '../../utils';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import TaskFormModal from './TaskFormModal';
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '200px',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+    },
+}));
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        boxSizing: "border-box",
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
+        },
+    },
+}));
 function TaskTable() {
     const { token } = useContext(AuthContext);
     const { data, loading, error, refetch } = useQuery(GET_TASKS_BY_USER, {
@@ -24,6 +67,7 @@ function TaskTable() {
     const [orderDirection, setOrderDirection] = useState("desc");
     const [sortedTasks, setSortedTasks] = useState([]);
     const [hasUserSorted, setHasUserSorted] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     //   const taskArray = Array.from(tasks)
     // console.log(taskArray)
     const [page, setPage] = useState(0);
@@ -74,9 +118,22 @@ function TaskTable() {
         setPage(0);
     };
     const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0;
-    const taskToDisplay = sortedTasks;
+    const filteredTasks = sortedTasks.filter(task => task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.status.toLowerCase().includes(searchTerm.toLowerCase()));
     return (React.createElement(React.Fragment, null,
-        React.createElement(Box, { flex: 5, p: 1, m: 2, sx: { display: { lg: "block" } } },
+        React.createElement(Box, { flex: 5, p: 1, m: 2, sx: { display: { lg: "block", marginTop: "2%" } } },
+            React.createElement(Grid, { sx: { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" } },
+                React.createElement(Search, null,
+                    React.createElement(SearchIconWrapper, null,
+                        React.createElement(SearchIcon, { sx: { color: "white" } })),
+                    React.createElement(Grid, { sx: { display: "flex", flexDirection: "row" } },
+                        React.createElement(StyledInputBase, { placeholder: "Search\u2026", inputProps: { 'aria-label': 'search', maxLength: 50 }, value: searchTerm, onChange: (e) => setSearchTerm(e.target.value), sx: { color: "white" } }),
+                        React.createElement(Typography, { sx: { color: "white" } }, searchTerm.length),
+                        React.createElement(Typography, { sx: { color: "white" } }, " / "),
+                        React.createElement(Typography, { sx: { color: "white" } }, "50"))),
+                React.createElement(TaskFormModal, null)),
             React.createElement(TableContainer, { component: Paper, sx: { backgroundColor: "#373c43", height: "90vh", width: "80vw" } },
                 React.createElement(Table, { "aria-label": "simple table" },
                     React.createElement(TableHead, { sx: { border: "1px solid white", borderRadius: "2px" } },
@@ -107,7 +164,7 @@ function TaskTable() {
                                     React.createElement(TableSortLabel, { active: orderBy === "created_at", direction: orderDirection, onClick: () => handleSortRequest("created_at") }))),
                             React.createElement(TableCell, { sx: { widht: "8vw" } }))),
                     React.createElement(TableBody, { sx: { border: "1px solid white" } },
-                        taskToDisplay
+                        filteredTasks
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((task, index) => (React.createElement(TableRow, { key: task.id, sx: {
                                 height: "7.5vh",

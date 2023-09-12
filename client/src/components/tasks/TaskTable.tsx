@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, ChangeEvent } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Skeleton, TableSortLabel, Grid } from '@mui/material/'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Skeleton, TableSortLabel, Grid, Stack } from '@mui/material/'
 import { Link } from 'react-router-dom'
 import TablePagination from '@mui/material/TablePagination';
 import { Box } from '@mui/system';
@@ -9,6 +9,52 @@ import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../features/auth/AuthContext';
 import { GET_TASKS_BY_USER } from '../../features/tasks/taskQueries';
 import { formatDate } from '../../utils';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import TaskFormModal from './TaskFormModal';
+
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '200px',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+    },
+  }));
+  
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+  
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      boxSizing: "border-box",
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: '12ch',
+        '&:focus': {
+          width: '20ch',
+        },
+      },
+    },
+  }));
 
 type taskType = {
     id: string,
@@ -40,6 +86,7 @@ function TaskTable() {
     const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
     const [sortedTasks, setSortedTasks] = useState<taskType[]>([])
     const [hasUserSorted, setHasUserSorted] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("");
     
     
     
@@ -103,13 +150,37 @@ function TaskTable() {
 
     
     const emptyRows = data.getTasksByUser ? rowsPerPage - Math.min(rowsPerPage, data.getTasksByUser.length - page * rowsPerPage) : 0
-    const taskToDisplay = sortedTasks
 
-
+    const filteredTasks = sortedTasks.filter(task => 
+      task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.status.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
       <>
-        <Box flex={5} p={1} m={2} sx={{ display: {lg: "block"  } }}>
+        <Box flex={5} p={1} m={2} sx={{ display: {lg: "block", marginTop: "2%" } }}>
+          <Grid sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <Search>
+                <SearchIconWrapper>
+                <SearchIcon sx={{ color: "white" }} />
+                </SearchIconWrapper>
+                <Grid sx={{ display: "flex", flexDirection: "row"}}>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search', maxLength: 50 }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    sx={{ color: "white"}}
+                  />
+                  <Typography sx={{ color: "white"}}>{searchTerm.length}</Typography>
+                  <Typography sx={{ color: "white"}}> / </Typography>
+                  <Typography sx={{ color: "white"}}>50</Typography>
+                </Grid>
+            </Search>
+            <TaskFormModal />
+          </Grid>
           <TableContainer component={Paper} sx={{ backgroundColor: "#373c43", height: "90vh", width: "80vw"}}>
             <Table aria-label="simple table" >
               <TableHead sx={{ border: "1px solid white", borderRadius: "2px"}}>
@@ -203,7 +274,7 @@ function TaskTable() {
                 </TableRow>
               </TableHead>
               <TableBody sx={{ border: "1px solid white"}} >
-                {taskToDisplay
+                {filteredTasks
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((task: taskType, index: number) => (
                   <TableRow

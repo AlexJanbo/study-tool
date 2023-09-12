@@ -46,9 +46,9 @@ function TaskCommentTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const emptyRows = data.getTaskEvents ? rowsPerPage - Math.min(rowsPerPage, data.getTaskEvents.length - page * rowsPerPage) : 0;
+    const emptyRows = data.getCommentsByTask ? rowsPerPage - Math.min(rowsPerPage, data.getCommentsByTask.length - page * rowsPerPage) : 0;
     return (React.createElement(React.Fragment, null,
-        React.createElement(TableContainer, { component: Paper, style: { backgroundColor: "#43454a", marginLeft: "5%" } },
+        React.createElement(TableContainer, { component: Paper, style: { backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%" } },
             React.createElement(Table, { "aria-label": "simple table" },
                 React.createElement(TableHead, { style: {} },
                     React.createElement(TableRow, null,
@@ -60,7 +60,7 @@ function TaskCommentTable() {
                         React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white" } }))),
                 React.createElement(TableBody, null,
                     data.getCommentsByTask
-                        // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((comment, index) => (React.createElement(TableRow, { key: index, sx: { height: "4.5rem", '&:last-child td, &:last-child th': { border: 0 } } },
                         React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "50%", paddingBottom: '0', paddingTop: "0" } }, comment.comment_id),
                         React.createElement(TableCell, { sx: { paddingleft: "3", paddingRight: "3", width: "25%", paddingBottom: '0', paddingTop: "0" } }, comment.user_id),

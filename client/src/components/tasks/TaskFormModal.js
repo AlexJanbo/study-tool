@@ -74,7 +74,7 @@ export default function TaskFormModal() {
             status: StatusTypes.Created,
         });
     };
-    return (React.createElement(Grid, { p: 0, sx: { marginTop: "3%", width: "15vw" } },
+    return (React.createElement(Grid, { p: 0, sx: { width: "15vw" } },
         React.createElement(Button, { onClick: handleOpen, sx: {
                 margin: 3,
                 color: "white",

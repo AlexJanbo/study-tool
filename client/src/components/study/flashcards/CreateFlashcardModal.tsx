@@ -1,5 +1,5 @@
 import React, { useState, useContext, ChangeEvent, FormEvent } from 'react'
-import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Grid } from '@mui/material'
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TOPIC } from '../../../features/topics/topicMutations';
@@ -115,46 +115,53 @@ export default function CreateFlashcardModal() {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <FormControl variant="standard">
-                    <FormControl>
-                        <FormLabel style={{textAlign:"center", color: "white", marginTop: "2%"}}>Card Type</FormLabel>
-                        <RadioGroup
-                        row
-                        value={flashcardInput.card_type}
-                        name="card_type"
-                        onChange={handleChangeInput}
-                        >
-                            <FormControlLabel sx={{ color: "white"}} value={FlashcardTypes.Basic} control={<Radio />} label="Basic" />
-                            <FormControlLabel sx={{ color: "white"}} value={FlashcardTypes.Cloze} control={<Radio />} label="Cloze" />
-                        </RadioGroup>
+                <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center"}}>
+                    <FormControl variant="standard">
+                        <FormControl>
+                            <FormLabel style={{textAlign:"center", color: "white", marginTop: "2%"}}>Card Type</FormLabel>
+                            <RadioGroup
+                            row
+                            value={flashcardInput.card_type}
+                            name="card_type"
+                            onChange={handleChangeInput}
+                            >
+                                <FormControlLabel sx={{ color: "white"}} value={FlashcardTypes.Basic} control={<Radio />} label="Basic" />
+                                <FormControlLabel sx={{ color: "white"}} value={FlashcardTypes.Cloze} control={<Radio />} label="Cloze" />
+                            </RadioGroup>
+                        </FormControl>
+                        <TextField
+                            id="content"
+                            label="Content"
+                            variant="outlined"
+                            type="text"
+                            name="content"
+                            value={flashcardInput.content}
+                            onChange={handleChangeInput}
+                            InputLabelProps={{ style: { color: "white" }}}
+                            InputProps={{ inputProps: { style: { color: 'white' }}}}
+                            // error={usernameError}
+                            // helperText={usernameError ? "Please enter a valid username" : null}
+                        />
+                        <TextField
+                            id="answer"
+                            label="Answer"
+                            variant="outlined"
+                            type="text"
+                            name="answer"
+                            value={flashcardInput.answer}
+                            onChange={handleChangeInput}
+                            sx={{ marginTop: "2%"}}
+                            InputLabelProps={{ style: { color: "white" }}}
+                            InputProps={{ inputProps: { style: { color: 'white' }}}}
+                            // error={usernameError}
+                            // helperText={usernameError ? "Please enter a valid username" : null}
+                        />
+                    
+                        <Button type="submit" onClick={handleCreateFlashcard}>
+                            Create Flashcard!
+                        </Button>
                     </FormControl>
-                    <TextField
-                        id="content"
-                        label="Content"
-                        variant="outlined"
-                        type="text"
-                        name="content"
-                        value={flashcardInput.content}
-                        onChange={handleChangeInput}
-                        // error={usernameError}
-                        // helperText={usernameError ? "Please enter a valid username" : null}
-                    />
-                    <TextField
-                        id="answer"
-                        label="Answer"
-                        variant="outlined"
-                        type="text"
-                        name="answer"
-                        value={flashcardInput.answer}
-                        onChange={handleChangeInput}
-                        // error={usernameError}
-                        // helperText={usernameError ? "Please enter a valid username" : null}
-                    />
-                
-                    <Button type="submit" onClick={handleCreateFlashcard}>
-                        Create Flashcard!
-                    </Button>
-                </FormControl>
+                </Grid>
             </Box>
         </Modal>
         </div>

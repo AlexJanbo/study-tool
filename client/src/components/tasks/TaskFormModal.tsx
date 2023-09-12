@@ -95,7 +95,7 @@ export default function TaskFormModal() {
     }
 
     return (
-        <Grid p={0} sx={{ marginTop: "3%", width: "15vw"}}>
+        <Grid p={0} sx={{ width: "15vw"}}>
             <Button onClick={handleOpen} 
                 sx={{ 
                     margin: 3, 

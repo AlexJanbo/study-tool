@@ -124,23 +124,16 @@ export default function TopicTable() {
     return (
       <>
         <Box flex={5} p={1} m={2} sx={{ display: {lg: "block"  } }}>
-          <TableContainer component={Paper} sx={{ backgroundColor: "#373c43", height: "90vh", width: "20vw"}}>
+          <TableContainer component={Paper} sx={{ backgroundColor: "#373c43", height: "40vh", width: "40vw"}}>
             <Table aria-label="simple table" >
               <TableHead sx={{ border: "1px solid white", borderRadius: "2px"}}>
                 <TableRow sx={{height: "7.5vh" }}>
                   <TableCell 
                     sx={{ fontWeight: "bold", fontSize: "20px", color: "white", width: "10vw"}}
                     key="title"
-                    // sortDirection={orderBy === "title" ? orderDirection : false}
                     >
                       <Grid sx={{display: "flex", flexDirection: "row"}}>
-                      Card Type
-                      {/* <TableSortLabel
-                        active={orderBy === "title"}
-                        direction={orderDirection}
-                        onClick={() => handleSortRequest("title")}
-                        sx={{ color: "white"}}
-                      /> */}
+                      Topic
                     </Grid>
                     </TableCell>
                   <TableCell sx={{ widht: "10vw" }}></TableCell>
@@ -173,7 +166,7 @@ export default function TopicTable() {
                           View
                         </Button>
                       </Link>
-                      <Button onClick={() => handleDeleteTopic(topic.topic_id)}>
+                      <Button variant="contained" color="error" onClick={() => handleDeleteTopic(topic.topic_id)}>
                         Delete
                       </Button>
                     </TableCell>

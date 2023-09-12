@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Box, Button, Modal, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Grid } from '@mui/material';
 import { AuthContext } from '../../../features/auth/AuthContext';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_FLASHCARD } from '../../../features/flashcards/flashcardMutation';
@@ -85,13 +85,14 @@ export default function CreateFlashcardModal() {
             } }, "New Flashcard!"),
         React.createElement(Modal, { open: open, onClose: handleClose, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
             React.createElement(Box, { sx: style },
-                React.createElement(FormControl, { variant: "standard" },
-                    React.createElement(FormControl, null,
-                        React.createElement(FormLabel, { style: { textAlign: "center", color: "white", marginTop: "2%" } }, "Card Type"),
-                        React.createElement(RadioGroup, { row: true, value: flashcardInput.card_type, name: "card_type", onChange: handleChangeInput },
-                            React.createElement(FormControlLabel, { sx: { color: "white" }, value: FlashcardTypes.Basic, control: React.createElement(Radio, null), label: "Basic" }),
-                            React.createElement(FormControlLabel, { sx: { color: "white" }, value: FlashcardTypes.Cloze, control: React.createElement(Radio, null), label: "Cloze" }))),
-                    React.createElement(TextField, { id: "content", label: "Content", variant: "outlined", type: "text", name: "content", value: flashcardInput.content, onChange: handleChangeInput }),
-                    React.createElement(TextField, { id: "answer", label: "Answer", variant: "outlined", type: "text", name: "answer", value: flashcardInput.answer, onChange: handleChangeInput }),
-                    React.createElement(Button, { type: "submit", onClick: handleCreateFlashcard }, "Create Flashcard!"))))));
+                React.createElement(Grid, { sx: { display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center" } },
+                    React.createElement(FormControl, { variant: "standard" },
+                        React.createElement(FormControl, null,
+                            React.createElement(FormLabel, { style: { textAlign: "center", color: "white", marginTop: "2%" } }, "Card Type"),
+                            React.createElement(RadioGroup, { row: true, value: flashcardInput.card_type, name: "card_type", onChange: handleChangeInput },
+                                React.createElement(FormControlLabel, { sx: { color: "white" }, value: FlashcardTypes.Basic, control: React.createElement(Radio, null), label: "Basic" }),
+                                React.createElement(FormControlLabel, { sx: { color: "white" }, value: FlashcardTypes.Cloze, control: React.createElement(Radio, null), label: "Cloze" }))),
+                        React.createElement(TextField, { id: "content", label: "Content", variant: "outlined", type: "text", name: "content", value: flashcardInput.content, onChange: handleChangeInput, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } } }),
+                        React.createElement(TextField, { id: "answer", label: "Answer", variant: "outlined", type: "text", name: "answer", value: flashcardInput.answer, onChange: handleChangeInput, sx: { marginTop: "2%" }, InputLabelProps: { style: { color: "white" } }, InputProps: { inputProps: { style: { color: 'white' } } } }),
+                        React.createElement(Button, { type: "submit", onClick: handleCreateFlashcard }, "Create Flashcard!")))))));
 }

@@ -93,12 +93,12 @@ export default function TopicTable() {
     // const taskToDisplay = sortedTasks
     return (React.createElement(React.Fragment, null,
         React.createElement(Box, { flex: 5, p: 1, m: 2, sx: { display: { lg: "block" } } },
-            React.createElement(TableContainer, { component: Paper, sx: { backgroundColor: "#373c43", height: "90vh", width: "20vw" } },
+            React.createElement(TableContainer, { component: Paper, sx: { backgroundColor: "#373c43", height: "40vh", width: "40vw" } },
                 React.createElement(Table, { "aria-label": "simple table" },
                     React.createElement(TableHead, { sx: { border: "1px solid white", borderRadius: "2px" } },
                         React.createElement(TableRow, { sx: { height: "7.5vh" } },
                             React.createElement(TableCell, { sx: { fontWeight: "bold", fontSize: "20px", color: "white", width: "10vw" }, key: "title" },
-                                React.createElement(Grid, { sx: { display: "flex", flexDirection: "row" } }, "Card Type")),
+                                React.createElement(Grid, { sx: { display: "flex", flexDirection: "row" } }, "Topic")),
                             React.createElement(TableCell, { sx: { widht: "10vw" } }))),
                     React.createElement(TableBody, { sx: { border: "1px solid white" } },
                         data.getTopicsByUser
@@ -114,7 +114,7 @@ export default function TopicTable() {
                             React.createElement(TableCell, { sx: { width: "8vw" } },
                                 React.createElement(Link, { to: `/study/${topic.topic_id}/`, style: { textDecoration: "none" } },
                                     React.createElement(Button, null, "View")),
-                                React.createElement(Button, { onClick: () => handleDeleteTopic(topic.topic_id) }, "Delete"))))),
+                                React.createElement(Button, { variant: "contained", color: "error", onClick: () => handleDeleteTopic(topic.topic_id) }, "Delete"))))),
                         emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                             React.createElement(TableCell, { colSpan: 6 }))))),
                 React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getTopicsByUser.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage, sx: { color: "white" } })))));

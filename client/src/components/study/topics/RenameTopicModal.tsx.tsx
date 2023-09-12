@@ -22,7 +22,7 @@ type topicType = {
 }
 
 
-export default function CreateTopicModal() {
+export default function RenameTopicModal() {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);

@@ -66,11 +66,11 @@ function TaskCommentTable() {
         setPage(0);
     };
   
-    const emptyRows = data.getTaskEvents ? rowsPerPage - Math.min(rowsPerPage, data.getTaskEvents.length - page * rowsPerPage) : 0
+    const emptyRows = data.getCommentsByTask? rowsPerPage - Math.min(rowsPerPage, data.getCommentsByTask.length - page * rowsPerPage) : 0
 
     return (
         <>  
-            <TableContainer component={Paper} style={{ backgroundColor: "#43454a", marginLeft: "5%"}}>
+            <TableContainer component={Paper} style={{ backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%"}}>
             <Table aria-label="simple table" >
                 <TableHead style={{}}>
                     <TableRow >
@@ -84,7 +84,7 @@ function TaskCommentTable() {
                 </TableHead>
             <TableBody>
                 {data.getCommentsByTask
-                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((comment: commentType, index: number) => (
                 <TableRow
                     key={index}
