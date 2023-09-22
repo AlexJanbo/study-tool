@@ -48,7 +48,7 @@ function TaskCommentTable() {
     };
     const emptyRows = data.getCommentsByTask ? rowsPerPage - Math.min(rowsPerPage, data.getCommentsByTask.length - page * rowsPerPage) : 0;
     return (React.createElement(React.Fragment, null,
-        React.createElement(TableContainer, { component: Paper, style: { backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%" } },
+        React.createElement(TableContainer, { component: Paper, style: { width: "60vw", backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%" } },
             React.createElement(Table, { "aria-label": "simple table" },
                 React.createElement(TableHead, { style: {} },
                     React.createElement(TableRow, null,
@@ -81,6 +81,6 @@ function TaskCommentTable() {
                                 } }, "delete"))))),
                     emptyRows > 0 && (React.createElement(TableRow, { style: { height: 72 * emptyRows } },
                         React.createElement(TableCell, { colSpan: 6 }))))),
-            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getCommentsByTask.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage }))));
+            React.createElement(TablePagination, { rowsPerPageOptions: [5, 10], component: "div", count: data.getCommentsByTask.length, rowsPerPage: rowsPerPage, page: page, onPageChange: handleChangePage, onRowsPerPageChange: handleChangeRowsPerPage, sx: { color: "white" } }))));
 }
 export default TaskCommentTable;

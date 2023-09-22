@@ -48,9 +48,9 @@ function TaskDetailsCard() {
     return (React.createElement(React.Fragment, null,
         React.createElement(Card, { style: { maxWidth: 400, border: "1px solid white", borderRadius: "5%", marginLeft: "5%", backgroundColor: "#43454a" } },
             React.createElement(CardContent, null,
-                React.createElement(Grid, { container: true, spacing: 3 },
+                React.createElement(Grid, { container: true, spacing: 3, sx: { display: "flex", flexDirection: "column", justifyContent: "space-between" } },
                     React.createElement(Grid, { item: true, xs: 12 },
-                        React.createElement(Typography, { variant: "h5", component: "h2", sx: { color: "white" } }, title)),
+                        React.createElement(Typography, { variant: "h5", component: "h2", sx: { color: "white", textAlign: "center" } }, title)),
                     React.createElement(Grid, { item: true, xs: 12 },
                         React.createElement(Typography, { variant: "body1", component: "p", sx: { color: "white" } }, description)),
                     React.createElement(Grid, { item: true, xs: 6 },
@@ -77,10 +77,10 @@ function TaskDetailsCard() {
                         :
                             React.createElement(Grid, { item: true, xs: 12 },
                                 React.createElement(Typography, { variant: "body2", color: "textSecondary", component: "p", sx: { color: "white" } }, "Deadline: None")),
-                    React.createElement(Grid, { item: true },
+                    React.createElement(Grid, { item: true, sx: { justifyContent: "center" } },
                         React.createElement(Link, { to: `/tasks/edit/${taskId}` },
                             React.createElement(Button, { color: "primary", style: { textDecoration: "none" } }, "Edit Task"))),
-                    React.createElement(Grid, { item: true },
+                    React.createElement(Grid, { item: true, sx: { justifyContent: "center" } },
                         React.createElement(Button, { variant: "contained", color: "error", onClick: handleDeleteTask }, "Delete Task")))))));
 }
 export default TaskDetailsCard;

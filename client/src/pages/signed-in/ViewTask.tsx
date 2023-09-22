@@ -16,9 +16,9 @@ export default function ViewTask() {
         <Stack direction="row">
           <TaskDetailsCard />
           <TaskCommentTable />
+          <CreateCommentModal />
         </Stack>
         <TaskHistoryTable />
-        <CreateCommentModal />
       </Stack>
     </>
   );

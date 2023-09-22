@@ -11,7 +11,7 @@ export default function ViewTask() {
             React.createElement(ViewTaskBreadcrumbs, null),
             React.createElement(Stack, { direction: "row" },
                 React.createElement(TaskDetailsCard, null),
-                React.createElement(TaskCommentTable, null)),
-            React.createElement(TaskHistoryTable, null),
-            React.createElement(CreateCommentModal, null))));
+                React.createElement(TaskCommentTable, null),
+                React.createElement(CreateCommentModal, null)),
+            React.createElement(TaskHistoryTable, null))));
 }

@@ -19,6 +19,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/dashboard/ListItems';
+import { Button } from '@mui/material';
+import { AuthContext } from '../features/auth/AuthContext';
 // import Chart from '../../components/dashboard/Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -94,6 +96,7 @@ interface LayoutProps {
     children: ReactNode
 }
 
+
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -106,8 +109,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       componentName = children && children.type && (children.type as any).name
   }
   console.log(componentName)
-
-
+  
+  const { logout } = React.useContext(AuthContext)
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -144,6 +148,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Button variant="contained" color="error" onClick={logout} sx={{ marginLeft: "3%"}}>Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open} >

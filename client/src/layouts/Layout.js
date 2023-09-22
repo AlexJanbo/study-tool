@@ -17,6 +17,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/dashboard/ListItems';
+import { Button } from '@mui/material';
+import { AuthContext } from '../features/auth/AuthContext';
 // import Chart from '../../components/dashboard/Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -71,6 +73,7 @@ export const Layout = ({ children }) => {
         componentName = children && children.type && children.type.name;
     }
     console.log(componentName);
+    const { logout } = React.useContext(AuthContext);
     return (React.createElement(ThemeProvider, { theme: defaultTheme },
         React.createElement(Box, { sx: { display: 'flex' } },
             React.createElement(CssBaseline, null),
@@ -83,7 +86,8 @@ export const Layout = ({ children }) => {
                     React.createElement(Typography, { component: "h1", variant: "h6", color: "inherit", noWrap: true, sx: { flexGrow: 1 } }, componentName),
                     React.createElement(IconButton, { color: "inherit" },
                         React.createElement(Badge, { badgeContent: 4, color: "secondary" },
-                            React.createElement(NotificationsIcon, null))))),
+                            React.createElement(NotificationsIcon, null))),
+                    React.createElement(Button, { variant: "contained", color: "error", onClick: logout, sx: { marginLeft: "3%" } }, "Logout"))),
             React.createElement(Drawer, { variant: "permanent", open: open },
                 React.createElement(Toolbar, { sx: {
                         display: 'flex',

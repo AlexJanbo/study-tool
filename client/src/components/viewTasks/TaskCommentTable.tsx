@@ -70,7 +70,7 @@ function TaskCommentTable() {
 
     return (
         <>  
-            <TableContainer component={Paper} style={{ backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%"}}>
+            <TableContainer component={Paper} style={{ width: "60vw", backgroundColor: "#43454a", marginLeft: "5%", border: "1px solid white", borderRadius: "2%"}}>
             <Table aria-label="simple table" >
                 <TableHead style={{}}>
                     <TableRow >
@@ -129,6 +129,7 @@ function TaskCommentTable() {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ color: "white"}}
             />
             </TableContainer>
         </>

@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import Dashboard from "../pages/signed-in/Dashboard";
 import { ProtectedRoute } from '../components/ProtectedRoute';
-import { Profile } from '../pages/signed-in/Profile';
 import Register from '../pages/signed-out/Register';
 import Login from '../pages/signed-out/Login';
 import { Layout } from '../layouts/Layout';
@@ -70,12 +69,6 @@ const router = createBrowserRouter([
         element: React.createElement(ProtectedRoute, null,
             React.createElement(Layout, null,
                 React.createElement(EditProject, null)))
-    },
-    {
-        path: "/profile",
-        element: React.createElement(ProtectedRoute, null,
-            React.createElement(Layout, null,
-                React.createElement(Profile, null)))
     },
     {
         path: "/study/:topicId",

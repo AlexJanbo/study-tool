@@ -9,7 +9,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "incremental": true,
   },
   "include": ["src", "typings.d.ts"]
 }

@@ -91,6 +91,7 @@ export default function CreateCommentModal() {
         React.createElement(Button, { onClick: handleOpen, sx: {
                 margin: 3,
                 color: "white",
+                width: "5vw",
                 backgroundColor: "#676767",
                 border: "1px solid black",
                 borderRadius: "10px",

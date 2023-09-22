@@ -60,9 +60,9 @@ function TaskDetailsCard() {
         <>
             <Card style={{ maxWidth: 400, border: "1px solid white", borderRadius: "5%", marginLeft: "5%", backgroundColor: "#43454a" }}>
                 <CardContent >
-                <Grid container spacing={3}>
+                <Grid container spacing={3} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
                     <Grid item xs={12} >
-                        <Typography variant="h5" component="h2" sx={{ color: "white"}}>
+                        <Typography variant="h5" component="h2" sx={{ color: "white", textAlign: "center"}}>
                         {title}
                         </Typography>
                     </Grid>
@@ -106,14 +106,14 @@ function TaskDetailsCard() {
                         </Grid>
 
                     }
-                    <Grid item>
+                    <Grid item sx={{ justifyContent: "center"}}>
                         <Link to={`/tasks/edit/${taskId}`}>
                             <Button color="primary" style={{ textDecoration: "none"}}>
                                 Edit Task
                             </Button>
                         </Link>
                     </Grid>
-                    <Grid item>
+                    <Grid item sx={{ justifyContent: "center"}}>
                         <Button variant="contained" color="error" onClick={handleDeleteTask} >
                             Delete Task
                         </Button> 
